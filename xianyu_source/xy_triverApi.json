@@ -1,0 +1,16 @@
+{
+    "version": "0.0.1",
+    "registerApiExtension": [
+        {}
+    ],
+    "registerDsl": {
+        "scope": "xy",
+        "apis": [
+            {
+                "apiName": "miniAppPay",
+                "dslApiName": "miniAppPay",
+                "type": "invoke"
+            }
+        ]
+    }
+}

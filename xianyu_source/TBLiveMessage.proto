@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+option java_package = "";
+option java_outer_classname = "TBLiveMessage";
+
+//
+// 上下行PowerMsg消息定义
+// 步骤如下：
+// 0. 描述：Protocol buffers are a language-neutral, platform-neutral
+//  extensible mechanism for serializing structured data.
+// 1. 下载：https://github.com/google/protobuf/releases
+// 2. ./protoc --objc_out=. TBLiveMessage.proto
+// 3. 拷贝生成的文件，到TBLive工程，提交即可
+//
+
+// 消息类型定义
+enum TBLiveMessageSubType {
+    TBLiveMessageSubType_None = 0;
+    TBLiveMessageSubType_ShareMessage = 10003;
+    TBLiveMessageSubType_JoinNotify = 10005;
+    TBLiveMessageSubType_ShareGoodsList = 10008;
+    TBLiveMessageSubType_CloseGoodsShowCase = 10009;
+    TBLiveMessageSubType_TradeShow = 10010;
+    TBLiveMessageSubType_EndEditItem = 10011;
+    TBLiveMessageSubType_GiveVote = 10012;
+    TBLiveMessageSubType_RunloopUpdateBroadCasterScore = 10013;
+    TBLiveMessageSubType_ActivityMsg = 10015;
+    TBLiveMessageSubType_TBTV_ChangeProgramMsg = 10016;
+    TBLiveMessageSubType_PointsActivitySyncMsg = 10018;
+    TBLiveMessageSubType_StartEditItemV2 = 10019;
+    TBLiveMessageSubType_EndEditItemV2 = 10020;
+    TBLiveMessageSubType_EnterLiveRoom = 10031;
+    TBLiveMessageSubType_SyncVideoSlice = 10032;
+    TBLiveMessageSubType_UserLevelUP = 10033;
+    TBLiveMessageSubType_CommonTipsMessage = 10055;
+    TBLiveMessageSubType_CustomerAnswer = 10056;
+    TBLiveMessageSubType_CustomerAddAsk = 10057;
+    TBLiveMessageSubType_CustomerExitRoom = 10058;
+
+    // 连麦
+    TBLiveMessageSubType_LinkLive = 10021;
+
+    // 直播间错误跳转H5
+    TBLiveMessageSubType_JumpH5Url = 10098;
+    // H265降级以及切换
+    TBLiveMessageSubType_H265Down = 10099;
+
+    // 20000开头，天猫互通，消息格式jsonData
+    TBLiveMessageSubType_GiftAnimation = 20001;
+    TBLiveMessageSubType_GlobalNotice = 20002;
+    TBLiveMessageSubType_Barrage = 20003;
+    TBLiveMessageSubType_LikeCombo = 20004;
+    // 九宫格场景
+    TBLiveMessageSubType_JiuGongGe = 20005;
+    
+    TBLiveMessageSubType_CredibleActivityMsg = 60008;
+
+    TBLiveMessageSubType_AnthorResponse = 70008;
+}
+
+// 兼容老版本发送单个宝贝
+message TBLiveShareMessage {
+    string content = 1;
+    string title = 2;  
+    string picUrl = 3;
+    string actionUrl = 4;
+    string shareType = 5;
+    string shareId = 6;
+    string price = 7;
+    string goodIndex = 8;
+}
+
+message TBLiveShareSingleGoods {
+    string itemId = 1;
+    string itemName = 2;
+    string itemPic = 3;
+    string itemPrice = 4;
+    string itemUrl = 5;
+    string buyCount = 6;
+    string itemH5TaokeUrl = 7;
+    string itemIcon = 8;
+    string isDuplicate = 9;
+    string isEdit = 10;
+    string activityIcon = 11;  //周年庆活动icon
+    map<string, string> extendVal = 12;  // 扩展字段
+}
+
+// 主播端发送多个宝贝
+message TBLiveMessageShareGoodsListWithProtobuf {
+    int32 goodsIndex = 1;
+    repeated TBLiveShareSingleGoods goodslist = 2;
+    int32 totalCount = 3;
+}
+
+// 主播端下发指令关闭宝贝橱窗
+message TBLiveMessageCloseGoodsShowCaseWithProtobuf {
+    int32 unused = 1;
+}
+
+//双十一九宫格主播信息
+message TBLiveMessageJiuGongGeWithProtobuf {
+    string text = 1;
+}
+
+// 详情或者加购等购买氛围透出消息
+message TBLiveMessageTradeShowWithProtobuf {
+    int32 type = 1;
+    string nick = 2;
+}
+
+// 进出群消息
+message TBLiveMessageJoinNotifyWithProtobuf {
+    int64 totalCount = 1;
+    int64 onlineCount = 2;
+    map<string, string> addUsers = 3;
+    int64 pageViewCount = 4;
+}
+
+message TBLiveBizCount {
+    int64 value = 1;
+}
+
+// 主播端下发指令关闭切片
+message TBLiveMessageEndEditItemMsg {
+    int32 status = 1; // 2: 结束讲解 3: 取消讲解
+    int64 itemId = 2;
+    string itemVideoPlayUrl = 3;
+}
+
+// 投票
+message TBLiveMessageGiveVoteProtobuf {
+    int32 unused = 1;
+}
+
+message TBLiveMessageFlirtElvesProtobuf {
+    string nick = 1;
+}
+
+message TBLiveMessageEnterLiveRoomProtobuf {
+    string userid = 1;
+    string nick = 2;
+    map<string, string> identify = 3;
+}
+
+//文本消息
+message TBLiveTextMessage {
+    string message = 1;
+    map<string, string> params = 2;
+}
+
+//计数消息
+message TBLiveCountInfo {
+    map<string, int64> value = 1;
+}

@@ -1,0 +1,60 @@
+//Written by 多语言翻译管理系统 
+//Thu Jun 30 2016 04:15:26 GMT+0800 (CST)
+//如有问题请联系去疾
+"VIPPWBio:取消" = "Cancel";
+"VIPPWBio:指纹校验失败，请使用支付密码校验" = "Fingerprint Verification Failed. Please use a payment password to verify";
+"VIPPWBio:确定" = "Confirm";
+"VIPPWBio:网络不给力，请稍后再试" = "Network is poor. Please try again later";
+"VIPPWBio:输入密码" = "Enter Password";
+"VIPPWBio:重试" = "Retry";
+"VIPPWBio:请验证已有指纹" = "Please verify your fingerprint";
+
+
+"VIPPWBio:imm.sw_bt_off" = "Please enable Bluetooth, and then use smart 1-step payment";
+"VIPPWBio:imm.sw_pay_fail" = "Unable to verify your smart device. Please enter password to pay";
+"VIPPWBio:imm.sw_pay_timeout" = "Unable to connect Bluetooth. 1-Step Payment on your smart device is unavailable";
+
+"VIPPWBio:imm.fp_notset" = "You have not set up Touch ID. Please add your fingerprint in \"Settings >Touch ID and Password\".";
+"VIPPWBio:imm.fp_notopen" = "You have not enabled Touch ID. Please enable it in \"Settings >Touch ID and Password\".";
+"VIPPWBio:mini.fp_hooked" = "Touch ID verification could be hooked.";
+"VIPPWBio:confirmExit" = "Are you sure to quit?";
+
+"VIPPWBio:面容 ID 校验失败，请改用支付密码" = "Face ID Verification Failed. Please use a payment password to verify";
+"VIPPWBio:imm.face_notset" = "You have not set up Face ID. Please go to \"Settings > Face ID & Passcode\" to add a Face ID.";
+"VIPPWBio:imm.face_notopen" = "You have not enabled Face ID. Please enable it in \"Settings > Face ID & Passcode\".";
+"VIPPWBio:mini.face_hooked" = "To keep your account secure, Face ID payment is not supported on jailbroken devices.";
+"VIPPWBio:passcodeText" = "Too many failed Face ID attempts, please verify with password";
+"VIPPWBio:no_faceid_permission" = "To use Face ID, authorize later in system setting";
+
+"VIPPWBio:刷脸失败，请使用支付密码" = "Smile-to-pay failed. Please use payment password";
+"VIPPWBio:无相机权限" = "No camera permission. Smile-to-pay is unavailable. Please use payment password";
+"VIPPWBio:其他验证方式" = "Other methods";
+
+"VIPPWBio:使用指纹" = "Touch ID Pay";
+"VIPPWBio:使用面容" = "Face ID Pay";
+"VIPPWBio:使用刷脸" = "Smile to Pay";
+"VIPPWBio:使用密码" = "Password";
+
+"VIPPWBio:未能识别人脸"="Face not detected";
+"VIPPWBio:没有认出你"="Face scan failed";
+"VIPPWBio:请把手机拿远一点"="Face straight at the phone and ensure you have enough light";
+"VIPPWBio:确定退出吗?"="Are you sure to quit face scan?";
+
+"VIPPWBio:刷脸校验失败，请使用支付密码" = "Facial recognition failed. Please use payment password";
+"VIPPWBio:刷脸校验失败，请使用指纹" = "Facial recognition failed. Please use Touch ID";
+"VIPPWBio:指纹校验失败，请使用支付密码" = "Fingerprint verification failed. Please use payment password";
+"VIPPWBio:指纹校验失败，请使用刷脸" = "Fingerprint verification failed. Please use facial recognition";
+"VIPPWBio:面容校验失败，请使用支付密码" = "Face ID verification failed. Please use payment password";
+
+"VIPPWBio:本次验证推荐使用支付密码" = "We recommend you to use your payment password";
+"VIPPWBio:本次验证推荐使用指纹" = "We recommend you to use Touch ID";
+"VIPPWBio:本次验证推荐使用刷脸" = "We recommend you to use facial recognition";
+"VIPPWBio:本次验证推荐使用面容" = "We recommend you to use Face ID";
+
+"VIPPWBio:支付密码" = "payment password";
+"VIPPWBio:指纹" = "Touch ID";
+"VIPPWBio:面容" = "Face ID";
+"VIPPWBio:刷脸" = "facial recognition";
+
+"VIPPWBio:是否需要使用支付密码?" = "Need to use the payment password?";
+"VIPPWBio:退出"="quit";

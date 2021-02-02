@@ -1,0 +1,86 @@
+{
+    "name": "card-1",
+    "desc": "主播信息",
+    "width": 180,
+    "height": 216,
+    "elements": [
+        {
+            "type": "rect",
+            "x": 0,
+            "y": 0,
+            "width": 180,
+            "height": 216,
+            "fill": "#000000",
+            "alpha": 0.15
+        },
+        {
+            "type": "text",
+            "x": 24,
+            "y": 23,
+            "align": "left",
+            "value": "主播信息",
+            "fontSize": 24,
+            "fill": "#ffffff"
+        },
+        {
+            "type": "text",
+            "x": 24,
+            "y": 55,
+            "align": "left",
+            "value": "INFORMATION",
+            "fontSize": 16,
+            "fill": "#ffff00"
+        },
+        {
+            "type": "line",
+            "x": 24,
+            "y": 85,
+            "toX": 154,
+            "toY": 85,
+            "strokeWidth": 6,
+            "stroke": "#ffffff"
+        },
+        {
+            "type": "text",
+            "x": 24,
+            "y": 113,
+            "align": "left",
+            "fontSize": 18,
+            "value": "165cm",
+            "fill": "#00ffff"
+        },
+        {
+            "type": "text",
+            "x": 24,
+            "y": 140,
+            "align": "left",
+            "fontSize": 18,
+            "value": "70KG",
+            "fill": "#00ffff"
+        },
+        {
+            "type": "text",
+            "x": 24,
+            "y": 175,
+            "align": "left",
+            "fontSize": 18,
+            "value": "197 100 992",
+            "fill": "#00ffff"
+        }
+    ],
+    "paramsName": {
+        "text": "标题",
+        "textColor": "标题颜色",
+        "frameColor": "边框颜色"
+    },
+    "paramsTypes": {
+        "text": "String",
+        "textColor": "Color",
+        "frameColor": "Color"
+    },
+    "defaultParams": {
+        "text": "这里是标题文案长度最高限制",
+        "textColor": "#FFFFFF",
+        "frameColor": "#FF0000"
+    }
+}

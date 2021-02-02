@@ -1,0 +1,35 @@
+//Written by 多语言翻译管理系统 
+//Tue Jul 12 2016 04:10:38 GMT+0800 (CST)
+//如有问题请联系去疾
+
+"VIPPW:completePPW" = "Your current business can't be handled before a payment password is set";
+"VIPPW:人气太旺了，请稍后再试" = "It is so popular, please try again later";
+"VIPPW:取消" = "Cancel";
+"VIPPW:忘记密码" = "Forgot the Password";
+"VIPPW:忘记密码?" = "Forgot Password?";
+"VIPPW:我知道了" = "Got It";
+"VIPPW:找回密码" = "Recover Your Password";
+"VIPPW:支付密码" = "Password";
+"VIPPW:正在验证" = "Verifying";
+"VIPPW:确定" = "Confirm";
+"VIPPW:退出" = "Quit";
+"VIPPW:立即设置" = "Set Now";
+"VIPPW:网络不给力，请稍后再试" = "Network is poor, please try again later";
+"VIPPW:请安装支付宝后，再找回" = "Please install Alipay and then recover";
+"VIPPW:身份验证" = "Identity Verification";
+"VIPPW:输入付款时的密码" = "Payment Password";
+"VIPPW:输入支付密码" = "Payment Password";
+"VIPPW:选择其他验证方式" = "Other methods";
+"VIPPW:重新输入" = "Re-enter";
+"VIPPW:重试" = "Re-upload";
+"VIPPW:验证成功" = "Verifying Succeeded";
+"VIPPW:请输入支付密码" = "Payment Password";
+"VIPPW:确认" = "Confirm";
+"VIPPW:其他验证方式" = "Other methods";
+"VIPPW:确定要退出吗?" = "Are you sure to quit?";
+"VIPPW:支付密码错误" = "Incorrect payment password";
+"VIPPW:使用刷脸" = "Smile to Pay";
+"VIPPW:使用指纹" = "Touch ID Pay";
+"VIPPW:使用面容" = "Face ID Pay";
+"VIPPW:使用密码" = "Password";
+"VIPPW:本次验证推荐使用支付密码" = "We recommend you to use your payment password";

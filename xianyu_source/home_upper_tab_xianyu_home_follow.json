@@ -1,0 +1,8 @@
+{
+  "api": "mtop.taobao.wireless.home.xianyu.awesome.get",
+  "data": {"container":{"ext":{"isOpenGlobalBg":"false","isStark":"true","isStarkRollBack":"false","pageSceneCode":"stark_s_xianyu_home_follow_pre","pageVersionCode":"stark_v_xianyu_home_follow_debug_pre","solutionId":"14982","starkErrorMsg":"no_error","versionId":"267153"},"sections":[{"args":{},"bizData":{},"categoryData":{},"detal":"false","exposureParam":{"args":{}},"ext":{},"invalidType":"error","item":{},"secondLoad":"false","sectionBizCode":"fish_empty_view","template":{"columnType":"one","name":"xianyu_home_fish_empty_view_d3","url":"https://ossgw.alicdn.com/rapid-oss-bucket/1571209411430/fish_empty_view_d3.zip","version":"3"},"updateGroup":"false","updateRule":"false","valid":"true"}]},"currentTimeMillis":0},
+  "v": "1.0",
+  "ret": [
+    "SUCCESS::调用成功"
+  ]
+}

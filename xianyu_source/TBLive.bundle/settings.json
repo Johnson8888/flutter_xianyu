@@ -1,0 +1,59 @@
+[
+    {
+    	"title":"设置",
+    	"datas": [
+    		{
+    			"style":"2",
+                "selectRule":"isUserLogoSelect",
+    			"title":"头像",
+    			"action":"gotoUserLogo",
+                "height":"80",
+                "valueAction":"getUserLogo"
+    		},
+    		{
+    			"style":"3",
+                "selectRule":"isUserLogoSelect",
+    			"title":"昵称",
+    			"action":"gotoUserNick",
+    			"valueAction":"getUserNick"
+    		},
+    		{
+    			"style":"1",
+    			"title":"注销账号",
+    			"action":"gotAccountLogout"
+    		}
+    	]
+    },
+    {
+    	"datas": [
+    		{
+    			"style":"4",
+    			"selectRule":"isMirrorSelect",
+    			"title":"直播画面镜像",
+    			"action":"setLiveMirror",
+    			"valueAction":"getLiveMirror"
+    		}
+    	]
+    },
+    {
+    	"datas": [
+    		{
+    			"style":"1",
+    			"rule":"",
+    			"title":"直播百问",
+    			"action":"gotoLiveQA"
+    		},
+    		{
+    			"style":"1",
+    			"rule":"",
+    			"title":"我要反馈",
+    			"action":"gotoLiveFeedback"
+    		},
+    		{
+    			"style":"1",
+    			"title":"关于淘宝主播",
+    			"action":"gotoAboutLive"
+    		}
+    	]
+    }
+]

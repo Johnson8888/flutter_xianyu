@@ -1,0 +1,20 @@
+{
+  "日志级别":"[INFO,TRACE,WARNING,ERROR]",
+  "root":
+  {
+    "logLevel":2,
+    "filesize":10485760
+  },
+  "category":
+  {
+    "imsdk":
+    {
+      "logLevel":1,
+      "filesize":10485760
+    },
+    "qnapp":
+    {
+      "filesize":10485760
+    }
+  }
+}

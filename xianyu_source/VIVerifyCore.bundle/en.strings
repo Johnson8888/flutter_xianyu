@@ -1,0 +1,61 @@
+//Written by 多语言翻译管理系统 
+//Thu Jun 30 2016 04:14:45 GMT+0800 (CST)
+//如有问题请联系去疾
+"VI网络不给力，请稍后再试" = "Network is poor. Please try again";
+"VI返回" = "Back";
+"VIVerifyCore:身份验证" = "Identity Verification";
+"VerifyCore:确定" = "OK";
+"VerifyCore:系统繁忙，请稍后再试" = "It is crowded. Please try again later";
+"VI关闭" = "Disable";
+// 生物支付引入
+"VI你真的要关闭指纹支付吗？" = "Really disable Touch Pay?";
+"VI你真的要关闭面容支付吗？" = "Really disable Face Pay?";
+"VI关闭后每次支付都需要输入密码" = "After disabling, you must enter your password to make payments";
+"VI管理此功能，可到【设置】-【生物识别】-【刷脸设置】" = "To manage this function, go to Settings > Biological Identification > Face Recognition";
+"VI《指纹支付相关协议》" = "Touch Pay agreement";
+"VI《面容支付相关协议》" = "Face Pay agreement";
+"VI同意协议并开通" = "Accept the agreement and enable";
+"VI立即开通" = "Enable Now";
+"VI关闭指纹支付" = "Disable Touch Pay";
+"VI关闭面容支付" = "Disable Face Pay";
+"VI抱歉，没有认出你来" = "Sorry, we couldn't identify you";
+"VI请确保是账号本人操作" = "Please ensure the account owner is the one performing the action.";
+"VI知道了" = "OK";
+"VI开通成功" = "Enabled";
+"VI关闭成功" = "Disabled";
+"VI确定关闭指纹支付吗？" = "Disable Touch Pay";
+"VI确定关闭面容支付吗？" = "Disable Face Pay?";
+"VI确定关闭手机刷脸支付吗？" = "Do you want to disable Smile to Pay(mobile)?";
+"VI你尚未设置触控 ID，请先在手机系统“设置>触控 ID与密码”中录入指纹" = "You haven't set a Touch ID. Please go to Settings > Touch ID and Passcode and enter a Touch ID.";
+"VI你尚未设置面容 ID，请先在手机系统“设置>面容 ID与密码”中录入面容" = "You haven't set a Face ID. Please go to Settings > Face ID and Passcode and set a Face ID.";
+"VI去开启" = "Enable";
+"VI查看" = "View";
+"VI取消" = "Cancel";
+"VI确定" = "Confirm";
+// 核身支付后改密
+"VI忘记密码？找回并完成支付" = "Forgot your password? Retrieve it and complete your payment";
+"VI其他验证方式" = "Other methods";
+"VI确认" = "Confirm";
+"VI请进行身份验证" = "Please authenticate your identity";
+"VI为了您的账户安全，请进行身份验证" = "For the security of your account, please authenticate your identity";
+"VI开始身份验证" = "Start identity authentication";
+"VI确认退出身份验证吗？" = "Are you sure you want to exit identity authentication?";
+"VI安全检测中…" = "Security checking...";
+"VI已通过安全检测，当前您无需再次验证身份" = "You have passed the security check";
+"VI手机号一键验证" = "Quick authentication by mobile number";
+"VI已开启" = "Enabled";
+"VI“支付宝”向运营商获取本机号码与账号绑定手机号进行匹配" = "Alipay obtains the local number from the operator and matches it with the mobile number bound to the account";
+"VI无需填写验证码，手机号验证更快捷" = "A quick way to get authenticated with no need of an authentication code";
+"VI授权“支付宝”向运营商获取本机号码与账号绑定手机号进行匹配" = "Authorize Alipay to obtain the local number from the operator and match it with the mobile number bound to the account";
+"VI开启" = "Enable";
+"VI是否关闭手机号一键验证？" = "Are you sure you want to disable quick authentication by mobile number?";
+"VI手机号一键验证说明" = "Description for quick authentication by mobile number";
+"VI取号产品帮助文案" = "1.This function obtains your mobile number from the operator using mobile traffic. Verify that the mobile network is turned on.\n2.If you are using the Dual-SIM-Dual-Standby service, verify that the mobile number of the specified SIM card is the one bound to the account.";
+"VI正在关闭" = "Disabling";
+"VI关闭成功" = "Successfully disabled";
+"VI正在开启" = "Enabling";
+"VI开启成功" = "Successfully enabled";
+"VI付款时使用指纹" = "Alipay will use Touch ID Pay";
+"VI付款时使用面容" = "Alipay will use Face ID Pay";
+"VI付款时使用刷脸" = "Alipay will use Smile to Pay";
+"VI切换顺序" = "Change sequence";

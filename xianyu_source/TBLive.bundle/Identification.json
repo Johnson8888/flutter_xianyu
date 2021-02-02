@@ -1,0 +1,22 @@
+{
+    "VIP_USER": {
+        "0": {
+            "liveRoomComment": {
+                "icon": ""
+            },
+            "liveRoomComeIn": {
+                "icon": ""
+            }
+        },
+        "1": {
+            "liveRoomComment": {
+                "icon": "https://gw.alicdn.com/tfs/TB1RsfJh5qAXuNjy1XdXXaYcVXa-54-54.png",
+                "h5icon": "https://img.alicdn.com/tfs/TB1QXj9baagSKJjy0FhXXcrbFXa-72-72.png"
+            },
+            "liveRoomComeIn": {
+                "icon": "https://img.alicdn.com/tfs/TB1IPZXbaagSKJjy0FgXXcRqFXa-64-64.png",
+                "h5icon": "https://img.alicdn.com/tfs/TB1QXj9baagSKJjy0FhXXcrbFXa-72-72.png"
+            }
+        }
+    }
+}

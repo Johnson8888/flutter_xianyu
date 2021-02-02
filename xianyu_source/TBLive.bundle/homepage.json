@@ -1,0 +1,81 @@
+{
+    "data": [
+      {
+        "avatar": "",
+        "backgroundImage": "https://gw.alicdn.com/tfs/TB1qlpCaQP2gK0jSZPxXXacQpXa-1500-892.png",
+        "fansCount": "1000",
+        "message": {
+          "action": "",
+          "title": "这是默认数据，请先登录或刷新页面哦 >"
+        },
+        "name": "",
+        "tags": [],
+        "type": "AnchorInfo"
+      },
+      {
+        "live": {
+          "action": "https://h5.m.taobao.com/taolive/host.html",
+          "image": "https://gw.alicdn.com/tfs/TB1ALaubhv1gK0jSZFFXXb0sXXa-150-150.png",
+          "subtitle": "3步简单完成",
+          "title": "主播入驻"
+        },
+        "type": "Entrances",
+        "video": {
+          "action": "http://h5.m.taobao.com/taopai/capture.html?bizcode=wantu_business&biztype=live_client&max_duration=60",
+          "image": "https://gw.alicdn.com/tfs/TB1Qq1ubhn1gK0jSZKPXXXvUXXa-150-150.png",
+          "subtitle": "60s视频制作",
+          "title": "视频发布"
+        }
+      },
+      {
+        "action": "https://market.m.taobao.com/app/mtb/app-webcast-level/pages/index?wh_weex=true",
+        "backgroundImage": "https://gw.alicdn.com/tfs/TB1i15HboH1gK0jSZSyXXXtlpXa-1404-536.png",
+        "headline": "主播等级",
+        "image": "https://gw.alicdn.com/tfs/TB1Uw9GbeH2gK0jSZFEXXcqMpXa-236-298.png",
+        "subtitle": "升级V2可得特权：淘宝直播频道浮现权",
+        "title": "只要30天内开播7天且每天开播大于等于2小时，即可直接晋级V2等级",
+        "type": "AnchorRankInactiveL1"
+      },
+      {
+        "data": [
+          {
+            "action": "https://market.m.taobao.com/apps/market/host/live-list.html?wh_weex=true",
+            "image": "https://gw.alicdn.com/tfs/TB13G5wbkH0gK0jSZPiXXavapXa-100-100.png",
+            "title": "我的直播"
+          },
+          {
+            "action": "https://h5.m.taobao.com/taolive/notice.html",
+            "image": "https://gw.alicdn.com/tfs/TB13G5wbkH0gK0jSZPiXXavapXa-100-100.png",
+            "title": "创建预告"
+          },
+          {
+            "action": "https://market.m.taobao.com/apps/market/host/video-list.html?wh_weex=true",
+            "image": "https://gw.alicdn.com/tfs/TB1WSCublv0gK0jSZKbXXbK2FXa-100-100.png",
+            "title": "我的短视频"
+          },
+          {
+            "action": "http://market.m.taobao.com/apps/market/host/my-item.html?wh_weex=true",
+            "image": "https://gw.alicdn.com/tfs/TB11MOqbaL7gK0jSZFBXXXZZpXa-100-100.png",
+            "title": "我的宝贝"
+          },
+          {
+            "action": "https://market.m.taobao.com/apps/market/micromission/v-task-manage.html?wh_weex=true",
+            "image": "https://gw.alicdn.com/tfs/TB1lo9ubkT2gK0jSZPcXXcKkpXa-100-100.png",
+            "title": "V任务管理"
+          },
+          {
+            "action": "https://market.m.taobao.com/apps/market/micromission/v-task-manage.html?wh_weex=true",
+            "image": "https://gw.alicdn.com/tfs/TB1KG5wbkH0gK0jSZPiXXavapXa-100-100.png",
+            "title": "发布V任务"
+          },
+          {
+            "action": "https://m.taobao.com/taolive/hostlogout.html",
+            "image": "https://gw.alicdn.com/tfs/TB1aPiwbbj1gK0jSZFOXXc7GpXa-100-100.png",
+            "title": "设置"
+          }
+        ],
+        "headline": "更多工具",
+        "type": "Tools"
+      }
+    ]
+}

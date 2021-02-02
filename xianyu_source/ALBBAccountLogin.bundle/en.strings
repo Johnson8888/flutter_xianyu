@@ -1,0 +1,197 @@
+/* 
+  TBMember.strings
+  AliUniversalAccount
+
+  Created by Bangzhe Liu on 16/4/19.
+  Copyright © 2016年 Alibaba. All rights reserved.
+*/
+
+"albbOneKeyLogin"="Authorized login via Taobao app";
+"albbOneKeyLoginConfirm"="Confirm authorized login by Taobao app";
+"albbOneKeyLoginCheck"="Authorize verification by Taobao app";
+"albbOneKeyLoginCheckMsg"="Confirmation information of authorized verification by Taobao APP";
+"albbSecurityCheck"="Security verification";
+"albbSecurityCheckNeed"="You need to finish the security verification";
+"albbSecurityCheckAlreadyOpen"="Another device has set a security verification";
+"albbLoginFailed"="Login failed";
+"albbSecurityLogin"="Secure mobile login";
+"albbLoginConfirm"="Login confirmed by Taobao.com";
+"albbAccountSecurityTip"="Please verify your identity to protect your account";
+"albbNetWorkBusy"="Your network connection is poor";
+"albbSystemBusy"="System busy. Please try again.";
+"albbRemoveTrustDeviceFailed"="Your trusted device has not been removed.";
+"albbRemoveTrustDevice"="Your trusted device has been removed.";
+"albbRemoveSuccess"="Removed successfully.";
+"albbRemoveFailed"="Failed to remove";
+"albbUnknowDevice"="Unknown device";
+"albbAddTime"="Joined";
+"albbUnknowTime"="Unknown time";
+"albbCurrentDevice"="Present device";
+"albbLoadMoreDeviceInfo"="Load more devices";
+"albbNoMoreDeviceInfo"="No more devices";
+"albbDeviceList"="List of devices";
+"albbCloseSecurityConfirm"="Close security verification";
+"albbNewAccount"="New user registration";
+"albbAlipayQuickLogin"="Fast login with your Alipay account";
+
+"albbCountryListTitle"="Country/Region";
+"albbSearch"="Search";
+"albbCurrentLocation"="Current Location:";
+"albbSlideToSubmit"="Slide To Submit";
+"albbSlideWaiting"="Waiting";
+"albbProtocolContent"="By creating an account, I agree to abide by {{agreement}}\nI would like to receive membership and service emails.";
+"albbProtocol"="Alibaba.com's Free Membership Agreement";
+"albbUnitedStates"="United States";
+"albbFirstName"="First Name";
+"albbLastName"="Last Name";
+"albbCompanyName"="Company Name";
+"albbPassword"="Password(6-20 characters)";
+"albbEmail"="Email";
+"albbCompanyNameNotEmpty"="The company name cannot be empty";
+"albbLastNameNotEmpty"="The last name cannot be empty";
+"albbFirstNameNotEmpty"="The first name cannot be empty";
+"albbPhoneNumNotEmpty"="The mobile number cannot be empty";
+"albbEnglishOnly"="English only";
+"albbEnterValidEmail"="Please input a valid email address";
+"albbNotSupportEmail"="{{email}} email is not supported";
+"albbHasSendSMSCodeTip"="A verification code has been sent to mobile phone";
+"albbCreateAccount"="Create Account";
+"albbRegisterFailedRetry"="Failed to register. Please try again";
+"albbCheckCodeError"="The verification code is wrong";
+"albbRegisterFailed"="Fail to register. %@";
+"albbEnterValidPhoneNum"="Please input a valid mobile";
+"albbCheckCodeHasSend"="A verification code has been sent to mobile phone";
+"albbEmailRegistedSigninTip"="This email address is registered and you can sign in";
+"albbVerificationCodeError"="Please enter your 6-digit SMS verification code";
+
+
+"aluLogin"="Sign In";
+"aluBack"="Back";
+"aluHelp"="Help";
+"aluForgetPwd"="Forgot password";
+"aluRegister"="Join Free";
+"aluSure"="Confirm";
+"aluKnown"="known";
+"aluFindPwd"="Recover password";
+//pd改需求，都换成账户登录，这里暂时保存逻辑，后面不用了可以去掉
+"aluLoginByAlipay"="Log in";
+"aluLoginByAlipayInTaoBao"="Log in";
+"aluLoginByTB"="Log in";
+"aluLoginChangeToTB"="Log in with your Taobao account";
+"aluLoginChangeToAlipay"="Log in with your Alipay account";
+"aluLoginWays"="Mobile/Login ID/Email";
+"aluLoginByTBPhone"="Use the Taobao APP to login";
+"aluOr"="or";
+"aluLoginByOther"="Log in with your other accounts";
+"aluCancel"="Cancel";
+"aluLoginTB"="Taobao login";
+"aluConfirmLogin"="Confirm to login";
+"aluRegisterOnly"="Join Free";
+"aluNext"="Next";
+"aluOk"="OK";
+"aluYes"="Yes (leave)";
+"aluNo"="No (stay)";
+"aluNetWrong"="Network error";
+"aluDetete"="Delete";
+
+/* ALBBLoginViewController */
+"aluCodeNotEmpty"="The verification code cannot be empty";
+"aluPwdNotEmpty"="The password cannot be empty";
+"aluUserNameNotEmpty"="The Login ID cannot be empty";
+
+/*"aluH5WebViewController_RDS */
+"aluNotSupportSms"="Please send the message from another device for this device does not have the message sending function";
+
+/*ALBBHistoryUserLoginViewController*/
+"aluToAlipayFindPwd"="Please use the Alipay Wallet to find your password if you are a member of Alipay";
+"aluLoginBySMS"="Use the SMS sent to $mobile$ to log in";
+
+/*ALBBRegisterBox*/
+"aluPhoneNum"="Mobile";
+"aluInputPhoneNum"="Please enter mobile phone number";
+"aluCountryArea"="Country/region";
+
+/*ALBBCountryListViewController/ALBBRegisterViewController*/
+"aluChoseCountryArea"="Choose your country and region";
+"aluCommonUse"="Common used";
+
+/*ALBBRegisterViewController/"aluNewRegisterViewController*/
+"aluProtocal"="I have read and agree to the following agreement, I accept the exemption or limitation of liability, the litigation jurisdiction agreement and other bold and underlined provisions, and I am willing to create an Alipay account.";
+"aluTaoBaoServicePro"="Taobao registration agreements";
+"aluAlipayServicePro"="Alipay registration agreements";
+//"aluSendCodeToThisNum"="The code will be sent to $mobile$";
+"aluConfirmNum"="Confirm mobile number";
+
+/*"aluRegSMSVerifyViewController*/
+"aluInputCheckCode"="Fill in the verification code";
+//"aluInputReceiveCode"="Please input the SMS code sent to [mobile number]";
+
+
+/*ALBBRegH5ViewController*/
+"aluRegisterBreakCanGoBack"="Registration will be interrupted if you navigate off this page. Please make sure whether you want to go back.";
+"aluRegisterDirect"="Log in";
+
+/*ALBBRegSetPwdViewController*/
+"aluSetPwd"="Set a password";
+"aluLoginPwd"="Password";
+"aluInputPwd"="Please enter your password";
+"aluPwdFormatWith"="6 to 20 characters";
+
+/*ALBBLoginBox*/
+"aluUserName"="Account";
+"aluInputUserName"="Please input your login ID";
+"aluShowPwd"="Plain text password";
+"aluDeleteAccount"="Delete the account";
+"aluDeleteAccountTip"="You are required to verify your identity again after your delete. Please make sure whether you want to delete";
+
+/*ALBBRDSBox*/
+"aluRDS"="Verification Code";
+"aluInputRDS"="Please input the code shown on the right side";
+
+/*ALBBSMSVerifyBox*/
+"aluCheckCode"="Verification Code";
+"aluSMSCheckCode"="SMS code";
+"aluSendCheckCode"="Get Verification Code";
+"aluGetAgagin"="Retrieve";
+"aluSendAfterTimeBySecond"="$s$ seconds";
+"aluInputAlipayPwd"="Please input your Alipay password";
+
+/*"aluSDK.h*/
+"aluTimeOut"="Overtime";
+"aluDeviceInitFail"="Failed to initialize the device";
+
+/*"aluSDKInternal*/
+"aluLoginFailTryNative"="Fail to log in. Please confirm your password and try again";
+
+
+
+/*TBLoginCenter*/
+"TBLoginNetworkError"="Your network connection is poor";
+
+
+/*AlipaySSOHandler*/
+"aluNotSuppurt2Alipay"="Authorized login is not allowed or you have not installed the Alipay Wallet. Please check your password and try again";
+"aluAlipayAuthFail"="Authorized login by Alipay Wallet has failed. Please check your password and try again";
+"aluAlipayAuthBreakdown"="Authorized login by Alipay Wallet has been interrupted. Please check your password and try again";
+"aluAlipayAuthCancel"="You have cancelled the authorized login by Alipay Wallet";
+
+"aluSNSRebind"="Your email address {email} has been successfully connected to an Alibaba.com account {loginId}. You can sign in now to connect your {snsType} account upon which you can then use your {snsType} account to sign in.";
+"aluLoginRebind"="Sign In & Connect Account";
+"aluPwdContainTip"="Contains at least two of the following: letters, numbers and symbols";
+
+"aluPrivacyProtocal"="Legal Notice and Privacy Policy";
+"aluPrivacyStatement"="Privacy Statement";
+"aluAlibabaProtocal"="Alibaba Terms of Service";
+"aluAgreeProtocol"="Agree to Agreement and Register";
+"aluChangeMobile"="Replace Mobile Number";
+"aluPrivateRegister"="Personal Account Registration";
+"aluEnterpriseRegister"="Business Account Registration";
+"aluCommonCountry"="Common Country/Region";
+
+"albbQRWarnning"="Do not scan QR codes of unknown origin";
+"albbLogConfirm"="Login Confirmation";
+
+"albbQRScanLogin"="QR Code Scan Login";
+
+"albbICBUQRScanLogin"="Sorry, please make sure that the site you logged in to on the app is the same as the current PC website";
+"aluSkip"="Skip";

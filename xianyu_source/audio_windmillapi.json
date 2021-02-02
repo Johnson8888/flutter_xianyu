@@ -1,0 +1,147 @@
+{
+    "registerApi": [
+        {
+            "moduleName": "audioPlayer",
+            "moduleClass": "WMLAppAudioPlayer",
+            "methods": {
+                "playVoice": {
+                    "version": "0.0.1",
+                    "params": {
+                        "src": true,
+                        "instanceId": true,
+                        "autoPlay": true,
+                        "loop": true
+                    },
+                    "success": {
+                        "id": true,
+                        "duration": true
+                    },
+                    "fail": {}
+                },
+                "pauseVoice": {
+                    "version": "0.0.1",
+                    "params": {
+                        "instanceId":true
+                    },
+                    "success": {},
+                    "fail": {}
+                },
+                "stopVoice": {
+                    "version": "0.0.1",
+                    "params": {
+                        "instanceId":true
+                    },
+                    "success": {},
+                    "fail": {}
+                }
+            }
+        },
+        {
+            "moduleName": "audioRecord",
+            "moduleClass": "WMLAppAudioRecord",
+            "methods": {
+                "startRecord": {
+                    "version": "0.0.1",
+                    "params": {
+                        "maxDuration": true
+                    },
+                    "success": {
+
+                    },
+                    "fail": {}
+                },
+                "stopRecord": {
+                    "version": "0.0.1",
+                    "params": {
+                        
+                    },
+                    "success": {},
+                    "fail": {}
+                },
+                "cancelRecord": {
+                    "version": "0.0.1",
+                    "params": {
+                        
+                    },
+                    "success": {},
+                    "fail": {}
+                }
+            }
+        },
+        {
+            "moduleName": "audio",
+            "moduleClass": "WMLAppAudio",
+            "methods": {
+                "load": {
+                    "version": "0.0.1",
+                    "params": {
+                        "instanceId": true,
+                        "url": true,
+                        "autoplay": true,
+                        "loop": true
+                    },
+                    "success": {
+                        "instanceId": true,
+                        "status": true
+                    },
+                    "fail": {}
+                },
+                "play": {
+                    "version": "0.0.1",
+                    "params": {
+                        "instanceId": true
+                    },
+                    "success": {},
+                    "fail": {
+                        "instanceId": true,
+                        "status": true,
+                        "value": true,
+                        "message": true
+                    }
+                },
+                "pause": {
+                    "version": "0.0.1",
+                    "params": {
+                        "instanceId": true
+                    },
+                    "success": {
+                        "instanceId": true,
+                        "status": true
+                    },
+                    "fail": {}
+                },
+                "stop": {
+                    "version": "0.0.1",
+                    "params": {
+                        "instanceId": true
+                    },
+                    "success": {
+                        "instanceId": true,
+                        "status": true
+                    },
+                    "fail": {}
+                },
+                "setVolume": {
+                    "version": "0.0.1",
+                    "params": {
+                        "volume": true
+                    },
+                    "success": {
+
+                    },
+                    "fail": {}
+                },
+                "canPlayType": {
+                    "version": "0.0.1",
+                    "params": {
+                        "mediaType": true
+                    },
+                    "success": {
+                        "result": true
+                    },
+                    "fail": {}
+                }
+            }
+        }
+    ]
+}

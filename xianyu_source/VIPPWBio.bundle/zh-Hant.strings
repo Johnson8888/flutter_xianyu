@@ -1,0 +1,61 @@
+//Written by 多语言翻译管理系统 
+//Fri Jun 24 2016 22:26:40 GMT+0800 (CST)
+//如有问题请联系去疾
+"VIPPWBio:取消" = "取消";
+"VIPPWBio:指纹校验失败，请使用支付密码校验" = "指紋校驗失敗，請改用支付密碼";
+"VIPPWBio:确定" = "確定";
+"VIPPWBio:网络不给力，请稍后再试" = "網路不給力，請稍後再試";
+"VIPPWBio:输入密码" = "輸入密碼";
+"VIPPWBio:重试" = "重試";
+"VIPPWBio:请验证已有指纹" = "請驗證已有指紋";
+
+"VIPPWBio:imm.sw_bt_off" = "藍牙未開啟，無法使用智慧設備免密支付";
+"VIPPWBio:imm.sw_pay_fail" = "智慧設備校驗失敗，請使用支付密碼進行支付";
+"VIPPWBio:imm.sw_pay_timeout" = "藍牙連接異常，無法使用智慧設備免密支付";
+
+"VIPPWBio:imm.fp_notset" = "您尚未設置指紋(Touch ID)，請在手機系統\"設置>Touch ID與密碼\"中添加指紋";
+"VIPPWBio:imm.fp_notopen" = "您尚未啟用指紋密碼功能，請在手機系統\"設置>Touch ID與密碼\"中打開密碼";
+"VIPPWBio:mini.fp_hooked" = "指紋校驗存在被篡改風險";
+
+"VIPPWBio:人气太旺了，请稍后再试" = "人氣太旺了，請稍後再試";
+"VIPPWBio:confirmExit" = "確定要退出嗎?";
+
+"VIPPWBio:面容 ID 校验失败，请改用支付密码" = "面容 ID 校驗失敗，請改用支付密碼";
+"VIPPWBio:imm.face_notset" = "您尚未設置面容 ID，請在手機系統\"設定>面容 ID 與密碼\"中新增面容 ID";
+"VIPPWBio:imm.face_notopen" = "您尚未啟用面容 ID 功能，請在手機系統\"設定>面容 ID 與密碼\"中打開密碼";
+"VIPPWBio:mini.face_hooked" = "為保證你的賬戶安全，越獄系統不支援使用面容 ID 支付";
+"VIPPWBio:passcodeText" = "面容 ID 短時間內失敗多次，需要驗證手機密碼";
+"VIPPWBio:no_faceid_permission" = "未授權使用面容ID，請在系統設置中開啟權限";
+
+"VIPPWBio:刷脸失败，请使用支付密码" = "刷臉失敗，請使用支付密碼";
+"VIPPWBio:无相机权限" = "無相機權限，刷臉支付不可用，請使用支付密碼";
+"VIPPWBio:其他验证方式" = "其他驗證方式";
+
+"VIPPWBio:使用指纹" = "使用指紋";
+"VIPPWBio:使用面容" = "使用面容";
+"VIPPWBio:使用刷脸" = "使用刷臉";
+"VIPPWBio:使用密码" = "使用密碼";
+
+"VIPPWBio:未能识别人脸"="未能識別人臉";
+"VIPPWBio:没有认出你"="沒有認出你";
+"VIPPWBio:请把手机拿远一点"="請把手機正對面部";
+"VIPPWBio:确定退出吗?"="確定退出嗎？";
+
+"VIPPWBio:刷脸校验失败，请使用支付密码" = "刷臉驗證失敗，請使用支付密碼";
+"VIPPWBio:刷脸校验失败，请使用指纹" = "刷臉驗證失敗，請使用指紋";
+"VIPPWBio:指纹校验失败，请使用支付密码" = "指紋驗證失敗，請使用支付密碼";
+"VIPPWBio:指纹校验失败，请使用刷脸" = "指紋驗證失敗，請使用刷脸";
+"VIPPWBio:面容校验失败，请使用支付密码" = "面容驗證失敗，請使用支付密碼";
+
+"VIPPWBio:本次验证推荐使用支付密码" = "本次驗證推薦使用支付密碼";
+"VIPPWBio:本次验证推荐使用指纹" = "本次驗證推薦使用指紋";
+"VIPPWBio:本次验证推荐使用刷脸" = "本次驗證推薦使用刷臉";
+"VIPPWBio:本次验证推荐使用面容" = "本次驗證推薦使用面容";
+
+"VIPPWBio:支付密码" = "支付密碼";
+"VIPPWBio:指纹" = "指紋";
+"VIPPWBio:面容" = "面容";
+"VIPPWBio:刷脸" = "刷臉";
+
+"VIPPWBio:是否需要使用支付密码?" = "是否需要使用支付密码?";
+"VIPPWBio:退出"="退出";

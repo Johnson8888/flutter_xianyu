@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FMFishpondHomeViewController</key>
+	<array>
+		<dict>
+			<key>strategy</key>
+			<string>sequence</string>
+			<key>Handlers</key>
+			<array>
+				<string>FMFishpondJoinHandler</string>
+				<string>FMFishpondPostHandler</string>
+			</array>
+		</dict>
+	</array>
+	<key>FMItemDetailViewController</key>
+	<array>
+		<dict>
+			<key>strategy</key>
+			<string>sequence</string>
+			<key>Handlers</key>
+			<array>
+				<string>FMItemDetailSuperFavorHandler</string>
+				<string>FMItemDetailBidPriceHandler</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
