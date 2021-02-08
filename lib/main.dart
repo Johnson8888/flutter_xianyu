@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_xianyu/pages/fun/index.dart';
 import './pages/fun/index.dart';
+import './pages/message/index.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      // title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -23,12 +24,13 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: FunPage(),
+      home: MessagePage(),
     );
   }
 }

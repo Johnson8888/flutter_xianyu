@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-02-04 17:42:27
+ * @LastEditTime: 2021-02-08 14:21:48
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -14,17 +14,7 @@ class FunPage extends StatefulWidget {
 
 class _FunPageState extends State<FunPage> {
   @override
-  var selectedIndex = 3;
-  Map<String, List> _elements = {
-    'Team B': ['Toyah Downs', 'Tyla Kane'],
-    'Team D': [
-      'Casey Zuniga',
-      'Ayisha Burn',
-      'Josie Hayden',
-      'Kenan Walls',
-      'Mario Powers'
-    ],
-  };
+  var selectedIndex = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

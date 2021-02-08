@@ -56,6 +56,12 @@
       "languageVersion": "2.9"
     },
     {
+      "name": "flutter_easyrefresh",
+      "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_easyrefresh-2.1.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.3"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/Joker/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -146,7 +152,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-02-04T09:41:53.156672Z",
+  "generated": "2021-02-08T08:04:19.047087Z",
   "generator": "pub",
   "generatorVersion": "2.9.0"
 }
