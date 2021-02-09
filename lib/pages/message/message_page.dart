@@ -1,13 +1,14 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:06:16
- * @LastEditTime: 2021-02-08 17:00:14
+ * @LastEditTime: 2021-02-09 22:11:51
  * @Support: http://fulade.me
  */
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import '../../header/loading_header.dart';
+import '../../header/loading_footer.dart';
 
 class MessagePage extends StatefulWidget {
   @override
@@ -43,8 +44,8 @@ class _MessagePageState extends State<MessagePage> {
       ),
       body: EasyRefresh.custom(
         header: LoadingHeader(),
-        footer: BezierBounceFooter(
-          color: Theme.of(context).scaffoldBackgroundColor,
+        footer: LoadingFooter(
+          color: Color.fromRGBO(192, 192, 192, 1),
         ),
         onRefresh: () async {
           await Future.delayed(Duration(seconds: 2), () {

@@ -29,7 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   flutter_easyrefresh: ^2.1.8
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -56,7 +56,7 @@ flutter:
     - images/ic_setting.png
     - images/ic_navibar_setting.png
     - images/refresh_loading.png 
-    - images/refresh_nomal.png
+    - images/refresh_normal.png
     - images/refresh_pulling.png
 
   #   - images/a_dot_ham.jpeg

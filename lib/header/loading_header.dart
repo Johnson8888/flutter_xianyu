@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-08 16:05:18
- * @LastEditTime: 2021-02-08 17:00:00
+ * @LastEditTime: 2021-02-09 22:36:25
  * @Support: http://fulade.me
  */
 
@@ -9,39 +9,31 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
-// The duration of the ScaleTransition that starts when the refresh action
-// has completed.
-const Duration _kIndicatorScaleDuration = Duration(milliseconds: 200);
-
+/// 球脉冲Header
 class LoadingHeader extends Header {
+  /// Key
   final Key key;
-  final double displacement;
-  final Animation<Color> valueColor;
+
+  /// 颜色
+  final Color color;
+
+  /// 背景颜色
   final Color backgroundColor;
 
   final LinkHeaderNotifier linkNotifier = LinkHeaderNotifier();
 
   LoadingHeader({
     this.key,
-    this.displacement = 40.0,
-    this.valueColor,
-    this.backgroundColor,
-    completeDuration = const Duration(seconds: 1),
-    bool enableHapticFeedback = false,
+    this.color = Colors.blue,
+    this.backgroundColor = Colors.transparent,
+    bool enableHapticFeedback = true,
+    bool enableInfiniteRefresh = false,
   }) : super(
-          float: true,
           extent: 70.0,
           triggerDistance: 70.0,
-          completeDuration: completeDuration == null
-              ? Duration(
-                  milliseconds: 300,
-                )
-              : completeDuration +
-                  Duration(
-                    milliseconds: 300,
-                  ),
-          enableInfiniteRefresh: false,
+          float: false,
           enableHapticFeedback: enableHapticFeedback,
+          enableInfiniteRefresh: enableInfiniteRefresh,
         );
 
   @override
@@ -57,6 +49,11 @@ class LoadingHeader extends Header {
       bool enableInfiniteRefresh,
       bool success,
       bool noMore) {
+    // 不能为水平方向
+    assert(
+        axisDirection == AxisDirection.down ||
+            axisDirection == AxisDirection.up,
+        'Widget cannot be horizontal');
     linkNotifier.contentBuilder(
         context,
         refreshState,
@@ -71,24 +68,26 @@ class LoadingHeader extends Header {
         noMore);
     return LoadingHeaderWidget(
       key: key,
-      displacement: displacement,
-      valueColor: valueColor,
+      color: color,
       backgroundColor: backgroundColor,
       linkNotifier: linkNotifier,
     );
   }
 }
 
+/// 球脉冲组件
 class LoadingHeaderWidget extends StatefulWidget {
-  final double displacement;
-  final Animation<Color> valueColor;
+  /// 颜色
+  final Color color;
+
+  /// 背景颜色
   final Color backgroundColor;
+
   final LinkHeaderNotifier linkNotifier;
 
   const LoadingHeaderWidget({
     Key key,
-    this.displacement,
-    this.valueColor,
+    this.color,
     this.backgroundColor,
     this.linkNotifier,
   }) : super(key: key);
@@ -99,106 +98,164 @@ class LoadingHeaderWidget extends StatefulWidget {
   }
 }
 
-class LoadingHeaderWidgetState extends State<LoadingHeaderWidget>
-    with TickerProviderStateMixin<LoadingHeaderWidget> {
-  static final Animatable<double> _oneToZeroTween =
-      Tween<double>(begin: 1.0, end: 0.0);
-
+class LoadingHeaderWidgetState extends State<LoadingHeaderWidget> {
   RefreshMode get _refreshState => widget.linkNotifier.refreshState;
-  double get _pulledExtent => widget.linkNotifier.pulledExtent;
-  double get _riggerPullDistance =>
-      widget.linkNotifier.refreshTriggerPullDistance;
-  Duration get _completeDuration => widget.linkNotifier.completeDuration;
-  AxisDirection get _axisDirection => widget.linkNotifier.axisDirection;
+  double get _indicatorExtent => widget.linkNotifier.refreshIndicatorExtent;
+  bool get _noMore => widget.linkNotifier.noMore;
 
-  AnimationController _scaleController;
-  Animation<double> _scaleFactor;
+  // 球大小
+  double _ballSize1, _ballSize2, _ballSize3;
+  // 动画阶段
+  int animationPhase = 1;
+  // 动画过渡时间
+  Duration _ballSizeDuration = Duration(milliseconds: 200);
+  // 是否运行动画
+  bool _isAnimated = false;
 
+  final _normalImageFileName = "images/refresh_normal.png";
+  final _loadingImageFileName = "images/refresh_loading.png";
+  final _pullingImageFileName = "images/refresh_pulling.png";
+
+  var _currentImageFileName = "images/refresh_pulling.png";
   @override
   void initState() {
     super.initState();
-    _scaleController = AnimationController(vsync: this);
-    _scaleFactor = _scaleController.drive(_oneToZeroTween);
+    _ballSize1 = _ballSize2 = _ballSize3 = 0.0;
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _scaleController.dispose();
-  }
-
-  bool _refreshFinish = false;
-  set refreshFinish(bool finish) {
-    if (_refreshFinish != finish) {
-      if (finish) {
-        Future.delayed(_completeDuration - Duration(milliseconds: 300), () {
-          if (mounted) {
-            _scaleController.animateTo(1.0, duration: _kIndicatorScaleDuration);
+  // 循环动画
+  void _loopAnimated() {
+    Future.delayed(_ballSizeDuration, () {
+      if (!mounted) return;
+      if (_isAnimated) {
+        setState(() {
+          if (animationPhase == 1) {
+            // _ballSize1 = 13.0;
+            // _ballSize2 = 6.0;
+            // _ballSize3 = 13.0;
+            _currentImageFileName = _pullingImageFileName;
+          } else if (animationPhase == 2) {
+            // _ballSize1 = 20.0;
+            // _ballSize2 = 13.0;
+            // _ballSize3 = 6.0;
+            _currentImageFileName = _loadingImageFileName;
+          } else if (animationPhase == 3) {
+            // _ballSize1 = 13.0;
+            // _ballSize2 = 20.0;
+            // _ballSize3 = 13.0;
+            _currentImageFileName = _pullingImageFileName;
+          } else {
+            // _ballSize1 = 6.0;
+            // _ballSize2 = 13.0;
+            // _ballSize3 = 20.0;
+            _currentImageFileName = _normalImageFileName;
           }
         });
-        Future.delayed(_completeDuration, () {
-          _refreshFinish = false;
-          _scaleController.animateTo(0.0, duration: Duration(milliseconds: 10));
+        animationPhase++;
+        animationPhase = animationPhase >= 5 ? 1 : animationPhase;
+        _loopAnimated();
+      } else {
+        setState(() {
+          // _ballSize1 = 0.0;
+          // _ballSize2 = 0.0;
+          // _ballSize3 = 0.0;
+          _currentImageFileName = _normalImageFileName;
         });
+        animationPhase = 1;
       }
-      _refreshFinish = finish;
-    }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isVertical = _axisDirection == AxisDirection.down ||
-        _axisDirection == AxisDirection.up;
-    bool isReverse = _axisDirection == AxisDirection.up ||
-        _axisDirection == AxisDirection.left;
-    double indicatorValue = _pulledExtent / (_riggerPullDistance / 0.75);
-    indicatorValue = indicatorValue < 0.75 ? indicatorValue : 0.75;
-    if (_refreshState == RefreshMode.refreshed) {
-      refreshFinish = true;
+    if (_noMore) return Container();
+    // 开启动画
+    if (_refreshState == RefreshMode.done ||
+        _refreshState == RefreshMode.inactive) {
+      _isAnimated = false;
+    } else if (!_isAnimated) {
+      _isAnimated = true;
+      setState(() {
+        // _ballSize1 = 6.0;
+        // _ballSize2 = 13.0;
+        // _ballSize3 = 20.0;
+        _currentImageFileName = _normalImageFileName;
+      });
+      _loopAnimated();
     }
-    return Container(
-      height: isVertical
-          ? _refreshState == RefreshMode.inactive ? 0.0 : _pulledExtent
-          : double.infinity,
-      width: !isVertical
-          ? _refreshState == RefreshMode.inactive ? 0.0 : _pulledExtent
-          : double.infinity,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: isVertical ? isReverse ? 0.0 : null : 0.0,
-            bottom: isVertical ? !isReverse ? 0.0 : null : 0.0,
-            left: !isVertical ? isReverse ? 0.0 : null : 0.0,
-            right: !isVertical ? !isReverse ? 0.0 : null : 0.0,
-            child: Container(
-              padding: EdgeInsets.only(
-                top: isVertical ? isReverse ? 0.0 : widget.displacement : 0.0,
-                bottom:
-                    isVertical ? !isReverse ? 0.0 : widget.displacement : 0.0,
-                left: !isVertical ? isReverse ? 0.0 : widget.displacement : 0.0,
-                right:
-                    !isVertical ? !isReverse ? 0.0 : widget.displacement : 0.0,
-              ),
-              alignment: isVertical
-                  ? isReverse ? Alignment.topCenter : Alignment.bottomCenter
-                  : isReverse ? Alignment.centerLeft : Alignment.centerRight,
-              child: ScaleTransition(
-                scale: _scaleFactor,
-                child: RefreshProgressIndicator(
-                  value: _refreshState == RefreshMode.armed ||
-                          _refreshState == RefreshMode.refresh ||
-                          _refreshState == RefreshMode.refreshed ||
-                          _refreshState == RefreshMode.done
-                      ? null
-                      : indicatorValue,
-                  valueColor: widget.valueColor,
-                  backgroundColor: widget.backgroundColor,
-                ),
-              ),
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          top: 0.0,
+          bottom: 0.0,
+          left: 0.0,
+          right: 0.0,
+          child: Container(
+            alignment: Alignment.center,
+            height: _indicatorExtent,
+            color: widget.backgroundColor,
+            child: Image.asset(
+              _currentImageFileName,
+              width: 40,
+              height: 40,
             ),
+            /*Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: Center(
+                    child: ClipOval(
+                      child: AnimatedContainer(
+                        color: widget.color,
+                        height: _ballSize1,
+                        width: _ballSize1,
+                        duration: _ballSizeDuration,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 5.0,
+                ),
+                SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: Center(
+                    child: ClipOval(
+                      child: AnimatedContainer(
+                        color: widget.color,
+                        height: _ballSize2,
+                        width: _ballSize2,
+                        duration: _ballSizeDuration,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 5.0,
+                ),
+                SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: Center(
+                    child: ClipOval(
+                      child: AnimatedContainer(
+                        color: widget.color,
+                        height: _ballSize3,
+                        width: _ballSize3,
+                        duration: _ballSizeDuration,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            */
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
