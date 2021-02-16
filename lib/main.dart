@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_xianyu/pages/fun/index.dart';
 import './pages/fun/index.dart';
 import './pages/message/index.dart';
+import './pages/my/index.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MessagePage(),
+      home: MyHomePage(),
     );
   }
 }

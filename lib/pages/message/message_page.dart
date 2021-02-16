@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:06:16
- * @LastEditTime: 2021-02-09 22:11:51
+ * @LastEditTime: 2021-02-09 23:17:25
  * @Support: http://fulade.me
  */
 
@@ -45,7 +45,7 @@ class _MessagePageState extends State<MessagePage> {
       body: EasyRefresh.custom(
         header: LoadingHeader(),
         footer: LoadingFooter(
-          color: Color.fromRGBO(192, 192, 192, 1),
+          color: Color.fromRGBO(220, 220, 220, 1),
         ),
         onRefresh: () async {
           await Future.delayed(Duration(seconds: 2), () {
@@ -69,7 +69,7 @@ class _MessagePageState extends State<MessagePage> {
                   return Divider(
                     thickness: 10,
                     height: 10,
-                    color: Colors.red,
+                    color: Color.fromRGBO(220, 220, 220, 1),
                   );
                 }
                 return Container(
@@ -129,80 +129,8 @@ class _MessagePageState extends State<MessagePage> {
               childCount: 10,
             ),
           ),
-
-          /*
-          ListView.separated(
-            itemCount: 3,
-            itemBuilder: (BuildContext context, int index) {
-              return Text("ttt");
-              
-              return Container(
-                color: Colors.white,
-                height: 80,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10, 5, 15, 5),
-                      child: CircleAvatar(
-                        radius: 25, // 头像的半径
-                        backgroundImage: AssetImage('images/ic_notificate.png'),
-                      ),
-                    ),
-                    Expanded(
-                      // child: Column(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                            child: Text(
-                              "whls1234",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                            child: Text(
-                              "点击查看评论内容",
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 12.0,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "5天前",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 9.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      flex: 2,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10, 10, 15, 10),
-                      child: Image.asset("images/image_demo.jpg"),
-                    ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return Divider(
-                thickness: 10,
-                height: index == 2 ? 10 : 0,
-                color: index == 2 ? Colors.white30 : Colors.white,
-              );
-            },
-          ),*/
         ],
       ),
-      /*
-
-      */
       bottomNavigationBar: _getBottomNavigationBar(),
     );
   }
