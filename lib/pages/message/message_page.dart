@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:06:16
- * @LastEditTime: 2021-02-09 23:17:25
+ * @LastEditTime: 2021-02-19 18:10:09
  * @Support: http://fulade.me
  */
 
@@ -131,43 +131,6 @@ class _MessagePageState extends State<MessagePage> {
           ),
         ],
       ),
-      bottomNavigationBar: _getBottomNavigationBar(),
-    );
-  }
-
-  /// 获取到 底部导航栏
-  BottomNavigationBar _getBottomNavigationBar() {
-    return BottomNavigationBar(
-      /// 这个很重要
-      type: BottomNavigationBarType.fixed,
-      currentIndex: selectedIndex,
-      onTap: (index) {
-        setState(() {
-          selectedIndex = index;
-        });
-      },
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          title: Text('闲鱼'),
-          icon: Icon(Icons.home),
-        ),
-        BottomNavigationBarItem(
-          title: Text('会玩'),
-          icon: Icon(Icons.book),
-        ),
-        BottomNavigationBarItem(
-          title: Text(''),
-          icon: Icon(Icons.school),
-        ),
-        BottomNavigationBarItem(
-          title: Text('消息'),
-          icon: Icon(Icons.perm_identity),
-        ),
-        BottomNavigationBarItem(
-          title: Text('我的'),
-          icon: Icon(Icons.perm_identity),
-        ),
-      ],
     );
   }
 }
