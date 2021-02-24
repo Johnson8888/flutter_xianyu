@@ -1,81 +1,130 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-02-19 22:34:22
+ * @LastEditTime: 2021-02-24 17:35:59
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
-import 'package:group_list_view/group_list_view.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import './fun_item_page.dart';
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:convert';
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'fun_item_model.dart';
+
+var titleList = [
+  '推荐',
+  '潮玩',
+  '三坑',
+  '旅行',
+  '手作',
+  '运动',
+  '萌宠',
+  '数码',
+  '植物',
+  '复古',
+  '美食'
+];
+List<Widget> tabList;
+TabController _tabController;
 
 class FunPage extends StatefulWidget {
   @override
-  _FunPageState createState() => _FunPageState();
+  State<StatefulWidget> createState() {
+    return _FunPageState();
+  }
 }
 
-class _FunPageState extends State<FunPage> {
+class _FunPageState extends State<FunPage> with SingleTickerProviderStateMixin {
+  var tabBar;
+
+  @override
+  Future<void> initState() {
+    super.initState();
+    tabBar = HomePageTabBar();
+    tabList = getTabList();
+    _tabController = TabController(vsync: this, length: tabList.length);
+    getAnchors().then((data) => print(data));
+  }
+
+  List<Widget> getTabList() {
+    return titleList
+        .map(
+          (item) => Text(
+            '$item',
+            style: TextStyle(fontSize: 15),
+          ),
+        )
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("标题")),
-        body: CustomScrollView(
-          slivers: <Widget>[
-            _buildBanner(),
-            _buildStickyBar(),
-            _buildList(),
-          ],
-        ));
-  }
-
-  Widget _buildBanner() {
-    return SliverToBoxAdapter(
-      child: Container(
-        width: double.infinity,
-        height: 200,
-        child: Image.network(
-          "http://image2.sina.com.cn/ent/s/j/p/2007-01-12/U1345P28T3D1407314F329DT20070112145144.jpg",
-          height: double.infinity,
-          fit: BoxFit.fill,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: DefaultTabController(
+          length: titleList.length,
+          child: _getNestedScrollView(tabBar),
         ),
       ),
     );
   }
 
-  Widget _buildStickyBar() {
-    return SliverPersistentHeader(
-      pinned: true, //是否固定在顶部
-      floating: true,
-      delegate: _SliverAppBarDelegate(
-        minHeight: 50, //收起的高度
-        maxHeight: 50, //展开的最大高度
-        child: Container(
-          padding: EdgeInsets.only(left: 16),
-          color: Colors.pink,
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "浮动",
-            style: TextStyle(fontSize: 18),
+  Future<List> getAnchors() async {
+    //1. 读取json文件
+    String jsonString = await rootBundle.loadString("assets/fun1.json");
+    // //2.转成List或Map类型
+    final jsonResult = json.decode(jsonString);
+    //遍历List，并且转成Anchor对象放到另一个List中
+    List<FunItemModel> data = List();
+    for (Map<String, dynamic> map in jsonResult["data"]) {
+      FunItemModel item = FunItemModel.fromJson(map);
+      data.add(item);
+    }
+    return data;
+  }
+}
+
+Widget _getNestedScrollView(Widget tabBar) {
+  return NestedScrollView(
+    headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+      return <Widget>[
+        SliverToBoxAdapter(
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.all(10.0),
+            child: Text("用一部电影来形容你的2018"),
           ),
         ),
-      ),
-    );
-  }
+        SliverPersistentHeader(
+          floating: true,
+          pinned: true,
+          delegate: _SliverAppBarDelegate(
+            maxHeight: 49.0,
+            minHeight: 49.0,
+            child: Container(
+              color: Colors.white,
+              child: tabBar,
+            ),
+          ),
+        ),
+      ];
+    },
+    body: FlutterTabBarView(
+      tabController: _tabController,
+    ),
+  );
+}
 
-  Widget _buildList() {
-    return SliverList(
-        delegate: SliverChildBuilderDelegate(
-      (context, index) {
-        return Container(
-          height: 50,
-          color: index % 2 == 0 ? Colors.white : Colors.black12,
-          width: double.infinity,
-          alignment: Alignment.center,
-          child: Text("我是第${index}个item"),
-        );
-      },
-      childCount: 30,
-    ));
+class HomePageTabBar extends StatefulWidget {
+  HomePageTabBar({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePageTabBarState();
   }
 }
 
@@ -94,12 +143,12 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get minExtent => minHeight;
 
   @override
-  double get maxExtent => max(maxHeight, minHeight);
+  double get maxExtent => math.max((minHeight ?? kToolbarHeight), minExtent);
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new SizedBox.expand(child: child);
+    return child;
   }
 
   @override
@@ -107,5 +156,192 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     return maxHeight != oldDelegate.maxHeight ||
         minHeight != oldDelegate.minHeight ||
         child != oldDelegate.child;
+  }
+}
+
+class _HomePageTabBarState extends State<HomePageTabBar> {
+  Color selectColor, unselectedColor;
+  TextStyle selectStyle, unselectedStyle;
+
+  @override
+  void initState() {
+    super.initState();
+    selectColor = Colors.black;
+    unselectedColor = Color.fromARGB(255, 117, 117, 117);
+    selectStyle = TextStyle(fontSize: 18, color: selectColor);
+    unselectedStyle = TextStyle(fontSize: 18, color: selectColor);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    /*
+    Tab小部件列表
+   List<Widget>  @required this.tabs,
+    组件选中以及动画的状态
+  TabController this.controller,
+    Tab是否可滑动(false->整个tab会把宽度填满，true-> tab包裹)
+ bool  this.isScrollable = false,
+    选项卡下方的导航条的颜色
+  Color this.indicatorColor,
+    选项卡下方的导航条的线条粗细
+  double this.indicatorWeight = 2.0,
+ EdgeInsetsGeometry  this.indicatorPadding = EdgeInsets.zero,
+  Decoration this.indicator,
+  TabBarIndicatorSize this.indicatorSize,导航条的长度，（tab：默认等分；label：跟标签长度一致）
+ Color  this.labelColor,所选标签标签的颜色
+ TextStyle  this.labelStyle,所选标签标签的文本样式
+ EdgeInsetsGeometry  this.labelPadding,,所选标签标签的内边距
+Color   this.unselectedLabelColor,未选定标签标签的颜色
+ TextStyle  this.unselectedLabelStyle,未选中标签标签的文字样式
+  void Function(T value) this.onTap,按下时的响应事件
+  */
+    return Container(
+      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      child: TabBar(
+        tabs: tabList,
+        isScrollable: true,
+        controller: _tabController,
+        indicatorColor: selectColor,
+        labelColor: selectColor,
+        labelStyle: selectStyle,
+        unselectedLabelColor: unselectedColor,
+        unselectedLabelStyle: unselectedStyle,
+        indicatorSize: TabBarIndicatorSize.label,
+      ),
+    );
+  }
+}
+
+class FlutterTabBarView extends StatelessWidget {
+  final TabController tabController;
+
+  FlutterTabBarView({Key key, @required this.tabController}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var viewList = [
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+    ];
+    return TabBarView(
+      children: viewList,
+      controller: tabController,
+    );
+  }
+}
+
+class Page1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    print('build Page1');
+
+    return StaggeredGridView.countBuilder(
+      crossAxisCount: 4,
+      itemCount: 8,
+      itemBuilder: (BuildContext context, int index) => new Container(
+          color: Colors.green,
+          child: new Center(
+            child: new CircleAvatar(
+              backgroundColor: Colors.white,
+              child: new Text('$index'),
+            ),
+          )),
+      staggeredTileBuilder: (int index) =>
+          new StaggeredTile.count(2, index.isEven ? 2 : 1),
+      mainAxisSpacing: 4.0,
+      crossAxisSpacing: 4.0,
+    );
+  }
+}
+
+class Page2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    print('build Page2');
+    return Center(
+      child: Text('Page2'),
+    );
+  }
+}
+
+class SearchTextFieldWidget extends StatelessWidget {
+  final ValueChanged<String> onSubmitted;
+  final VoidCallback onTab;
+  final String hintText;
+  final EdgeInsetsGeometry margin;
+
+  SearchTextFieldWidget(
+      {Key key, this.hintText, this.onSubmitted, this.onTab, this.margin})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: margin == null ? EdgeInsets.all(0.0) : margin,
+      width: MediaQuery.of(context).size.width,
+      alignment: AlignmentDirectional.center,
+      height: 37.0,
+      decoration: BoxDecoration(
+          color: Color.fromARGB(255, 237, 236, 237),
+          borderRadius: BorderRadius.circular(24.0)),
+      child: TextField(
+        onSubmitted: onSubmitted,
+        onTap: onTab,
+        cursorColor: Color.fromARGB(255, 0, 189, 96),
+        decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(top: 8.0),
+            border: InputBorder.none,
+            hintText: hintText,
+            hintStyle: TextStyle(
+                fontSize: 17, color: Color.fromARGB(255, 192, 191, 191)),
+            prefixIcon: Icon(
+              Icons.search,
+              size: 25,
+              color: Color.fromARGB(255, 128, 128, 128),
+            )),
+        style: TextStyle(fontSize: 17),
+      ),
+    );
+  }
+
+  getContainer(BuildContext context, ValueChanged<String> onSubmitted) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      alignment: AlignmentDirectional.center,
+      height: 40.0,
+      decoration: BoxDecoration(
+          color: Color.fromARGB(255, 237, 236, 237),
+          borderRadius: BorderRadius.circular(24.0)),
+      child: TextField(
+        onSubmitted: onSubmitted,
+        cursorColor: Color.fromARGB(255, 0, 189, 96),
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.zero,
+            border: InputBorder.none,
+            hintText: hintText,
+            hintStyle: TextStyle(fontSize: 20),
+            prefixIcon: Icon(
+              Icons.search,
+              size: 29,
+              color: Color.fromARGB(255, 128, 128, 128),
+            )),
+        style: TextStyle(fontSize: 20),
+      ),
+    );
   }
 }
