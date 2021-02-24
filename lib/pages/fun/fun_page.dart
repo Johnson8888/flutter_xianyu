@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-02-24 17:35:59
+ * @LastEditTime: 2021-02-24 22:27:01
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -252,7 +252,7 @@ class Page1 extends StatelessWidget {
 
     return StaggeredGridView.countBuilder(
       crossAxisCount: 4,
-      itemCount: 8,
+      itemCount: 28,
       itemBuilder: (BuildContext context, int index) => new Container(
           color: Colors.green,
           child: new Center(
