@@ -1,16 +1,32 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-02-23 15:51:59
+ * @LastEditTime: 2021-02-24 17:35:59
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
-import 'package:group_list_view/group_list_view.dart';
-import './fun_item_page.dart';
-import 'dart:math';
-import 'dart:math' as math;
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-var titleList = ['电影', '电视', '综艺', '读书', '音乐', '同城'];
+import './fun_item_page.dart';
+import 'dart:math' as math;
+import 'dart:convert';
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'fun_item_model.dart';
+
+var titleList = [
+  '推荐',
+  '潮玩',
+  '三坑',
+  '旅行',
+  '手作',
+  '运动',
+  '萌宠',
+  '数码',
+  '植物',
+  '复古',
+  '美食'
+];
 List<Widget> tabList;
 TabController _tabController;
 
@@ -25,11 +41,12 @@ class _FunPageState extends State<FunPage> with SingleTickerProviderStateMixin {
   var tabBar;
 
   @override
-  void initState() {
+  Future<void> initState() {
     super.initState();
     tabBar = HomePageTabBar();
     tabList = getTabList();
     _tabController = TabController(vsync: this, length: tabList.length);
+    getAnchors().then((data) => print(data));
   }
 
   List<Widget> getTabList() {
@@ -48,9 +65,26 @@ class _FunPageState extends State<FunPage> with SingleTickerProviderStateMixin {
     return Container(
       color: Colors.white,
       child: SafeArea(
-          child: DefaultTabController(
-              length: titleList.length, child: _getNestedScrollView(tabBar))),
+        child: DefaultTabController(
+          length: titleList.length,
+          child: _getNestedScrollView(tabBar),
+        ),
+      ),
     );
+  }
+
+  Future<List> getAnchors() async {
+    //1. 读取json文件
+    String jsonString = await rootBundle.loadString("assets/fun1.json");
+    // //2.转成List或Map类型
+    final jsonResult = json.decode(jsonString);
+    //遍历List，并且转成Anchor对象放到另一个List中
+    List<FunItemModel> data = List();
+    for (Map<String, dynamic> map in jsonResult["data"]) {
+      FunItemModel item = FunItemModel.fromJson(map);
+      data.add(item);
+    }
+    return data;
   }
 }
 
@@ -146,26 +180,27 @@ class _HomePageTabBarState extends State<HomePageTabBar> {
 
   @override
   Widget build(BuildContext context) {
-    //Tab小部件列表
-//    List<Widget>  @required this.tabs,
-    //组件选中以及动画的状态
-//   TabController this.controller,
-    //Tab是否可滑动(false->整个tab会把宽度填满，true-> tab包裹)
-//  bool  this.isScrollable = false,
-    //选项卡下方的导航条的颜色
-//   Color this.indicatorColor,
-    //选项卡下方的导航条的线条粗细
-//   double this.indicatorWeight = 2.0,
-//  EdgeInsetsGeometry  this.indicatorPadding = EdgeInsets.zero,
-//   Decoration this.indicator,
-//   TabBarIndicatorSize this.indicatorSize,导航条的长度，（tab：默认等分；label：跟标签长度一致）
-//  Color  this.labelColor,所选标签标签的颜色
-//  TextStyle  this.labelStyle,所选标签标签的文本样式
-//  EdgeInsetsGeometry  this.labelPadding,,所选标签标签的内边距
-// Color   this.unselectedLabelColor,未选定标签标签的颜色
-//  TextStyle  this.unselectedLabelStyle,未选中标签标签的文字样式
-//   void Function(T value) this.onTap,按下时的响应事件
-
+    /*
+    Tab小部件列表
+   List<Widget>  @required this.tabs,
+    组件选中以及动画的状态
+  TabController this.controller,
+    Tab是否可滑动(false->整个tab会把宽度填满，true-> tab包裹)
+ bool  this.isScrollable = false,
+    选项卡下方的导航条的颜色
+  Color this.indicatorColor,
+    选项卡下方的导航条的线条粗细
+  double this.indicatorWeight = 2.0,
+ EdgeInsetsGeometry  this.indicatorPadding = EdgeInsets.zero,
+  Decoration this.indicator,
+  TabBarIndicatorSize this.indicatorSize,导航条的长度，（tab：默认等分；label：跟标签长度一致）
+ Color  this.labelColor,所选标签标签的颜色
+ TextStyle  this.labelStyle,所选标签标签的文本样式
+ EdgeInsetsGeometry  this.labelPadding,,所选标签标签的内边距
+Color   this.unselectedLabelColor,未选定标签标签的颜色
+ TextStyle  this.unselectedLabelStyle,未选中标签标签的文字样式
+  void Function(T value) this.onTap,按下时的响应事件
+  */
     return Container(
       margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
       child: TabBar(
@@ -190,13 +225,17 @@ class FlutterTabBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build FlutterTabBarView');
     var viewList = [
       Page1(),
-      Page2(),
       Page1(),
-      Page4(),
-      Page5(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
+      Page1(),
       Page1(),
     ];
     return TabBarView(
@@ -211,8 +250,21 @@ class Page1 extends StatelessWidget {
   Widget build(BuildContext context) {
     print('build Page1');
 
-    return Center(
-      child: Text('Page1'),
+    return StaggeredGridView.countBuilder(
+      crossAxisCount: 4,
+      itemCount: 8,
+      itemBuilder: (BuildContext context, int index) => new Container(
+          color: Colors.green,
+          child: new Center(
+            child: new CircleAvatar(
+              backgroundColor: Colors.white,
+              child: new Text('$index'),
+            ),
+          )),
+      staggeredTileBuilder: (int index) =>
+          new StaggeredTile.count(2, index.isEven ? 2 : 1),
+      mainAxisSpacing: 4.0,
+      crossAxisSpacing: 4.0,
     );
   }
 }
@@ -223,36 +275,6 @@ class Page2 extends StatelessWidget {
     print('build Page2');
     return Center(
       child: Text('Page2'),
-    );
-  }
-}
-
-class Page3 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    print('build Page3');
-    return Center(
-      child: Text('Page3'),
-    );
-  }
-}
-
-class Page4 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    print('build Page4');
-    return Center(
-      child: Text('Page4'),
-    );
-  }
-}
-
-class Page5 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    print('build Page5');
-    return Center(
-      child: Text('Page5'),
     );
   }
 }
