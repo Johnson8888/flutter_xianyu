@@ -1,18 +1,18 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-02-24 22:27:01
+ * @LastEditTime: 2021-02-25 10:27:59
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
 import './fun_item_page.dart';
 import 'dart:math' as math;
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'fun_item_model.dart';
+import 'fun_item_page.dart';
 
 var titleList = [
   '推荐',
@@ -226,7 +226,7 @@ class FlutterTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewList = [
-      Page1(),
+      FunItemPage(),
       Page1(),
       Page1(),
       Page1(),
@@ -249,20 +249,20 @@ class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('build Page1');
-
     return StaggeredGridView.countBuilder(
-      crossAxisCount: 4,
+      crossAxisCount: 2,
       itemCount: 28,
       itemBuilder: (BuildContext context, int index) => new Container(
-          color: Colors.green,
-          child: new Center(
-            child: new CircleAvatar(
-              backgroundColor: Colors.white,
-              child: new Text('$index'),
-            ),
-          )),
+        color: Colors.green,
+        child: new Center(
+          child: new CircleAvatar(
+            backgroundColor: Colors.white,
+            child: new Text('$index'),
+          ),
+        ),
+      ),
       staggeredTileBuilder: (int index) =>
-          new StaggeredTile.count(2, index.isEven ? 2 : 1),
+          new StaggeredTile.count(1, index.isEven ? 3 : 1),
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
     );
