@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-02-24 22:27:01
+ * @LastEditTime: 2021-02-27 17:48:42
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -46,7 +46,6 @@ class _FunPageState extends State<FunPage> with SingleTickerProviderStateMixin {
     tabBar = HomePageTabBar();
     tabList = getTabList();
     _tabController = TabController(vsync: this, length: tabList.length);
-    getAnchors().then((data) => print(data));
   }
 
   List<Widget> getTabList() {
@@ -71,20 +70,6 @@ class _FunPageState extends State<FunPage> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  Future<List> getAnchors() async {
-    //1. 读取json文件
-    String jsonString = await rootBundle.loadString("assets/fun1.json");
-    // //2.转成List或Map类型
-    final jsonResult = json.decode(jsonString);
-    //遍历List，并且转成Anchor对象放到另一个List中
-    List<FunItemModel> data = List();
-    for (Map<String, dynamic> map in jsonResult["data"]) {
-      FunItemModel item = FunItemModel.fromJson(map);
-      data.add(item);
-    }
-    return data;
   }
 }
 
@@ -119,15 +104,6 @@ Widget _getNestedScrollView(Widget tabBar) {
   );
 }
 
-class HomePageTabBar extends StatefulWidget {
-  HomePageTabBar({Key key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _HomePageTabBarState();
-  }
-}
-
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   _SliverAppBarDelegate({
     @required this.minHeight,
@@ -156,6 +132,15 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     return maxHeight != oldDelegate.maxHeight ||
         minHeight != oldDelegate.minHeight ||
         child != oldDelegate.child;
+  }
+}
+
+class HomePageTabBar extends StatefulWidget {
+  HomePageTabBar({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePageTabBarState();
   }
 }
 
@@ -248,8 +233,6 @@ class FlutterTabBarView extends StatelessWidget {
 class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print('build Page1');
-
     return StaggeredGridView.countBuilder(
       crossAxisCount: 4,
       itemCount: 28,
