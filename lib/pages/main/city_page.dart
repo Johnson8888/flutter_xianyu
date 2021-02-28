@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:08
- * @LastEditTime: 2021-02-28 15:53:25
+ * @LastEditTime: 2021-02-28 21:13:23
  * @Support: http://fulade.me
  */
 // 城市页面
@@ -16,10 +16,17 @@ class CityPage extends StatefulWidget {
 class _CityPageState extends State<CityPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController; //需要定义一个Controller
-  List<String> tabs = ["精选", "附近兼职", "二手车", "代步工具", "手机数码", "家具家电", "同城萌宠"];
+  List<Map<String, dynamic>> tabs = [
+    {"width": 15, "title": "精选"},
+    {"width": 50, "title": "附近兼职"},
+    {"width": 40, "title": "二手车"},
+    {"width": 40, "title": "代步工具"},
+    {"width": 40, "title": "手机数码"},
+    {"width": 40, "title": "家具家电"},
+    {"width": 40, "title": "同城萌宠"}
+  ];
   @override
   void initState() {
-    // TODO: implement initState
     _tabController = TabController(length: tabs.length, vsync: this);
     _tabController.addListener(() => _onTabChanged());
   }
@@ -63,14 +70,14 @@ class _CityPageState extends State<CityPage>
             controller: _tabController,
             tabs: tabs
                 .map(
-                  (e) => Tab(
+                  (element) => Tab(
                     child: Container(
                       child: Text(
-                        e,
+                        element["title"],
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12.0),
+                        style: TextStyle(fontSize: 10.0),
                       ),
-                      width: 50,
+                      width: element["width"].toDouble(),
                     ),
                   ),
                 )
