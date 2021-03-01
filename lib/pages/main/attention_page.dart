@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-02-28 13:46:00
+ * @LastEditTime: 2021-03-01 13:51:20
  * @Support: http://fulade.me
  */
 /// 关注页面
@@ -41,7 +41,7 @@ class _AttentionPageState extends State<AttentionPage> {
         shrinkWrap: true,
         primary: false,
         itemCount: 10,
-        itemExtent: 250,
+        itemExtent: 270,
         itemBuilder: (context, index) {
           return _getInfoList()[index];
         },

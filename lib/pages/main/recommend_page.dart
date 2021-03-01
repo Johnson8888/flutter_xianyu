@@ -1,14 +1,15 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-02-28 21:36:58
+ * @LastEditTime: 2021-03-01 16:40:43
  * @Support: http://fulade.me
  */
 // 推荐页面
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:sticky_headers/sticky_headers.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class RecommendPage extends StatefulWidget {
   @override
@@ -16,6 +17,13 @@ class RecommendPage extends StatefulWidget {
 }
 
 class _RecommendPageState extends State<RecommendPage> {
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+
+  @override
+  void initState() {}
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -75,21 +83,30 @@ class _RecommendPageState extends State<RecommendPage> {
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: Text("热门活动"),
+          child: FlatButton(
+            onPressed: () {
+              var list =
+                  itemPositionsListener.itemPositions.value.where((element) {
+                return element.itemLeadingEdge >= 0 &&
+                    element.itemTrailingEdge <= 1;
+              });
+
+              itemScrollController.scrollTo(
+                  index: 0,
+                  duration: Duration(seconds: 1),
+                  curve: Curves.easeInOutCubic);
+            },
+            child: Text("热门活动"),
+          ),
         ),
         Container(
           height: 100,
-          child: Swiper(
-            itemCount: 3,
-            //duration: 2, //轮播图的数量
-            autoplay: true, //轮播图滚动
-            itemBuilder: (BuildContext context, int index) {
-              return Image.asset(
-                "images/image_demo.jpg",
-                width: 100,
-                height: 100,
-              );
-            },
+          child: ScrollablePositionedList.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 500,
+            itemBuilder: (context, index) => Text('Item $index'),
+            itemScrollController: itemScrollController,
+            itemPositionsListener: itemPositionsListener,
           ),
         ),
         StaggeredGridView.countBuilder(

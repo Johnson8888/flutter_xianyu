@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-02-28 11:19:11
+ * @LastEditTime: 2021-03-01 17:02:06
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'dart:async';
 import './city_page.dart';
 import './attention_page.dart';
 import './recommend_page.dart';
+import './test_page.dart';
 
 List<Widget> tabList;
 TabController _tabController;
@@ -47,27 +48,29 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            TabBar(
-              tabs: tabList,
-              isScrollable: true,
-              controller: _tabController,
-              indicatorColor: selectColor,
-              labelColor: selectColor,
-              labelStyle: selectStyle,
-              unselectedLabelColor: unselectedColor,
-              unselectedLabelStyle: unselectedStyle,
-              indicatorSize: TabBarIndicatorSize.label,
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-              child: Text("Search Bar"),
-            ),
-          ],
-        ));
+      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          TabBar(
+            tabs: tabList,
+            isScrollable: true,
+            controller: _tabController,
+            indicatorColor: selectColor,
+            labelColor: selectColor,
+            labelStyle: selectStyle,
+            unselectedLabelColor: unselectedColor,
+            unselectedLabelStyle: unselectedStyle,
+            indicatorSize: TabBarIndicatorSize.label,
+          ),
+          Container(
+            height: 120,
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+            child: Text("Search Bar"),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -111,6 +114,7 @@ class FlutterTabBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     var viewList = [
       AttentionPage(),
+      // XBTestPage(),
       RecommendPage(),
       CityPage(),
     ];
