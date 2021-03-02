@@ -36,7 +36,7 @@ dependencies:
   scrollable_positioned_list: ^0.1.10  # 滚动指定位置的 listView
   sticky_headers: "^0.1.8"  # 吸顶效果
   provider: ^4.3.3  ## provider 
-
+  flutter_sticky_header: ^0.5.0 # header
 
 dev_dependencies:
   flutter_test:
@@ -61,24 +61,26 @@ flutter:
   assets:
     ## images
 
-    - images/image_demo.jpg
-    - images/ic_notificate.png
-    - images/ic_setting.png
-    - images/ic_navibar_setting.png
-    - images/refresh_loading.png 
-    - images/refresh_normal.png
-    - images/refresh_pulling.png
-
+    # - images/image_demo.jpg
+    # - images/ic_notificate.png
+    # - images/ic_setting.png
+    # - images/ic_navibar_setting.png
+    # - images/refresh_loading.png 
+    # - images/refresh_normal.png
+    # - images/refresh_pulling.png
+    - images/
     ## jsons 
-    - assets/fun1.json 
-    - assets/fun2.json 
-    - assets/fun3.json 
-    - assets/fun4.json 
-    - assets/fun5.json 
-    - assets/fun6.json 
-    - assets/fun7.json 
-    - assets/fun8.json 
-  #   - images/a_dot_ham.jpeg
+    - assets/
+    - mock/
+
+    # - assets/fun1.json 
+    # - assets/fun2.json 
+    # - assets/fun3.json 
+    # - assets/fun4.json 
+    # - assets/fun5.json 
+    # - assets/fun6.json 
+    # - assets/fun7.json 
+    # - assets/fun8.json 
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

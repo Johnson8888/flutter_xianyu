@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-01 17:31:48
+ * @LastEditTime: 2021-03-02 08:59:11
  * @Support: http://fulade.me
  */
 // 推荐页面
@@ -44,18 +44,19 @@ class MySliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-        color: Colors.blue,
-        alignment: Alignment.center,
-        child: Text('我是一个SliverPersistentHeader',
-            style: TextStyle(color: Colors.white)));
+      color: Colors.blue,
+      alignment: Alignment.center,
+      child: Text(
+        '我是一个SliverPersistentHeader',
+        style: TextStyle(color: Colors.white),
+      ),
+    );
   }
 
   @override
-  double get maxExtent => 80.0;
-
+  double get maxExtent => 250.0;
   @override
-  double get minExtent => 60.0;
-
+  double get minExtent => 240.0;
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) =>
       false; // 如果内容需要更新，设置为true

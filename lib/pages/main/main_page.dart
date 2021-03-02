@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-01 17:33:19
+ * @LastEditTime: 2021-03-02 11:25:09
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -13,6 +13,7 @@ import './city_page.dart';
 import './attention_page.dart';
 import './recommend_page.dart';
 import './test_page.dart';
+import 'package:flutter_xianyu/home/fsHomePage.dart';
 
 List<Widget> tabList;
 TabController _tabController;
@@ -115,7 +116,8 @@ class FlutterTabBarView extends StatelessWidget {
     var viewList = [
       AttentionPage(),
       // XBTestPage(),
-      RecommendPage(),
+      // RecommendPage(),
+      FSHomePage(),
       CityPage(),
     ];
     return TabBarView(

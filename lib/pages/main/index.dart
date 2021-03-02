@@ -5,3 +5,4 @@
  * @Support: http://fulade.me
  */
 export 'main_page.dart';
+export 'recommend_page.dart';

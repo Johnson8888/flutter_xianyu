@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_xianyu/pages/fun/index.dart';
+import 'package:flutter_xianyu/pages/main/index.dart';
 import 'package:flutter_xianyu/pages/main/main_page.dart';
 import './pages/fun/index.dart';
 import './pages/message/index.dart';
 import './pages/my/index.dart';
 import './pages/publish/index.dart';
+
+import './home/fsHomePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: AppHome(),
+      // home: FSHomePage(),
     );
   }
 }
