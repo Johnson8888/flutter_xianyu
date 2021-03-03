@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-03 16:11:01
+ * @LastEditTime: 2021-03-03 16:34:00
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
             indicatorSize: TabBarIndicatorSize.label,
           ),
           Container(
-            height: 120,
+            height: 45,
             padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
             child: Text("Search Bar"),
           ),

@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-03 16:14:26
+ * @LastEditTime: 2021-03-03 16:28:37
  * @Support: http://fulade.me
  */
 // 推荐页面
@@ -116,13 +116,24 @@ class _RecommendPageState extends State<RecommendPage>
                     return element.itemLeadingEdge >= 0 &&
                         element.itemTrailingEdge <= 1;
                   });
-
                   itemScrollController.scrollTo(
                       index: 0,
                       duration: Duration(seconds: 1),
                       curve: Curves.easeInOutCubic);
                 },
                 child: Text("热门活动"),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 30,
+              child: ScrollablePositionedList.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 500,
+                itemBuilder: (context, index) => Text('Item $index'),
+                itemScrollController: itemScrollController,
+                itemPositionsListener: itemPositionsListener,
               ),
             ),
           ),
