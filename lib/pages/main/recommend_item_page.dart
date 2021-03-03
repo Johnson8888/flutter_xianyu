@@ -2,8 +2,8 @@ import 'package:flutter_xianyu/home/Network.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'fsHomeGoodItem.dart';
-import 'fsHomeGoodModel.dart';
+import 'package:flutter_xianyu/home/List/fsHomeGoodItem.dart';
+import 'package:flutter_xianyu/home/List/fsHomeGoodModel.dart';
 
 enum LoadingState {
   nona,
@@ -11,18 +11,18 @@ enum LoadingState {
   noMore,
 }
 
-class FHHomeGoodGrid extends StatefulWidget {
-  FHHomeGoodGrid({Key key, this.categoryType}) : super(key: key);
+class RecommendItemPage extends StatefulWidget {
+  RecommendItemPage({Key key, this.categoryType}) : super(key: key);
 
   final String categoryType;
 
   @override
   State<StatefulWidget> createState() {
-    return _FHHomeGoodGridState();
+    return _RecommendItemPageState();
   }
 }
 
-class _FHHomeGoodGridState extends State<FHHomeGoodGrid>
+class _RecommendItemPageState extends State<RecommendItemPage>
     with AutomaticKeepAliveClientMixin {
   int page = 0;
   LoadingState loadingState = LoadingState.nona;
@@ -56,53 +56,53 @@ class _FHHomeGoodGridState extends State<FHHomeGoodGrid>
       child: Builder(
         builder: (BuildContext context) {
           return NotificationListener<ScrollEndNotification>(
-              onNotification: (ScrollEndNotification scroll) {
-                if (scroll.metrics.pixels == scroll.metrics.maxScrollExtent) {
-                  print("scroll to end");
-                  fetchMoreData();
-                }
-                return false;
-              },
-              child: Container(
-                color: Colors.grey[100],
-                child: CustomScrollView(
-                  key: PageStorageKey(widget.categoryType),
-                  slivers: <Widget>[
-                    // 顶部偏移量
-                    SliverOverlapInjector(
-                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                          context),
-                    ),
+            onNotification: (ScrollEndNotification scroll) {
+              if (scroll.metrics.pixels == scroll.metrics.maxScrollExtent) {
+                print("scroll to end");
+                fetchMoreData();
+              }
+              return false;
+            },
+            child: Container(
+              color: Colors.grey[100],
+              child: CustomScrollView(
+                key: PageStorageKey(widget.categoryType),
+                slivers: <Widget>[
+                  // 顶部偏移量
+                  SliverOverlapInjector(
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        context),
+                  ),
 
-                    // 商品列表
-                    SliverPadding(
-                      padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-                      sliver: SliverStaggeredGrid.countBuilder(
-                        crossAxisCount: 4,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        itemCount: datas.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return FHHomeGoodItem(
-                            model: datas[index],
-                          );
-                        },
-                        staggeredTileBuilder: (int index) {
-                          return StaggeredTile.fit(2);
-                        },
-                      ),
+                  // 商品列表
+                  SliverPadding(
+                    padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+                    sliver: SliverStaggeredGrid.countBuilder(
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      itemCount: datas.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return FHHomeGoodItem(
+                          model: datas[index],
+                        );
+                      },
+                      staggeredTileBuilder: (int index) {
+                        return StaggeredTile.fit(2);
+                      },
                     ),
-
-                    // 刷新控件
-                    buildLoadingWidget(),
-                  ],
-                ),
-              ));
+                  ),
+                  // 刷新控件
+                  buildLoadingWidget(),
+                ],
+              ),
+            ),
+          );
         },
       ),
     );
   }
-  /*
+
   Widget buildGrid() {
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -124,7 +124,6 @@ class _FHHomeGoodGridState extends State<FHHomeGoodGrid>
       ),
     );
   }
-  */
 
   Widget buildProgressIndicator() {
     if (page < 3) {
@@ -209,7 +208,7 @@ class _FHHomeGoodGridState extends State<FHHomeGoodGrid>
         if (!mounted) {
           return;
         }
-
+        print("goods " + goods.toString());
         setState(() {
           datas.addAll(goods);
           loadingState = LoadingState.nona;
