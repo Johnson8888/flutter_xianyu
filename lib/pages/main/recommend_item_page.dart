@@ -1,9 +1,6 @@
-import 'package:flutter_xianyu/home/Network.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_xianyu/home/List/fsHomeGoodItem.dart';
-import 'package:flutter_xianyu/home/List/fsHomeGoodModel.dart';
 
 enum LoadingState {
   nona,
@@ -27,7 +24,7 @@ class _RecommendItemPageState extends State<RecommendItemPage>
   int page = 0;
   LoadingState loadingState = LoadingState.nona;
   bool isPerformingRequest = false;
-  List<FHHomeGoodModel> datas = [];
+  List datas = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -81,16 +78,41 @@ class _RecommendItemPageState extends State<RecommendItemPage>
                       crossAxisCount: 4,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      itemCount: datas.length,
+                      itemCount: 10,
                       itemBuilder: (BuildContext context, int index) {
-                        return FHHomeGoodItem(
-                          model: datas[index],
-                        );
+                        return Container(
+                            color: Colors.green,
+                            child: Center(
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                child: Text('$index'),
+                              ),
+                            ));
                       },
                       staggeredTileBuilder: (int index) {
-                        return StaggeredTile.fit(2);
+                        return StaggeredTile.count(2, index.isEven ? 2 : 1);
                       },
                     ),
+
+                    //                 StaggeredGridView.countBuilder(
+                    //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    //   crossAxisCount: 4,
+                    //   shrinkWrap: true,
+                    //   primary: false,
+                    //   itemCount: 28,
+                    // itemBuilder: (BuildContext context, int index) => new Container(
+                    //     color: Colors.green,
+                    //     child: Center(
+                    //       child: CircleAvatar(
+                    //         backgroundColor: Colors.white,
+                    //         child: Text('$index'),
+                    //       ),
+                    //     )),
+                    //   staggeredTileBuilder: (int index) =>
+                    //       StaggeredTile.count(2, index.isEven ? 2 : 1),
+                    //   mainAxisSpacing: 4.0,
+                    //   crossAxisSpacing: 4.0,
+                    // );
                   ),
                   // 刷新控件
                   buildLoadingWidget(),
@@ -104,25 +126,42 @@ class _RecommendItemPageState extends State<RecommendItemPage>
   }
 
   Widget buildGrid() {
-    return SliverGrid(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          childAspectRatio: 2),
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          if (index < datas.length) {
-            return FHHomeGoodItem(
-              model: datas[index],
-            );
-          } else {
-            return buildProgressIndicator();
-          }
-        },
-        childCount: datas.length + 1,
-      ),
+    return StaggeredGridView.countBuilder(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      crossAxisCount: 4,
+      shrinkWrap: true,
+      primary: false,
+      itemCount: 28,
+      itemBuilder: (BuildContext context, int index) => new Container(
+          color: Colors.green,
+          child: Center(
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Text('$index'),
+            ),
+          )),
+      staggeredTileBuilder: (int index) =>
+          StaggeredTile.count(2, index.isEven ? 2 : 1),
+      mainAxisSpacing: 4.0,
+      crossAxisSpacing: 4.0,
     );
+    // return SliverGrid(
+    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    //       crossAxisCount: 2,
+    //       crossAxisSpacing: 10,
+    //       mainAxisSpacing: 10,
+    //       childAspectRatio: 2),
+    //   delegate: SliverChildBuilderDelegate(
+    //     (BuildContext context, int index) {
+    //       if (index < datas.length) {
+    //         return Container();
+    //       } else {
+    //         return buildProgressIndicator();
+    //       }
+    //     },
+    //     childCount: datas.length + 1,
+    //   ),
+    // );
   }
 
   Widget buildProgressIndicator() {
@@ -198,12 +237,12 @@ class _RecommendItemPageState extends State<RecommendItemPage>
         loadingState = LoadingState.loading;
       });
 
-      var responseJson = await EDCRequest.get(action: "fish_goods");
-      List<FHHomeGoodModel> goods = [];
-      responseJson.forEach((data) {
-        goods.add(FHHomeGoodModel.fromJSON(data));
-      });
-
+      // var responseJson = await EDCRequest.get(action: "fish_goods");
+      // List<FHHomeGoodModel> goods = [];
+      // responseJson.forEach((data) {
+      //   goods.add(FHHomeGoodModel.fromJSON(data));
+      // });
+      List goods = [];
       Future.delayed(Duration(seconds: 2), () {
         if (!mounted) {
           return;

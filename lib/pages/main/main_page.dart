@@ -12,8 +12,6 @@ import 'dart:async';
 import './city_page.dart';
 import './attention_page.dart';
 import './recommend_page.dart';
-import './test_page.dart';
-import 'package:flutter_xianyu/home/fsHomePage.dart';
 
 List<Widget> tabList;
 TabController _tabController;

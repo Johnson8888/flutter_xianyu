@@ -7,8 +7,6 @@ import './pages/message/index.dart';
 import './pages/my/index.dart';
 import './pages/publish/index.dart';
 
-import './home/fsHomePage.dart';
-
 void main() {
   runApp(MyApp());
 }

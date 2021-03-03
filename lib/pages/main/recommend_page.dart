@@ -1,15 +1,13 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-03 16:12:39
+ * @LastEditTime: 2021-03-03 16:14:26
  * @Support: http://fulade.me
  */
 // 推荐页面
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import './recommend_item_page.dart';
-import 'package:flutter_xianyu/home/List/fsHomeGoodGrid.dart';
 
 class RecommendPage extends StatefulWidget {
   @override
