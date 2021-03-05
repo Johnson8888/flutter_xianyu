@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-03 16:34:00
+ * @LastEditTime: 2021-03-03 16:50:37
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -113,9 +113,7 @@ class FlutterTabBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     var viewList = [
       AttentionPage(),
-      // XBTestPage(),
       RecommendPage(),
-      // FSHomePage(),
       CityPage(),
     ];
     return TabBarView(
@@ -132,13 +130,14 @@ class Page1 extends StatelessWidget {
       crossAxisCount: 4,
       itemCount: 28,
       itemBuilder: (BuildContext context, int index) => new Container(
-          color: Colors.green,
-          child: Center(
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Text('$index'),
-            ),
-          )),
+        color: Colors.green,
+        child: Center(
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: Text('$index'),
+          ),
+        ),
+      ),
       staggeredTileBuilder: (int index) =>
           StaggeredTile.count(2, index.isEven ? 2 : 1),
       mainAxisSpacing: 4.0,
