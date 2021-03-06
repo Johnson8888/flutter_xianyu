@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-03 16:50:37
+ * @LastEditTime: 2021-03-05 19:39:03
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'dart:async';
 import './city_page.dart';
 import './attention_page.dart';
 import './recommend_page.dart';
+import './test_page.dart';
 
 List<Widget> tabList;
 TabController _tabController;
@@ -112,7 +113,8 @@ class FlutterTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewList = [
-      AttentionPage(),
+      // AttentionPage(),
+      TestPage(),
       RecommendPage(),
       CityPage(),
     ];

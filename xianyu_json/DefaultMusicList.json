@@ -1,0 +1,34 @@
+{
+  "musicDefault":[
+    {
+      "musicName":"欢快-Spring In My Step",
+      "musicUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E6%AC%A2%E5%BF%AB-Spring+In+My+Step%2F1%E6%AC%A2%E5%BF%AB-Spring+In+My+Step.mp3",
+      "musicMd5":"0DB51BE7082E3F585C3E30D0E50B180E",
+      "coverUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E6%AC%A2%E5%BF%AB-Spring+In+My+Step%2FSpring+In+My+Step-cover.jpg"
+    },
+    {
+      "musicName":"舒缓-Ukulele Beach",
+      "musicUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E8%88%92%E7%BC%93-Ukulele+Beach%2F2%E8%88%92%E7%BC%93-Ukulele+Beach.mp3",
+      "musicMd5":"AA1BEF9CFB2B0E1488857CB45AE2A443",
+      "coverUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E8%88%92%E7%BC%93-Ukulele+Beach%2FUkulele+Beach-cover.jpg"
+    },
+    {
+      "musicName":"动感-About That Oldie",
+      "musicUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E5%8A%A8%E6%84%9F-About+That+Oldie%2F3%E5%8A%A8%E6%84%9F-About+That+Oldie.mp3",
+      "musicMd5":"512E6AED2E88F01F5B7AB877006C8BE9",
+      "coverUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E5%8A%A8%E6%84%9F-About+That+Oldie%2FAbout+That+Oldie-cover.jpg"
+    },
+    {
+      "musicName":"舒缓-Every_Step",
+      "musicUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E8%88%92%E7%BC%93-Every_Step%2F4+%E8%88%92%E7%BC%93-Every_Step.mp3",
+      "musicMd5":"5410F4C2BBCC1FA086187167BD441F97",
+      "coverUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E8%88%92%E7%BC%93-Every_Step%2F%E8%88%92%E7%BC%93-Every_Step-cover.jpg"
+    },
+    {
+      "musicName":"轻松-Tracks Of My Fears",
+      "musicUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E8%BD%BB%E6%9D%BE-Tracks+Of+My+Fears+%2F5%E8%BD%BB%E6%9D%BE-Tracks+Of+My+Fears+.mp3",
+      "musicMd5":"B1B660ED96DB022BE36F53CAFB894267",
+      "coverUrl":"http://idleimage.oss-cn-hangzhou.aliyuncs.com/music%2F%E8%BD%BB%E6%9D%BE-Tracks+Of+My+Fears+%2FTracks+Of+My+Fears-cover.jpg"
+    }
+  ]
+}

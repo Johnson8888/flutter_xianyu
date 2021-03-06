@@ -1,0 +1,43 @@
+{
+    "registerApi": [
+        {
+            "moduleName": "video",
+            "moduleClass": "WMLAppVideo",
+            "methods": {
+                "chooseVideo": {
+                    "version": "0.0.1",
+                    "params": {
+                        "sourceType": true,
+                        "saveVideoToPhotosAlbum": true,
+                        "maxDuration": true,
+                        "camera": true
+                    },
+                    "success": {
+                        "apFilePath": true,
+                        "duration": true,
+                        "size": true,
+                        "height": true,
+                        "width": true
+                    },
+                    "fail": {}
+                },
+                "getVideoInfo": {
+                    "version": "0.0.1",
+                    "params": {
+                        "videoUrl": true
+                    },
+                    "success": {},
+                    "fail": {}
+                },
+                "saveVideoToPhotosAlbum": {
+                    "version": "0.0.1",
+                    "params": {
+                        "filePath": true
+                    },
+                    "success": {},
+                    "fail": {}
+                }
+            }
+        }
+    ]
+}

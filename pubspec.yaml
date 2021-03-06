@@ -70,7 +70,7 @@ flutter:
     - images/
     ## jsons 
     - assets/
-    - mock/
+    - xianyu_json/
 
     # - assets/fun1.json 
     # - assets/fun2.json 

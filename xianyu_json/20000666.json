@@ -1,0 +1,6 @@
+[
+ {
+    "needAuth": false,
+    "args":["verifyId,optional","token,optional"]
+ }
+]
