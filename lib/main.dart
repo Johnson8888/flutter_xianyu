@@ -69,68 +69,70 @@ class AppHomeState extends State<AppHome> {
   Widget build(BuildContext context) {
     final iconImageSpace = 22.0;
     return Scaffold(
-        body: pageMap[this.currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          selectedFontSize: 11,
-          unselectedFontSize: 11,
-          onTap: (index) {
-            this.setState(() {
-              this.currentIndex = index;
-            });
-          },
-          currentIndex: currentIndex,
-          type: BottomNavigationBarType.fixed,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "images/ic_tabbar_home-top_nor@3x.png",
-                width: iconImageSpace,
-                height: iconImageSpace,
-              ),
-              title: Text('闲鱼'),
-              activeIcon: Image.asset(
-                "images/ic_tabbar_home_sel@3x.png",
-                width: iconImageSpace,
-                height: iconImageSpace,
-              ),
+      body: pageMap[this.currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        selectedFontSize: 11,
+        unselectedFontSize: 11,
+        onTap: (index) {
+          this.setState(() {
+            this.currentIndex = index;
+          });
+        },
+        currentIndex: currentIndex,
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              "images/ic_tabbar_home-top_nor@3x.png",
+              width: iconImageSpace,
+              height: iconImageSpace,
             ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "images/ic_tabbar_niceplay_nor@3x.png",
-                width: iconImageSpace,
-                height: iconImageSpace,
-              ),
-              title: Text('会玩'),
-              activeIcon: Image.asset(
-                "images/ic_tabbar_niceplay_sel@3x.png",
-                width: iconImageSpace,
-                height: iconImageSpace,
-              ),
+            title: Text('闲鱼'),
+            activeIcon: Image.asset(
+              "images/ic_tabbar_home_sel@3x.png",
+              width: iconImageSpace,
+              height: iconImageSpace,
             ),
-            BottomNavigationBarItem(
-              title: Text(''),
-              icon: Stack(
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              "images/ic_tabbar_niceplay_nor@3x.png",
+              width: iconImageSpace,
+              height: iconImageSpace,
+            ),
+            title: Text('会玩'),
+            activeIcon: Image.asset(
+              "images/ic_tabbar_niceplay_sel@3x.png",
+              width: iconImageSpace,
+              height: iconImageSpace,
+            ),
+          ),
+          BottomNavigationBarItem(
+            title: Text(''),
+            icon: SizedBox(
+              width: 30,
+              height: 30,
+              child: Stack(
                 overflow: Overflow.visible,
+                alignment: Alignment.center,
                 children: <Widget>[
-                  const Icon(Icons.hourglass_bottom_sharp),
                   Positioned(
-                    height: 30,
-                    width: 30,
-                    top: 5.0,
+                    top: 3.0,
                     child: Container(
                       child: Image.asset(
                         "images/ic_tabbar_release@3x.png",
-                        width: 30,
-                        height: 30,
+                        width: 35,
+                        height: 35,
                       ),
                     ),
                   ),
                 ],
               ),
-              /*Positioned(
+            ),
+            /*Positioned(
                 //padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                 //color: Colors.red,
                 top: 20,
@@ -141,35 +143,36 @@ class AppHomeState extends State<AppHome> {
                 ),
               ),
               */
+          ),
+          BottomNavigationBarItem(
+            // ic_tabbar_message_nor@3x.png
+            icon: Image.asset(
+              "images/ic_tabbar_message_nor@3x.png",
+              width: iconImageSpace,
+              height: iconImageSpace,
             ),
-            BottomNavigationBarItem(
-              // ic_tabbar_message_nor@3x.png
-              icon: Image.asset(
-                "images/ic_tabbar_message_nor@3x.png",
-                width: iconImageSpace,
-                height: iconImageSpace,
-              ),
-              title: Text('消息'),
-              activeIcon: Image.asset(
-                "images/ic_tabbar_message_sel@3x.png",
-                width: iconImageSpace,
-                height: iconImageSpace,
-              ),
+            title: Text('消息'),
+            activeIcon: Image.asset(
+              "images/ic_tabbar_message_sel@3x.png",
+              width: iconImageSpace,
+              height: iconImageSpace,
             ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "images/ic_tabbar_mine_nor@3x.png",
-                width: iconImageSpace,
-                height: iconImageSpace,
-              ),
-              title: Text('我的'),
-              activeIcon: Image.asset(
-                "images/ic_tabbar_mine_sel@3x.png",
-                width: iconImageSpace,
-                height: iconImageSpace,
-              ),
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              "images/ic_tabbar_mine_nor@3x.png",
+              width: iconImageSpace,
+              height: iconImageSpace,
             ),
-          ],
-        ));
+            title: Text('我的'),
+            activeIcon: Image.asset(
+              "images/ic_tabbar_mine_sel@3x.png",
+              width: iconImageSpace,
+              height: iconImageSpace,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
