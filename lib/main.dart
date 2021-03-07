@@ -6,6 +6,7 @@ import './pages/fun/index.dart';
 import './pages/message/index.dart';
 import './pages/my/index.dart';
 import './pages/publish/index.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
+        highlightColor: Color.fromRGBO(0, 0, 0, 0),
+        splashColor: Color.fromRGBO(0, 0, 0, 0),
+
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -63,45 +67,107 @@ class AppHomeState extends State<AppHome> {
 
   @override
   Widget build(BuildContext context) {
+    final iconImageSpace = 22.0;
     return Scaffold(
         body: pageMap[this.currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.white,
-          selectedItemColor: Colors.red,
+          selectedItemColor: Colors.black,
           unselectedItemColor: Colors.grey,
-          showUnselectedLabels: true,
-          onTap: (event) {
+          selectedFontSize: 11,
+          unselectedFontSize: 11,
+          onTap: (index) {
             this.setState(() {
-              this.currentIndex = event;
+              this.currentIndex = index;
             });
           },
           currentIndex: currentIndex,
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Image.asset(
+                "images/ic_tabbar_home-top_nor@3x.png",
+                width: iconImageSpace,
+                height: iconImageSpace,
+              ),
               title: Text('闲鱼'),
-              activeIcon: Icon(Icons.home),
+              activeIcon: Image.asset(
+                "images/ic_tabbar_home_sel@3x.png",
+                width: iconImageSpace,
+                height: iconImageSpace,
+              ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.apps),
+              icon: Image.asset(
+                "images/ic_tabbar_niceplay_nor@3x.png",
+                width: iconImageSpace,
+                height: iconImageSpace,
+              ),
               title: Text('会玩'),
-              activeIcon: Icon(Icons.view_quilt),
+              activeIcon: Image.asset(
+                "images/ic_tabbar_niceplay_sel@3x.png",
+                width: iconImageSpace,
+                height: iconImageSpace,
+              ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.near_me),
               title: Text(''),
-              activeIcon: Icon(Icons.navigation),
+              icon: Stack(
+                overflow: Overflow.visible,
+                children: <Widget>[
+                  const Icon(Icons.hourglass_bottom_sharp),
+                  Positioned(
+                    height: 30,
+                    width: 30,
+                    top: 5.0,
+                    child: Container(
+                      child: Image.asset(
+                        "images/ic_tabbar_release@3x.png",
+                        width: 30,
+                        height: 30,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              /*Positioned(
+                //padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                //color: Colors.red,
+                top: 20,
+                child: Image.asset(
+                  "images/ic_tabbar_release@3x.png",
+                  width: 30,
+                  height: 30,
+                ),
+              ),
+              */
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
+              // ic_tabbar_message_nor@3x.png
+              icon: Image.asset(
+                "images/ic_tabbar_message_nor@3x.png",
+                width: iconImageSpace,
+                height: iconImageSpace,
+              ),
               title: Text('消息'),
-              activeIcon: Icon(Icons.shopping_cart),
+              activeIcon: Image.asset(
+                "images/ic_tabbar_message_sel@3x.png",
+                width: iconImageSpace,
+                height: iconImageSpace,
+              ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
+              icon: Image.asset(
+                "images/ic_tabbar_mine_nor@3x.png",
+                width: iconImageSpace,
+                height: iconImageSpace,
+              ),
               title: Text('我的'),
-              activeIcon: Icon(Icons.face),
+              activeIcon: Image.asset(
+                "images/ic_tabbar_mine_sel@3x.png",
+                width: iconImageSpace,
+                height: iconImageSpace,
+              ),
             ),
           ],
         ));
