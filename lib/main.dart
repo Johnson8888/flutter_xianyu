@@ -78,7 +78,9 @@ class AppHomeState extends State<AppHome> {
         unselectedFontSize: 11,
         onTap: (index) {
           this.setState(() {
-            this.currentIndex = index;
+            if (index != 2) {
+              this.currentIndex = index;
+            }
           });
         },
         currentIndex: currentIndex,
@@ -132,17 +134,6 @@ class AppHomeState extends State<AppHome> {
                 ],
               ),
             ),
-            /*Positioned(
-                //padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                //color: Colors.red,
-                top: 20,
-                child: Image.asset(
-                  "images/ic_tabbar_release@3x.png",
-                  width: 30,
-                  height: 30,
-                ),
-              ),
-              */
           ),
           BottomNavigationBarItem(
             // ic_tabbar_message_nor@3x.png

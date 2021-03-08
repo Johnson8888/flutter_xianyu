@@ -1,10 +1,11 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-19 18:07:42
- * @LastEditTime: 2021-03-07 22:32:36
+ * @LastEditTime: 2021-03-08 17:15:31
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
+import 'package:flutter_xianyu/common/colors.dart';
 
 class PublishPage extends StatefulWidget {
   @override
@@ -19,14 +20,13 @@ class _PublishPageState extends State<PublishPage> {
     return Scaffold(
       body: Container(
         decoration: new BoxDecoration(
-          color: Colors.yellow,
+          color: Color(0xff333333),
         ),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
             Container(
-              color: Colors.red,
               height: 120,
             ),
             Flexible(
@@ -36,12 +36,12 @@ class _PublishPageState extends State<PublishPage> {
                 children: [
                   Container(
                     padding: EdgeInsets.fromLTRB(paddingLeft, 0, 0, 0),
-                    color: Colors.red,
+                    // color: Colors.red,
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       children: [
                         Image.asset(
-                          "images/image_demo.jpg",
+                          "images/img_7.png",
                           width: 60,
                           height: 60,
                         ),
@@ -49,9 +49,22 @@ class _PublishPageState extends State<PublishPage> {
                           padding:
                               EdgeInsets.fromLTRB(textPaddingLeft, 0, 0, 0),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("发会玩贴子"),
-                              Text("分享你的趣事"),
+                              Text(
+                                "发会玩贴子",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "分享你的趣事",
+                                style: TextStyle(
+                                  color: mPublishTextColor,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -61,11 +74,11 @@ class _PublishPageState extends State<PublishPage> {
                   Container(
                     padding: EdgeInsets.fromLTRB(paddingLeft, 0, 0, 0),
                     width: MediaQuery.of(context).size.width,
-                    color: Colors.blue,
+                    // color: Colors.blue,
                     child: Row(
                       children: [
                         Image.asset(
-                          "images/image_demo.jpg",
+                          "images/img_7.png",
                           width: 60,
                           height: 60,
                         ),
@@ -73,9 +86,22 @@ class _PublishPageState extends State<PublishPage> {
                           padding:
                               EdgeInsets.fromLTRB(textPaddingLeft, 0, 0, 0),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("发会玩贴子"),
-                              Text("分享你的趣事"),
+                              Text(
+                                "淘宝转卖",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "淘宝宝贝一键转卖",
+                                style: TextStyle(
+                                  color: mPublishTextColor,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -85,11 +111,11 @@ class _PublishPageState extends State<PublishPage> {
                   Container(
                     padding: EdgeInsets.fromLTRB(paddingLeft, 0, 0, 0),
                     width: MediaQuery.of(context).size.width,
-                    color: Colors.red,
+                    // color: Colors.red,
                     child: Row(
                       children: [
                         Image.asset(
-                          "images/image_demo.jpg",
+                          "images/img_7.png",
                           width: 60,
                           height: 60,
                         ),
@@ -97,9 +123,22 @@ class _PublishPageState extends State<PublishPage> {
                           padding:
                               EdgeInsets.fromLTRB(textPaddingLeft, 0, 0, 0),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("发会玩贴子"),
-                              Text("分享你的趣事"),
+                              Text(
+                                "省心卖",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "平台帮卖免沟通 48小时必卖",
+                                style: TextStyle(
+                                  color: mPublishTextColor,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -109,11 +148,11 @@ class _PublishPageState extends State<PublishPage> {
                   Container(
                     padding: EdgeInsets.fromLTRB(paddingLeft, 0, 0, 0),
                     width: MediaQuery.of(context).size.width,
-                    color: Colors.blue,
+                    // color: Colors.blue,
                     child: Row(
                       children: [
                         Image.asset(
-                          "images/image_demo.jpg",
+                          "images/img_7.png",
                           width: 60,
                           height: 60,
                         ),
@@ -121,9 +160,22 @@ class _PublishPageState extends State<PublishPage> {
                           padding:
                               EdgeInsets.fromLTRB(textPaddingLeft, 0, 0, 0),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("发会玩贴子"),
-                              Text("分享你的趣事"),
+                              Text(
+                                "发闲置",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "30s发布宝贝",
+                                style: TextStyle(
+                                  color: mPublishTextColor,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -132,9 +184,26 @@ class _PublishPageState extends State<PublishPage> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    color: Colors.blue,
                     alignment: Alignment.center,
-                    child: Text("Close"),
+                    child: FlatButton(
+                      child: Container(
+                        width: 38,
+                        height: 38,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15),
+                          ), // 也可控件一边圆角大小
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          child: Image.asset(
+                            "images/ic_publish_close@3x.png",
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
                   ),
                 ],
               ),
