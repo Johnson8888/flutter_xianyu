@@ -7,6 +7,7 @@ import './pages/message/index.dart';
 import './pages/my/index.dart';
 import './pages/publish/index.dart';
 import 'package:lottie/lottie.dart';
+import './common/colors.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,6 +53,8 @@ class AppHome extends StatefulWidget {
 class AppHomeState extends State<AppHome> {
   int currentIndex = 0;
   Widget currentView;
+  var weixinOverlayEntry = null;
+
   Map<int, Widget> pageMap = {
     0: MainPage(),
     1: FunPage(),
@@ -80,6 +83,8 @@ class AppHomeState extends State<AppHome> {
           this.setState(() {
             if (index != 2) {
               this.currentIndex = index;
+            } else {
+              showWeixinButtonView();
             }
           });
         },
@@ -165,5 +170,122 @@ class AppHomeState extends State<AppHome> {
         ],
       ),
     );
+  }
+
+  void showWeixinButtonView() {
+    weixinOverlayEntry = OverlayEntry(builder: (context) {
+      return Scaffold(
+        body: Container(
+          decoration: new BoxDecoration(
+            color: Color(0xff333333),
+          ),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Container(
+                height: 120,
+              ),
+              Flexible(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _getMenuList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+    Overlay.of(context).insert(weixinOverlayEntry);
+  }
+
+  List<Widget> _getMenuList() {
+    final paddingLeft = 20.0;
+    final textPaddingLeft = 10.0;
+    var data = [
+      {"image": "images/img_7.png", "title": "发会玩贴子", "subTitle": "分享你的趣事"},
+      {"image": "images/img_7.png", "title": "淘宝转卖", "subTitle": "淘宝宝贝一键转卖"},
+      {
+        "image": "images/img_7.png",
+        "title": "省心卖",
+        "subTitle": "平台帮卖免沟通 48小时必卖"
+      },
+      {"image": "images/img_7.png", "title": "发闲置", "subTitle": "30s发布宝贝"},
+    ];
+
+    List<Widget> list = [];
+    data.forEach(
+      (element) {
+        list.add(
+          Container(
+            padding: EdgeInsets.fromLTRB(paddingLeft, 0, 0, 0),
+            width: MediaQuery.of(context).size.width,
+            // color: Colors.red,
+            child: Row(
+              children: [
+                Image.asset(
+                  //"images/img_7.png",
+                  element["image"],
+                  width: 60,
+                  height: 60,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(textPaddingLeft, 0, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        element["title"],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        element["subTitle"],
+                        style: TextStyle(
+                          color: mPublishTextColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    list.add(
+      Container(
+        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.center,
+        child: FlatButton(
+          child: Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ), // 也可控件一边圆角大小
+            ),
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Image.asset(
+                "images/ic_publish_close@3x.png",
+              ),
+            ),
+          ),
+          onPressed: () {
+            this.weixinOverlayEntry.remove();
+          },
+        ),
+      ),
+    );
+    return list;
   }
 }
