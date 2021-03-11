@@ -1,16 +1,21 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-03-10 20:49:30
+ * @LastEditTime: 2021-03-11 20:18:55
  * @Support: http://fulade.me
  */
 /// 关注页面
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:async';
+import 'dart:math';
+import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import './model/attention_item_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
+//// 图片的前缀
+final PIC_URL_PREFIX = "http://pic1.zhuanstatic.com/zhuanzh/";
 
 class AttentionPage extends StatefulWidget {
   @override
@@ -22,15 +27,6 @@ class _AttentionPageState extends State<AttentionPage> {
   @override
   void initState() {
     super.initState();
-
-    getData().then(
-      (data) {
-        setState(() {
-          print(dataList.length);
-          dataList = data;
-        });
-      },
-    );
   }
 
   @override
@@ -70,109 +66,91 @@ class _AttentionPageState extends State<AttentionPage> {
                 padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                 shrinkWrap: true,
                 primary: false,
-                itemExtent: 270,
+                itemExtent: 275,
                 itemBuilder: (context, index) {
                   CommonGood element = dataSource[index];
-                  return Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 200,
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 15, // 头像的半径
-                                  backgroundImage:
-                                      AssetImage('images/image_demo.jpg'),
-                                ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Text(
-                                        element.userName,
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 0),
-                                      child: Text(
-                                        "1天前发布",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(fontSize: 11.0),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Text(
-                              "¥500",
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        child: Text(
-                          "游戏本，关联战神，雷神，外星人，拯救者，飞行堡垒，炫龙玩家，国度等...,游戏本，关联战神，雷神，外星人，拯救者，飞行堡垒，炫龙玩家，国度等...游戏本，关联战神，雷神，外星人，拯救者，飞行堡垒，炫龙玩家，国度等...",
-                          maxLines: 2,
-                          style: TextStyle(fontSize: 13.0),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
+                  return InkWell(
+                    onTap: () {
+                      print(element.title);
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Flexible(
-                              flex: 1,
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                color: Colors.red,
-                                child: Image.asset(
-                                  "images/refresh_normal.png",
-                                  fit: BoxFit.contain,
-                                ),
+                            Container(
+                              width: 200,
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Container(
+                                      child: CachedNetworkImage(
+                                        width: 30,
+                                        height: 30,
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                        imageUrl: element.userPhoto,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 100,
+                                    height: 36,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 18,
+                                          width: 100,
+                                          padding:
+                                              const EdgeInsets.only(left: 10),
+                                          child: Text(
+                                            element.userName,
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 100,
+                                          height: 18,
+                                          padding:
+                                              const EdgeInsets.only(left: 10),
+                                          child: Text(
+                                            _getRandomTimeTag(),
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(fontSize: 11.0),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                            Flexible(
-                              flex: 1,
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                color: Colors.yellow,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Image.asset(
-                                      "images/refresh_normal.png",
-                                      fit: BoxFit.contain,
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.25,
-                                    ),
-                                    Image.asset(
-                                      "images/refresh_normal.png",
-                                      fit: BoxFit.contain,
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.25,
-                                    ),
-                                  ],
-                                ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: Text(
+                                "¥" +
+                                    ((element.infoPrice / 100).toInt())
+                                        .toString(),
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold),
                               ),
-                            )
+                            ),
                           ],
                         ),
-                      )
-                    ],
+                        Container(
+                          child: Text(
+                            element.infoDesc.replaceAll("\n", ""),
+                            maxLines: 2,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontSize: 13.0),
+                          ),
+                        ),
+                        _getImageContainerWithPicList(element.infoCoverList),
+                      ],
+                    ),
                   );
                 },
               );
@@ -224,5 +202,148 @@ class _AttentionPageState extends State<AttentionPage> {
       list.add(co);
     }
     return list;
+  }
+
+  /// 获取 list 列表 内的 图片内容尺寸以及大小
+  Container _getImageContainerWithPicList(List<PicUrl> infoCoverList) {
+    var f1Width = MediaQuery.of(context).size.width;
+    if (infoCoverList.length > 1) {
+      f1Width = MediaQuery.of(context).size.width * 0.5;
+    }
+    Flexible f1 = Flexible(
+      flex: 1,
+      child: Container(
+        width: f1Width,
+        height: 200,
+        color: Colors.red,
+        child: CachedNetworkImage(
+          imageUrl: PIC_URL_PREFIX + infoCoverList.first.picUrl,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
+      ),
+    );
+    //// 当 等于 数组元素 个数 是1 的时候 直接返回
+    if (infoCoverList.length == 1) {
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [f1],
+        ),
+      );
+    }
+
+    /// 当 数组元素 个数 大于 等于 2 的情况
+    Flexible f2 = Flexible(
+      flex: 1,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.5,
+        color: Colors.yellow,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CachedNetworkImage(
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: 200,
+              imageUrl: PIC_URL_PREFIX + infoCoverList[1].picUrl,
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (infoCoverList.length > 2) {
+      print("length == 3");
+      f2 = Flexible(
+        flex: 1,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.5,
+          color: Colors.yellow,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CachedNetworkImage(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: 100,
+                imageUrl: PIC_URL_PREFIX + infoCoverList[1].picUrl,
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+              CachedNetworkImage(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: 100,
+                imageUrl: PIC_URL_PREFIX + infoCoverList[2].picUrl,
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          f1,
+          f2,
+        ],
+      ),
+    );
+  }
+
+  /// 随机一个时间
+  String _getRandomTimeTag() {
+    int value = Random().nextInt(7);
+    if (value == 1) {
+      return "5分钟前";
+    }
+    if (value == 2) {
+      return "10分钟前";
+    }
+    if (value == 3) {
+      return "30分之前";
+    }
+    if (value == 4) {
+      return "1小时前";
+    }
+    if (value == 5) {
+      return "1天前";
+    }
+    int nowSeconds = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
+    int timestamp = nowSeconds - 60 * 60 * 24 * 3;
+    var format = DateFormat('yyyy-MM-dd');
+    var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    return format.format(date);
   }
 }
