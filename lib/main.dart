@@ -53,7 +53,7 @@ class AppHome extends StatefulWidget {
 class AppHomeState extends State<AppHome> {
   int currentIndex = 0;
   Widget currentView;
-  var weixinOverlayEntry = null;
+  var publishOverlayEntry = null;
 
   Map<int, Widget> pageMap = {
     0: MainPage(),
@@ -173,87 +173,109 @@ class AppHomeState extends State<AppHome> {
   }
 
   void showWeixinButtonView() {
-    weixinOverlayEntry = OverlayEntry(builder: (context) {
+    publishOverlayEntry = OverlayEntry(builder: (context) {
       return Scaffold(
-        body: Container(
-          decoration: new BoxDecoration(
-            color: Color(0xff333333),
-          ),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              Container(
-                height: 120,
-              ),
-              Flexible(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: _getMenuList(),
+        body: InkWell(
+          onTap: () {
+            this.publishOverlayEntry.remove();
+          },
+          child: Container(
+            decoration: new BoxDecoration(
+              color: Color(0xff333333),
+            ),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                Container(
+                  height: 120,
                 ),
-              ),
-            ],
+                Flexible(
+                  flex: 2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: _getMenuList(),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
     });
-    Overlay.of(context).insert(weixinOverlayEntry);
+    Overlay.of(context).insert(publishOverlayEntry);
   }
 
+  /// 创建菜单按钮
   List<Widget> _getMenuList() {
     final paddingLeft = 20.0;
     final textPaddingLeft = 10.0;
     var data = [
-      {"image": "images/img_7.png", "title": "发会玩贴子", "subTitle": "分享你的趣事"},
-      {"image": "images/img_7.png", "title": "淘宝转卖", "subTitle": "淘宝宝贝一键转卖"},
+      {
+        "image": "images/img_7.png",
+        "title": "发会玩贴子",
+        "subTitle": "分享你的趣事",
+      },
+      {
+        "image": "images/img_7.png",
+        "title": "淘宝转卖",
+        "subTitle": "淘宝宝贝一键转卖",
+      },
       {
         "image": "images/img_7.png",
         "title": "省心卖",
-        "subTitle": "平台帮卖免沟通 48小时必卖"
+        "subTitle": "平台帮卖免沟通 48小时必卖",
       },
-      {"image": "images/img_7.png", "title": "发闲置", "subTitle": "30s发布宝贝"},
+      {
+        "image": "images/img_7.png",
+        "title": "发闲置",
+        "subTitle": "30s发布宝贝",
+      },
     ];
 
     List<Widget> list = [];
     data.forEach(
       (element) {
         list.add(
-          Container(
-            padding: EdgeInsets.fromLTRB(paddingLeft, 0, 0, 0),
-            width: MediaQuery.of(context).size.width,
-            // color: Colors.red,
-            child: Row(
-              children: [
-                Image.asset(
-                  //"images/img_7.png",
-                  element["image"],
-                  width: 60,
-                  height: 60,
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(textPaddingLeft, 0, 0, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        element["title"],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        element["subTitle"],
-                        style: TextStyle(
-                          color: mPublishTextColor,
-                        ),
-                      ),
-                    ],
+          InkWell(
+            onTap: () {
+              this.publishOverlayEntry.remove();
+            },
+            child: Container(
+              padding: EdgeInsets.fromLTRB(paddingLeft, 0, 0, 0),
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                children: [
+                  Image.asset(
+                    //"images/img_7.png",
+                    element["image"],
+                    width: 60,
+                    height: 60,
                   ),
-                ),
-              ],
+                  Container(
+                    padding: EdgeInsets.fromLTRB(textPaddingLeft, 0, 0, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          element["title"],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          element["subTitle"],
+                          style: TextStyle(
+                            color: mPublishTextColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -281,7 +303,7 @@ class AppHomeState extends State<AppHome> {
             ),
           ),
           onPressed: () {
-            this.weixinOverlayEntry.remove();
+            this.publishOverlayEntry.remove();
           },
         ),
       ),

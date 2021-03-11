@@ -70,7 +70,6 @@ class _RecommendItemPageState extends State<RecommendItemPage>
                     handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
                         context),
                   ),
-
                   // 商品列表
                   SliverPadding(
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
