@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-10 14:39:33
- * @LastEditTime: 2021-03-10 17:24:52
+ * @LastEditTime: 2021-03-11 20:22:36
  * @Support: http://fulade.me
  */
 
@@ -118,6 +118,7 @@ class CommonGood {
       this.cateId,
       this.cateChildId,
       this.dislikeList,
+      this.video,
       this.goodsIndex,
       this.goodsPage,
       this.title,
@@ -142,6 +143,7 @@ class CommonGood {
   int cateId;
   int cateChildId;
   List<DislikeInfo> dislikeList;
+  List<VideoInfo> video;
   int goodsIndex;
   int goodsPage;
   String title;
@@ -188,7 +190,6 @@ class DislikeInfo {
 }
 
 /// specialUserDesc
-
 @JsonSerializable()
 class SpecialUserDesc {
   SpecialUserDesc(this.type, this.desc);
@@ -197,4 +198,15 @@ class SpecialUserDesc {
   factory SpecialUserDesc.fromJson(Map<String, dynamic> json) =>
       _$SpecialUserDescFromJson(json);
   Map<String, dynamic> toJson() => _$SpecialUserDescToJson(this);
+}
+
+@JsonSerializable()
+class VideoInfo {
+  VideoInfo(this.picUrl, this.videoUrl, this.recordTime);
+  String picUrl;
+  String videoUrl;
+  String recordTime;
+  factory VideoInfo.fromJson(Map<String, dynamic> json) =>
+      _$VideoInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$VideoInfoToJson(this);
 }

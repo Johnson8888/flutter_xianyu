@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-03-11 20:18:55
+ * @LastEditTime: 2021-03-11 20:47:06
  * @Support: http://fulade.me
  */
 /// 关注页面
@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import './model/attention_item_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:video_player/video_player.dart';
 
 //// 图片的前缀
 final PIC_URL_PREFIX = "http://pic1.zhuanstatic.com/zhuanzh/";
@@ -23,7 +24,11 @@ class AttentionPage extends StatefulWidget {
 }
 
 class _AttentionPageState extends State<AttentionPage> {
+  /// 记录获取到的数据的数组
   List<CommonGood> dataList = [];
+
+  /// 记录 VideoPlayer 的数组
+  List<Map<String, dynamic>> videoPlayerList = [];
   @override
   void initState() {
     super.initState();
@@ -148,7 +153,8 @@ class _AttentionPageState extends State<AttentionPage> {
                             style: TextStyle(fontSize: 13.0),
                           ),
                         ),
-                        _getImageContainerWithPicList(element.infoCoverList),
+                        _getImageContainerWithPicList(
+                            element.infoCoverList, element.video),
                       ],
                     ),
                   );
@@ -163,6 +169,10 @@ class _AttentionPageState extends State<AttentionPage> {
 
   //// 获取 数据
   Future<List<CommonGood>> getData() async {
+    if (videoPlayerList.length > 0) {
+      videoPlayerList.clear();
+    }
+
     String jsonString = await rootBundle.loadString("assets/attention1.json");
     final jsonResult = json.decode(jsonString);
     //遍历List，并且转成Anchor对象放到另一个List中
@@ -170,8 +180,15 @@ class _AttentionPageState extends State<AttentionPage> {
     for (Map<String, dynamic> map in jsonResult["respData"]["infoData"]) {
       Map<String, dynamic> commonGood = map["commonGoods"];
       CommonGood item = CommonGood.fromJson(commonGood);
-      // print(item.userName);
       data.add(item);
+      if (item.video != null && item.video.length > 0) {
+        final videoPlayer =
+            VideoPlayerController.network(item.video.first.videoUrl);
+        videoPlayer.setLooping(true);
+        final initializeVideoPlayerFuture = videoPlayer.initialize();
+        videoPlayerList
+            .add({"v": videoPlayer, "i": initializeVideoPlayerFuture});
+      }
     }
     return data;
   }
@@ -205,72 +222,46 @@ class _AttentionPageState extends State<AttentionPage> {
   }
 
   /// 获取 list 列表 内的 图片内容尺寸以及大小
-  Container _getImageContainerWithPicList(List<PicUrl> infoCoverList) {
-    var f1Width = MediaQuery.of(context).size.width;
-    if (infoCoverList.length > 1) {
-      f1Width = MediaQuery.of(context).size.width * 0.5;
-    }
-    Flexible f1 = Flexible(
-      flex: 1,
-      child: Container(
-        width: f1Width,
-        height: 200,
-        color: Colors.red,
-        child: CachedNetworkImage(
-          imageUrl: PIC_URL_PREFIX + infoCoverList.first.picUrl,
-          imageBuilder: (context, imageProvider) => Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
-      ),
-    );
-    //// 当 等于 数组元素 个数 是1 的时候 直接返回
-    if (infoCoverList.length == 1) {
-      return Container(
-        width: MediaQuery.of(context).size.width,
-        child: Row(
-          children: [f1],
-        ),
-      );
-    }
-
-    /// 当 数组元素 个数 大于 等于 2 的情况
-    Flexible f2 = Flexible(
-      flex: 1,
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.5,
-        color: Colors.yellow,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CachedNetworkImage(
-              width: MediaQuery.of(context).size.width * 0.5,
-              height: 200,
-              imageUrl: PIC_URL_PREFIX + infoCoverList[1].picUrl,
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
+  Container _getImageContainerWithPicList(
+      List<PicUrl> infoCoverList, List<VideoInfo> videoList) {
+    /// 当不存在视频信息的时候
+    if (videoList == null || videoList.length == 0) {
+      var f1Width = MediaQuery.of(context).size.width;
+      if (infoCoverList.length > 1) {
+        f1Width = MediaQuery.of(context).size.width * 0.5;
+      }
+      Flexible f1 = Flexible(
+        flex: 1,
+        child: Container(
+          width: f1Width,
+          height: 200,
+          color: Colors.red,
+          child: CachedNetworkImage(
+            imageUrl: PIC_URL_PREFIX + infoCoverList.first.picUrl,
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
                 ),
               ),
-              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
-          ],
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
         ),
-      ),
-    );
+      );
+      //// 当 等于 数组元素 个数 是1 的时候 直接返回
+      if (infoCoverList.length == 1) {
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [f1],
+          ),
+        );
+      }
 
-    if (infoCoverList.length > 2) {
-      print("length == 3");
-      f2 = Flexible(
+      /// 当 数组元素 个数 大于 等于 2 的情况
+      Flexible f2 = Flexible(
         flex: 1,
         child: Container(
           width: MediaQuery.of(context).size.width * 0.5,
@@ -280,22 +271,8 @@ class _AttentionPageState extends State<AttentionPage> {
             children: [
               CachedNetworkImage(
                 width: MediaQuery.of(context).size.width * 0.5,
-                height: 100,
+                height: 200,
                 imageUrl: PIC_URL_PREFIX + infoCoverList[1].picUrl,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
-              CachedNetworkImage(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: 100,
-                imageUrl: PIC_URL_PREFIX + infoCoverList[2].picUrl,
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -310,16 +287,89 @@ class _AttentionPageState extends State<AttentionPage> {
           ),
         ),
       );
+
+      if (infoCoverList.length > 2) {
+        print("length == 3");
+        f2 = Flexible(
+          flex: 1,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.5,
+            color: Colors.yellow,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CachedNetworkImage(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: 100,
+                  imageUrl: PIC_URL_PREFIX + infoCoverList[1].picUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+                CachedNetworkImage(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: 100,
+                  imageUrl: PIC_URL_PREFIX + infoCoverList[2].picUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [
+            f1,
+            f2,
+          ],
+        ),
+      );
+    } else {
+      /// 当存在视频信息的时候  需要播放视频
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          children: [
+            Flexible(
+              flex: 1,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 200,
+                color: Colors.red,
+                child: CachedNetworkImage(
+                  imageUrl: PIC_URL_PREFIX + videoList.first.picUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
     }
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        children: [
-          f1,
-          f2,
-        ],
-      ),
-    );
   }
 
   /// 随机一个时间

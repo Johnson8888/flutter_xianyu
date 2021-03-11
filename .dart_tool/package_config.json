@@ -212,6 +212,12 @@
       "languageVersion": "2.2"
     },
     {
+      "name": "flutter_web_plugins",
+      "rootUri": "file:///Users/Joker/flutter/packages/flutter_web_plugins",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "front_end",
       "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/front_end-0.1.19",
       "packageUri": "lib/",
@@ -578,6 +584,24 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "video_player",
+      "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.8"
+    },
+    {
+      "name": "video_player_platform_interface",
+      "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_platform_interface-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.8"
+    },
+    {
+      "name": "video_player_web",
+      "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_web-0.1.4+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.8"
+    },
+    {
       "name": "watcher",
       "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/watcher-0.9.7+15",
       "packageUri": "lib/",
@@ -620,7 +644,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-03-08T00:28:43.333877Z",
+  "generated": "2021-03-11T12:32:50.501187Z",
   "generator": "pub",
   "generatorVersion": "2.10.5"
 }

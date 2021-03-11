@@ -50,6 +50,10 @@ CommonGood _$CommonGoodFromJson(Map<String, dynamic> json) {
               ? null
               : DislikeInfo.fromJson(e as Map<String, dynamic>))
           ?.toList(),
+      (json['video'] as List)
+          ?.map((e) =>
+              e == null ? null : VideoInfo.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
       json['goodsIndex'] as int,
       json['goodsPage'] as int,
       json['title'] as String,
@@ -78,6 +82,7 @@ Map<String, dynamic> _$CommonGoodToJson(CommonGood instance) =>
       'cateId': instance.cateId,
       'cateChildId': instance.cateChildId,
       'dislikeList': instance.dislikeList,
+      'video': instance.video,
       'goodsIndex': instance.goodsIndex,
       'goodsPage': instance.goodsPage,
       'title': instance.title,
@@ -125,3 +130,14 @@ SpecialUserDesc _$SpecialUserDescFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SpecialUserDescToJson(SpecialUserDesc instance) =>
     <String, dynamic>{'type': instance.type, 'desc': instance.desc};
+
+VideoInfo _$VideoInfoFromJson(Map<String, dynamic> json) {
+  return VideoInfo(json['picUrl'] as String, json['videoUrl'] as String,
+      json['recordTime'] as String);
+}
+
+Map<String, dynamic> _$VideoInfoToJson(VideoInfo instance) => <String, dynamic>{
+      'picUrl': instance.picUrl,
+      'videoUrl': instance.videoUrl,
+      'recordTime': instance.recordTime
+    };
