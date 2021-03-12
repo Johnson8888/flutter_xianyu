@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-12 11:10:46
+ * @LastEditTime: 2021-03-12 11:41:39
  * @Support: http://fulade.me
  */
 // 推荐页面
@@ -61,24 +61,96 @@ class _RecommendPageState extends State<RecommendPage>
                       Text(
                         "闲鱼无忧购",
                         style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "包真·包退·包邮",
                         style: TextStyle(color: Color(0xffd6bc77)),
                       ),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Column(
                             children: [
-                              Text("品牌好货"),
-                              Text("299"),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 70,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  color: Color(0xfffce2c5),
+                                  shape: BoxShape.rectangle, // 默认值也是矩形
+                                  borderRadius: BorderRadius.circular(
+                                    (10.0),
+                                  ),
+                                ),
+                                child: Text(
+                                  "品牌好货",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "¥299",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "¥423",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11,
+                                        decoration: TextDecoration.lineThrough),
+                                  )
+                                ],
+                              ),
                             ],
                           ),
                           Column(
                             children: [
-                              Text("品牌好货"),
-                              Text("299"),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 70,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  color: Color(0xfffce2c5),
+                                  shape: BoxShape.rectangle, // 默认值也是矩形
+                                  borderRadius: BorderRadius.circular(
+                                    (10.0),
+                                  ), // 圆角度
+                                ),
+                                child: Text(
+                                  "超值捡漏",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "¥299",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "¥423",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11,
+                                        decoration: TextDecoration.lineThrough),
+                                  )
+                                ],
+                              ),
                             ],
                           )
                         ],
@@ -94,7 +166,7 @@ class _RecommendPageState extends State<RecommendPage>
                       Text(
                         "省心卖",
                         style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "高价回收48小时必卖",
@@ -115,7 +187,25 @@ class _RecommendPageState extends State<RecommendPage>
                           ),
                         ],
                       ),
-                      Text("赚了100")
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                            child: CircleAvatar(
+                              radius: 10, // 头像的半径
+                              backgroundImage:
+                                  AssetImage('images/image_demo.jpg'),
+                            ),
+                          ),
+                          Text(
+                            "赚了¥3501",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -179,7 +269,7 @@ class _RecommendPageState extends State<RecommendPage>
                   return Tab(
                     child: Text(
                       name,
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: Colors.red, fontSize: 14),
                     ),
                   );
                 }).toList(),
