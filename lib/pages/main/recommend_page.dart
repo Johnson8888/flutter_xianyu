@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-03 16:28:37
+ * @LastEditTime: 2021-03-12 11:10:46
  * @Support: http://fulade.me
  */
 // 推荐页面
@@ -56,9 +56,17 @@ class _RecommendPageState extends State<RecommendPage>
               children: [
                 Flexible(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("闲鱼无忧购"),
-                      Text("包真·包退·包邮"),
+                      Text(
+                        "闲鱼无忧购",
+                        style: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "包真·包退·包邮",
+                        style: TextStyle(color: Color(0xffd6bc77)),
+                      ),
                       Row(
                         children: [
                           Column(
@@ -81,9 +89,17 @@ class _RecommendPageState extends State<RecommendPage>
                 ),
                 Flexible(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("省心卖"),
-                      Text("高价回收48小时必卖"),
+                      Text(
+                        "省心卖",
+                        style: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "高价回收48小时必卖",
+                        style: TextStyle(color: Color(0xffd46e4a)),
+                      ),
                       Row(
                         children: [
                           Column(

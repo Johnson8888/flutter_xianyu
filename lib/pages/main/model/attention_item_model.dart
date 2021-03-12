@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-10 14:39:33
- * @LastEditTime: 2021-03-11 20:22:36
+ * @LastEditTime: 2021-03-12 09:20:54
  * @Support: http://fulade.me
  */
 
@@ -143,7 +143,7 @@ class CommonGood {
   int cateId;
   int cateChildId;
   List<DislikeInfo> dislikeList;
-  List<VideoInfo> video;
+  VideoInfo video;
   int goodsIndex;
   int goodsPage;
   String title;

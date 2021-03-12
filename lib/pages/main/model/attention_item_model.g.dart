@@ -50,10 +50,9 @@ CommonGood _$CommonGoodFromJson(Map<String, dynamic> json) {
               ? null
               : DislikeInfo.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      (json['video'] as List)
-          ?.map((e) =>
-              e == null ? null : VideoInfo.fromJson(e as Map<String, dynamic>))
-          ?.toList(),
+      json['video'] == null
+          ? null
+          : VideoInfo.fromJson(json['video'] as Map<String, dynamic>),
       json['goodsIndex'] as int,
       json['goodsPage'] as int,
       json['title'] as String,

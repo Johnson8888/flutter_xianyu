@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-06 21:53:44
+ * @LastEditTime: 2021-03-12 10:55:24
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -113,9 +113,9 @@ class FlutterTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewList = [
+      RecommendPage(),
       AttentionPage(),
       //TestPage(),
-      RecommendPage(),
       CityPage(),
     ];
     return TabBarView(

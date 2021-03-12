@@ -246,7 +246,7 @@ class _RecommendItemPageState extends State<RecommendItemPage>
         if (!mounted) {
           return;
         }
-        print("goods " + goods.toString());
+        // print("goods " + goods.toString());
         setState(() {
           datas.addAll(goods);
           loadingState = LoadingState.nona;

@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-03-11 20:47:06
+ * @LastEditTime: 2021-03-12 10:34:26
  * @Support: http://fulade.me
  */
 /// 关注页面
@@ -28,7 +28,7 @@ class _AttentionPageState extends State<AttentionPage> {
   List<CommonGood> dataList = [];
 
   /// 记录 VideoPlayer 的数组
-  List<Map<String, dynamic>> videoPlayerList = [];
+  Map<String, dynamic> videoPlayerMap = {};
   @override
   void initState() {
     super.initState();
@@ -153,8 +153,8 @@ class _AttentionPageState extends State<AttentionPage> {
                             style: TextStyle(fontSize: 13.0),
                           ),
                         ),
-                        _getImageContainerWithPicList(
-                            element.infoCoverList, element.video),
+                        _getImageContainerWithPicList(element.infoCoverList,
+                            element.video, element.infoId),
                       ],
                     ),
                   );
@@ -169,8 +169,8 @@ class _AttentionPageState extends State<AttentionPage> {
 
   //// 获取 数据
   Future<List<CommonGood>> getData() async {
-    if (videoPlayerList.length > 0) {
-      videoPlayerList.clear();
+    if (videoPlayerMap.length > 0) {
+      videoPlayerMap.clear();
     }
 
     String jsonString = await rootBundle.loadString("assets/attention1.json");
@@ -181,13 +181,20 @@ class _AttentionPageState extends State<AttentionPage> {
       Map<String, dynamic> commonGood = map["commonGoods"];
       CommonGood item = CommonGood.fromJson(commonGood);
       data.add(item);
-      if (item.video != null && item.video.length > 0) {
-        final videoPlayer =
-            VideoPlayerController.network(item.video.first.videoUrl);
+      print(item);
+
+      if (item.video != null &&
+          item.video.videoUrl != null &&
+          item.video.videoUrl.length > 0) {
+        final videoPlayer = VideoPlayerController.network(item.video.videoUrl)
+          ..addListener(() {});
+        Future<void> initializeVideoPlayerFuture = videoPlayer.initialize();
         videoPlayer.setLooping(true);
-        final initializeVideoPlayerFuture = videoPlayer.initialize();
-        videoPlayerList
-            .add({"v": videoPlayer, "i": initializeVideoPlayerFuture});
+        videoPlayerMap[item.infoId] = {
+          "v": videoPlayer,
+          "i": initializeVideoPlayerFuture
+        };
+        print("add infoId " + item.infoId);
       }
     }
     return data;
@@ -222,10 +229,12 @@ class _AttentionPageState extends State<AttentionPage> {
   }
 
   /// 获取 list 列表 内的 图片内容尺寸以及大小
-  Container _getImageContainerWithPicList(
-      List<PicUrl> infoCoverList, List<VideoInfo> videoList) {
+  Widget _getImageContainerWithPicList(
+      List<PicUrl> infoCoverList, VideoInfo videoInfo, String infoId) {
     /// 当不存在视频信息的时候
-    if (videoList == null || videoList.length == 0) {
+    if (videoInfo == null ||
+        videoInfo.videoUrl == null ||
+        videoInfo.videoUrl.length == 0) {
       var f1Width = MediaQuery.of(context).size.width;
       if (infoCoverList.length > 1) {
         f1Width = MediaQuery.of(context).size.width * 0.5;
@@ -342,32 +351,63 @@ class _AttentionPageState extends State<AttentionPage> {
       );
     } else {
       /// 当存在视频信息的时候  需要播放视频
-      return Container(
-        width: MediaQuery.of(context).size.width,
-        child: Row(
-          children: [
-            Flexible(
-              flex: 1,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 200,
-                color: Colors.red,
-                child: CachedNetworkImage(
-                  imageUrl: PIC_URL_PREFIX + videoList.first.picUrl,
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
+      Map<String, dynamic> playerDict = videoPlayerMap[infoId];
+      // VideoPlayerController playerController = videoPlayerMap[infoId];
+      // print("playerController");
+      // print(playerController);
+      // if (playerController.value.initialized) {
+      //   return AspectRatio(
+      //     aspectRatio: playerController.value.aspectRatio,
+      //     child: VideoPlayer(playerController),
+      //   );
+      // } else {
+      //   return Container();
+      // }
+
+      return FutureBuilder(
+        future: playerDict["i"],
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // If the VideoPlayerController has finished initialization, use
+            // the data it provides to limit the aspect ratio of the VideoPlayer.
+            VideoPlayerController controller = playerDict["v"];
+            controller.play();
+            return Stack(
+              children: <Widget>[
+                SizedBox.expand(
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 200,
+                      child: VideoPlayer(controller),
                     ),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
+                //FURTHER IMPLEMENTATION
+              ],
+            );
+            /*
+            return AspectRatio(
+              aspectRatio: controller.value.aspectRatio,
+              // aspectRatio: 16 / 9,
+              // Use the VideoPlayer widget to display the video.
+              child: FittedBox(
+                child: SizedBox(
+                  child: VideoPlayer(controller),
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                ),
+                fit: BoxFit.contain,
               ),
-            ),
-          ],
-        ),
+            );
+            */
+          } else {
+            // If the VideoPlayerController is still initializing, show a
+            // loading spinner.
+            return Center(child: CircularProgressIndicator());
+          }
+        },
       );
     }
   }
