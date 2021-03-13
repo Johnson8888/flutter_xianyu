@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-12 10:55:24
+ * @LastEditTime: 2021-03-13 11:45:35
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -64,9 +64,80 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
             indicatorSize: TabBarIndicatorSize.label,
           ),
           Container(
+            color: Colors.red,
             height: 45,
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
-            child: Text("Search Bar"),
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            child: Container(
+              width: MediaQuery.of(context).size.width - 40,
+              height: 45,
+              color: Colors.blue,
+              child: Container(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(
+                              color: Color(0xfff4d95a),
+                              width: 2.0,
+                            ),
+                          ),
+                          width: MediaQuery.of(context).size.width - 90,
+                          height: 40,
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                "images/ic_home_search@3x.png",
+                                width: 25,
+                                height: 25,
+                              ),
+                              Text(
+                                "11苹果手机壳 | 男士手表",
+                                style: TextStyle(
+                                  color: Color(0xffababab),
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        /*
+                        Container(
+                          width: 45,
+                          height: 45,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "ALL",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "分类",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        */
+                      ],
+                    ),
+                    Text("搜索"),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
