@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-03-12 10:34:26
+ * @LastEditTime: 2021-03-13 14:42:35
  * @Support: http://fulade.me
  */
 /// 关注页面
@@ -14,9 +14,7 @@ import 'package:flutter/services.dart';
 import './model/attention_item_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:video_player/video_player.dart';
-
-//// 图片的前缀
-final PIC_URL_PREFIX = "http://pic1.zhuanstatic.com/zhuanzh/";
+import '../../common/api.dart';
 
 class AttentionPage extends StatefulWidget {
   @override

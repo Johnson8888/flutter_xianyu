@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-13 11:45:35
+ * @LastEditTime: 2021-03-13 14:28:55
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -33,10 +33,9 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
   @override
   void initState() {
     super.initState();
-    selectColor = Colors.black;
-    unselectedColor = Color.fromARGB(255, 117, 117, 117);
-    selectStyle = TextStyle(fontSize: 18, color: selectColor);
-    unselectedStyle = TextStyle(fontSize: 18, color: selectColor);
+    // unselectedColor = Color.fromARGB(255, 117, 117, 117);
+    // selectStyle =
+    // unselectedStyle = TextStyle(fontSize: 18, color: selectColor);
   }
 
   @override
@@ -57,86 +56,106 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
             isScrollable: true,
             controller: _tabController,
             indicatorColor: selectColor,
-            labelColor: selectColor,
-            labelStyle: selectStyle,
-            unselectedLabelColor: unselectedColor,
-            unselectedLabelStyle: unselectedStyle,
+            labelColor: Colors.black,
+            labelStyle: TextStyle(fontSize: 18, color: selectColor),
+            unselectedLabelColor: Color.fromARGB(255, 117, 117, 117),
+            unselectedLabelStyle: TextStyle(fontSize: 18, color: selectColor),
             indicatorSize: TabBarIndicatorSize.label,
           ),
           Container(
+            // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
             color: Colors.red,
             height: 45,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
-            child: Container(
-              width: MediaQuery.of(context).size.width - 40,
-              height: 45,
-              color: Colors.blue,
-              child: Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+            child: Row(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width - 60,
+                  height: 45,
+                  color: Colors.blue,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(
+                        color: Color(0xfff4d95a),
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Row(
+                          children: [
+                            Container(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    child: Image.asset(
+                                      "images/ic_home_search@3x.png",
+                                      width: 25,
+                                      height: 25,
+                                    ),
+                                  ),
+                                  Text(
+                                    "11苹果手机壳 | 男士手表",
+                                    style: TextStyle(
+                                      color: Color(0xffababab),
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                         Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: Border.all(
-                              color: Color(0xfff4d95a),
-                              width: 2.0,
-                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xfff4d95a),
                           ),
-                          width: MediaQuery.of(context).size.width - 90,
-                          height: 40,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "images/ic_home_search@3x.png",
-                                width: 25,
-                                height: 25,
-                              ),
-                              Text(
-                                "11苹果手机壳 | 男士手表",
-                                style: TextStyle(
-                                  color: Color(0xffababab),
-                                  fontSize: 17,
-                                ),
-                              ),
-                            ],
-                          ),
+                          alignment: Alignment.center,
+                          width: 60,
+                          height: 42,
+                          child: Text("搜索"),
                         ),
-                        /*
-                        Container(
-                          width: 45,
-                          height: 45,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "ALL",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "分类",
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        */
                       ],
                     ),
-                    Text("搜索"),
-                  ],
+                  ),
                 ),
-              ),
+                Container(
+                  width: 40,
+                  height: 45,
+                  margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                  alignment: Alignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Text(
+                          "ALL",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "分类",
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],

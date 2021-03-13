@@ -1,6 +1,20 @@
+/*
+ * @Author: 弗拉德
+ * @Date: 2021-02-28 11:02:31
+ * @LastEditTime: 2021-03-13 16:07:15
+ * @Support: http://fulade.me
+ */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
+import './model/attention_item_model.dart';
+import 'dart:convert';
+import 'dart:math';
+import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
+import '../../common/api.dart';
 
 enum LoadingState {
   nona,
@@ -24,7 +38,7 @@ class _RecommendItemPageState extends State<RecommendItemPage>
   int page = 0;
   LoadingState loadingState = LoadingState.nona;
   bool isPerformingRequest = false;
-  List datas = [];
+  List dataList = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -77,41 +91,17 @@ class _RecommendItemPageState extends State<RecommendItemPage>
                       crossAxisCount: 4,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      itemCount: 10,
+                      itemCount: dataList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                            color: Colors.green,
-                            child: Center(
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text('$index'),
-                              ),
-                            ));
+                          color: Colors.blue,
+                          child: _buildItemWithModel(dataList[index]),
+                        );
                       },
                       staggeredTileBuilder: (int index) {
-                        return StaggeredTile.count(2, index.isEven ? 2 : 1);
+                        return StaggeredTile.fit(2);
                       },
                     ),
-
-                    //                 StaggeredGridView.countBuilder(
-                    //   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    //   crossAxisCount: 4,
-                    //   shrinkWrap: true,
-                    //   primary: false,
-                    //   itemCount: 28,
-                    // itemBuilder: (BuildContext context, int index) => new Container(
-                    //     color: Colors.green,
-                    //     child: Center(
-                    //       child: CircleAvatar(
-                    //         backgroundColor: Colors.white,
-                    //         child: Text('$index'),
-                    //       ),
-                    //     )),
-                    //   staggeredTileBuilder: (int index) =>
-                    //       StaggeredTile.count(2, index.isEven ? 2 : 1),
-                    //   mainAxisSpacing: 4.0,
-                    //   crossAxisSpacing: 4.0,
-                    // );
                   ),
                   // 刷新控件
                   buildLoadingWidget(),
@@ -124,43 +114,125 @@ class _RecommendItemPageState extends State<RecommendItemPage>
     );
   }
 
+  /*
   Widget buildGrid() {
     return StaggeredGridView.countBuilder(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       crossAxisCount: 4,
       shrinkWrap: true,
       primary: false,
-      itemCount: 28,
+      itemCount: 5,
       itemBuilder: (BuildContext context, int index) => new Container(
           color: Colors.green,
           child: Center(
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              child: Text('$index'),
+              child: _buildItemWithModel(dataList[index]),
             ),
           )),
-      staggeredTileBuilder: (int index) =>
-          StaggeredTile.count(2, index.isEven ? 2 : 1),
+      staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
     );
-    // return SliverGrid(
-    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //       crossAxisCount: 2,
-    //       crossAxisSpacing: 10,
-    //       mainAxisSpacing: 10,
-    //       childAspectRatio: 2),
-    //   delegate: SliverChildBuilderDelegate(
-    //     (BuildContext context, int index) {
-    //       if (index < datas.length) {
-    //         return Container();
-    //       } else {
-    //         return buildProgressIndicator();
-    //       }
-    //     },
-    //     childCount: datas.length + 1,
-    //   ),
-    // );
+  }
+  */
+  Widget _buildItemWithModel(CommonGood model) {
+    return Column(
+      children: [
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: CachedNetworkImage(
+                  height: 190,
+                  width: MediaQuery.of(context).size.width * 0.5 - 15,
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  imageUrl: PIC_URL_PREFIX + model.infoCoverList.first.picUrl,
+                ),
+              ),
+              Text(
+                model.title,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "¥" + ((model.infoPrice / 100).toInt()).toString(),
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "8人想要",
+                    style: TextStyle(fontSize: 11.0),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12.5),
+                        child: Container(
+                          child: CachedNetworkImage(
+                            width: 25,
+                            height: 25,
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            imageUrl: model.userPhoto,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 60,
+                        child: Text(
+                          model.userName,
+                          style: TextStyle(fontSize: 11.0),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                    width: 85,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Color(0xfffbababa),
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          "images/ic_zhima_tag@2x.png",
+                          width: 10,
+                          height: 10,
+                        ),
+                        Text(
+                          "芝麻信用极好",
+                          style: TextStyle(
+                              fontSize: 10.0, color: Color(0xff31cdca)),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   Widget buildProgressIndicator() {
@@ -236,19 +308,43 @@ class _RecommendItemPageState extends State<RecommendItemPage>
         loadingState = LoadingState.loading;
       });
 
-      // var responseJson = await EDCRequest.get(action: "fish_goods");
-      // List<FHHomeGoodModel> goods = [];
-      // responseJson.forEach((data) {
-      //   goods.add(FHHomeGoodModel.fromJSON(data));
-      // });
-      List goods = [];
-      Future.delayed(Duration(seconds: 2), () {
-        if (!mounted) {
-          return;
+      // if (videoPlayerMap.length > 0) {
+      //   videoPlayerMap.clear();
+      // }
+
+      String filePath = "assets/attention$page.json";
+      print(filePath);
+      String jsonString =
+          await rootBundle.loadString("assets/attention$page.json");
+      final jsonResult = json.decode(jsonString);
+      //遍历List，并且转成Anchor对象放到另一个List中
+      List<CommonGood> data = List();
+      for (Map<String, dynamic> map in jsonResult["respData"]["infoData"]) {
+        Map<String, dynamic> commonGood = map["commonGoods"];
+        CommonGood item = CommonGood.fromJson(commonGood);
+        data.add(item);
+        /*
+        if (item.video != null &&
+            item.video.videoUrl != null &&
+            item.video.videoUrl.length > 0) {
+          final videoPlayer = VideoPlayerController.network(item.video.videoUrl)
+            ..addListener(() {});
+          Future<void> initializeVideoPlayerFuture = videoPlayer.initialize();
+          videoPlayer.setLooping(true);
+          videoPlayerMap[item.infoId] = {
+            "v": videoPlayer,
+            "i": initializeVideoPlayerFuture
+          };
+          print("add infoId " + item.infoId);
         }
+        */
+      }
+
+      Future.delayed(Duration(seconds: 2), () {
         // print("goods " + goods.toString());
         setState(() {
-          datas.addAll(goods);
+          dataList.addAll(data);
+          print(dataList);
           loadingState = LoadingState.nona;
           page++;
         });
