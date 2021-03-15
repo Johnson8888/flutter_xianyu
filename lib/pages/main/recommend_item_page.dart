@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-15 16:58:51
+ * @LastEditTime: 2021-03-15 17:49:06
  * @Support: http://fulade.me
  */
 import 'package:flutter/cupertino.dart';
@@ -94,7 +94,7 @@ class _RecommendItemPageState extends State<RecommendItemPage>
                       itemCount: dataList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          color: Colors.blue,
+                          // color: Colors.blue,
                           child: _buildItemWithModel(dataList[index]),
                         );
                       },
@@ -107,7 +107,6 @@ class _RecommendItemPageState extends State<RecommendItemPage>
                         final itemWidth =
                             (MediaQuery.of(context).size.width * 2 - 30) / 3;
                         print(MediaQuery.of(context).size.width);
-
                         /// 需要加上 90
                         final itemHeight = itemWidth * height / width + 90;
                         print("itemWidth = " +
@@ -129,29 +128,6 @@ class _RecommendItemPageState extends State<RecommendItemPage>
       ),
     );
   }
-
-  /*
-  Widget buildGrid() {
-    return StaggeredGridView.countBuilder(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      crossAxisCount: 4,
-      shrinkWrap: true,
-      primary: false,
-      itemCount: 5,
-      itemBuilder: (BuildContext context, int index) => new Container(
-          color: Colors.green,
-          child: Center(
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: _buildItemWithModel(dataList[index]),
-            ),
-          )),
-      staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
-    );
-  }
-  */
 
   Widget _buildItemWithModel(CommonGood model) {
     return Column(
