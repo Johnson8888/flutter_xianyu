@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-13 14:28:55
+ * @LastEditTime: 2021-03-15 17:20:14
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -60,7 +60,11 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
             labelStyle: TextStyle(fontSize: 18, color: selectColor),
             unselectedLabelColor: Color.fromARGB(255, 117, 117, 117),
             unselectedLabelStyle: TextStyle(fontSize: 18, color: selectColor),
-            indicatorSize: TabBarIndicatorSize.label,
+            indicatorSize: TabBarIndicatorSize.tab,
+            // indicator: ShapeDecoration(
+            //   shape: Border.all(
+            //       color: Color(0xFF00FFFF), style: BorderStyle.solid, width: 2),
+            // ),
           ),
           Container(
             // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),

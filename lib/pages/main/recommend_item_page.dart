@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-13 16:07:15
+ * @LastEditTime: 2021-03-15 16:58:51
  * @Support: http://fulade.me
  */
 import 'package:flutter/cupertino.dart';
@@ -38,7 +38,7 @@ class _RecommendItemPageState extends State<RecommendItemPage>
   int page = 0;
   LoadingState loadingState = LoadingState.nona;
   bool isPerformingRequest = false;
-  List dataList = [];
+  List<CommonGood> dataList = [];
 
   @override
   bool get wantKeepAlive => true;
@@ -99,6 +99,22 @@ class _RecommendItemPageState extends State<RecommendItemPage>
                         );
                       },
                       staggeredTileBuilder: (int index) {
+                        /*
+                        final width =
+                            int.parse(dataList[index].infoCover.width);
+                        final height =
+                            int.parse(dataList[index].infoCover.height);
+                        final itemWidth =
+                            (MediaQuery.of(context).size.width * 2 - 30) / 3;
+                        print(MediaQuery.of(context).size.width);
+
+                        /// 需要加上 90
+                        final itemHeight = itemWidth * height / width + 90;
+                        print("itemWidth = " +
+                            itemWidth.toString() +
+                            "itemHeight = " +
+                            itemHeight.toString());
+                            */
                         return StaggeredTile.fit(2);
                       },
                     ),
@@ -136,6 +152,7 @@ class _RecommendItemPageState extends State<RecommendItemPage>
     );
   }
   */
+
   Widget _buildItemWithModel(CommonGood model) {
     return Column(
       children: [
@@ -143,90 +160,112 @@ class _RecommendItemPageState extends State<RecommendItemPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                child: CachedNetworkImage(
-                  height: 190,
-                  width: MediaQuery.of(context).size.width * 0.5 - 15,
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  imageUrl: PIC_URL_PREFIX + model.infoCoverList.first.picUrl,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Container(
+                  child: CachedNetworkImage(
+                    // height: 190,
+                    width: MediaQuery.of(context).size.width * 0.5 - 15,
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    imageUrl: PIC_URL_PREFIX + model.infoCoverList.first.picUrl,
+                  ),
                 ),
               ),
-              Text(
-                model.title,
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                child: Text(
+                  model.title,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "¥" + ((model.infoPrice / 100).toInt()).toString(),
-                    style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.bold),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                    child: Text(
+                      "¥" + ((model.infoPrice / 100).toInt()).toString(),
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Text(
-                    "8人想要",
-                    style: TextStyle(fontSize: 11.0),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    child: Text(
+                      "8人想要",
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xffaaaaaa),
+                      ),
+                    ),
                   ),
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12.5),
-                        child: Container(
-                          child: CachedNetworkImage(
-                            width: 25,
-                            height: 25,
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                            imageUrl: model.userPhoto,
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 5, 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12.5),
+                          child: Container(
+                            child: CachedNetworkImage(
+                              width: 25,
+                              height: 25,
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                              imageUrl: model.userPhoto,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: 60,
-                        child: Text(
-                          model.userName,
-                          style: TextStyle(fontSize: 11.0),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                    width: 85,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: Color(0xfffbababa),
-                        width: 1.0,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Image.asset(
-                          "images/ic_zhima_tag@2x.png",
-                          width: 10,
-                          height: 10,
-                        ),
-                        Text(
-                          "芝麻信用极好",
-                          style: TextStyle(
-                              fontSize: 10.0, color: Color(0xff31cdca)),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                          width: 60,
+                          child: Text(
+                            model.userName,
+                            style: TextStyle(
+                              fontSize: 11.0,
+                              color: Color(0xffaaaaaa),
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
-                  )
-                ],
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                      width: 85,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Color(0xfffbababa),
+                          width: 1.0,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset(
+                            "images/ic_zhima_tag@2x.png",
+                            width: 10,
+                            height: 10,
+                          ),
+                          Text(
+                            "芝麻信用极好",
+                            style: TextStyle(
+                                fontSize: 10.0, color: Color(0xff31cdca)),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),
