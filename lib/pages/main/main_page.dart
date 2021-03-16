@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-16 17:40:52
+ * @LastEditTime: 2021-03-16 22:35:50
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -30,17 +30,41 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
   Color selectColor, unselectedColor;
   TextStyle selectStyle, unselectedStyle;
 
+  ///  searchBar的key
+  GlobalKey searchBarKey = GlobalKey();
+
+  /// searchBar的 ScrollController
+  ScrollController searchController;
+
+  /// searchBar的 index
+  int serachIndex = 0;
+
   @override
   void initState() {
     super.initState();
-    // unselectedColor = Color.fromARGB(255, 117, 117, 117);
-    // selectStyle =
-    // unselectedStyle = TextStyle(fontSize: 18, color: selectColor);
+    WidgetsBinding widgetsBinding = WidgetsBinding.instance;
+
+    widgetsBinding.addPostFrameCallback((callback) {
+      Timer.periodic(new Duration(seconds: 5), (timer) {
+        serachIndex += searchBarKey.currentContext.size.height.toInt();
+        searchController.animateTo((serachIndex).toDouble(),
+            duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
+        //滚动到底部从头开始
+        if ((serachIndex - searchBarKey.currentContext.size.height.toInt())
+                .toDouble() >
+            searchController.position.maxScrollExtent) {
+          searchController.jumpTo(searchController.position.minScrollExtent);
+          serachIndex = 0;
+        }
+      });
+    });
+    searchController = new ScrollController(initialScrollOffset: 0);
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    searchController.dispose();
     super.dispose();
   }
 
@@ -94,6 +118,46 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
                         Row(
                           children: [
                             Container(
+                              width: 180,
+                              height: 21,
+                              child: ListView.builder(
+                                key: searchBarKey,
+                                //禁止手动滑动
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: 150,
+                                //item固定高度
+                                itemExtent: 21,
+                                scrollDirection: Axis.vertical,
+                                controller: searchController,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          margin:
+                                              EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: Image.asset(
+                                            "images/ic_home_search@3x.png",
+                                            width: 25,
+                                            height: 25,
+                                          ),
+                                        ),
+                                        Text(
+                                          "11苹果手机壳",
+                                          style: TextStyle(
+                                            color: Color(0xffababab),
+                                            fontSize: 17,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            /*
+                            Container(
                               child: Row(
                                 children: [
                                   Container(
@@ -114,6 +178,7 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
                                 ],
                               ),
                             ),
+                            */
                           ],
                         ),
                         Container(
@@ -207,8 +272,8 @@ class FlutterTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewList = [
-      TestPage(),
-      // RecommendPage(),
+      //TestPage(),
+      RecommendPage(),
       AttentionPage(),
       CityPage(),
     ];

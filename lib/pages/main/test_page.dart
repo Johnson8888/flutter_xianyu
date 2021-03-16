@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-05 19:27:21
- * @LastEditTime: 2021-03-16 17:55:08
+ * @LastEditTime: 2021-03-16 22:20:33
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class _TestPageState extends State<TestPage> {
         child: ListView.builder(
           key: _myKey,
           //禁止手动滑动
-          physics: new NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           itemCount: 5,
           //item固定高度
           itemExtent: 21,
@@ -69,9 +69,17 @@ class _TestPageState extends State<TestPage> {
           itemBuilder: (context, index) {
             return Container(
               alignment: Alignment.centerLeft,
-              child: Text(
-                "【猎毒人】吕云鹏计划通楚天南中风下线？" + index.toString(),
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 10, // 头像的半径
+                    backgroundImage: AssetImage('images/image_demo.jpg'),
+                  ),
+                  Text(
+                    "【猎毒人】吕云鹏计划通楚天南中风下线？" + index.toString(),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             );
           },

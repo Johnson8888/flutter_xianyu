@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-13 14:35:17
+ * @LastEditTime: 2021-03-16 22:31:21
  * @Support: http://fulade.me
  */
 // 推荐页面
@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import './recommend_item_page.dart';
+import 'dart:math';
 
 class RecommendPage extends StatefulWidget {
   @override
@@ -20,6 +21,15 @@ class _RecommendPageState extends State<RecommendPage>
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
+
+  ///  赚了多少钱的key
+  GlobalKey makeMoneyKey = GlobalKey();
+
+  /// 赚了多少钱的 ScrollController
+  ScrollController makeMoneyController;
+
+  /// 赚了多少钱的 index
+  int makeMoneyIndex = 0;
 
   /// 计时器
 
@@ -54,6 +64,24 @@ class _RecommendPageState extends State<RecommendPage>
       print('index:$index, preview:$previewIndex');
     });
     _startCountdownTimer();
+
+    WidgetsBinding widgetsBinding = WidgetsBinding.instance;
+    widgetsBinding.addPostFrameCallback((callback) {
+      Timer.periodic(new Duration(seconds: 5), (timer) {
+        makeMoneyIndex += makeMoneyKey.currentContext.size.height.toInt();
+        makeMoneyController.animateTo((makeMoneyIndex).toDouble(),
+            duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
+        //滚动到底部从头开始
+        if ((makeMoneyIndex - makeMoneyKey.currentContext.size.height.toInt())
+                .toDouble() >
+            makeMoneyController.position.maxScrollExtent) {
+          makeMoneyController
+              .jumpTo(makeMoneyController.position.minScrollExtent);
+          makeMoneyIndex = 0;
+        }
+      });
+    });
+    makeMoneyController = new ScrollController(initialScrollOffset: 0);
   }
 
   @override
@@ -62,6 +90,7 @@ class _RecommendPageState extends State<RecommendPage>
     if (_timer != null) {
       _timer.cancel();
     }
+    makeMoneyController.dispose();
   }
 
   @override
@@ -275,6 +304,47 @@ class _RecommendPageState extends State<RecommendPage>
                             ],
                           ),
                         ),
+                        Container(
+                          width: 90,
+                          height: 21,
+                          child: ListView.builder(
+                            key: makeMoneyKey,
+                            //禁止手动滑动
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: 150,
+                            //item固定高度
+                            itemExtent: 21,
+                            scrollDirection: Axis.vertical,
+                            controller: makeMoneyController,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                      child: CircleAvatar(
+                                        radius: 10, // 头像的半径
+                                        backgroundImage:
+                                            AssetImage('images/image_demo.jpg'),
+                                      ),
+                                    ),
+                                    Text(
+                                      "赚了¥" + Random().nextInt(1000).toString(),
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xffbababa),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        /*
                         Row(
                           children: [
                             Padding(
@@ -294,7 +364,8 @@ class _RecommendPageState extends State<RecommendPage>
                               ),
                             ),
                           ],
-                        )
+                        ),
+                        */
                       ],
                     ),
                   ),
