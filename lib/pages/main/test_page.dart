@@ -1,14 +1,15 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-05 19:27:21
- * @LastEditTime: 2021-03-05 19:58:41
+ * @LastEditTime: 2021-03-16 17:55:08
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:io';
-import 'dart:convert';
+
+const double buttonSize = 40.0;
 
 class TestPage extends StatefulWidget {
   @override
@@ -16,40 +17,66 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  var data = [];
+  GlobalKey _myKey = new GlobalKey();
+  ScrollController _controller;
+  int index = 0;
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
-    getData();
+    //来监听 节点是否build完成
+    WidgetsBinding widgetsBinding = WidgetsBinding.instance;
+    widgetsBinding.addPostFrameCallback((callback) {
+      Timer.periodic(new Duration(seconds: 5), (timer) {
+        index += _myKey.currentContext.size.height.toInt();
+        _controller.animateTo((index).toDouble(),
+            duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
+        //滚动到底部从头开始
+        if ((index - _myKey.currentContext.size.height.toInt()).toDouble() >
+            _controller.position.maxScrollExtent) {
+          _controller.jumpTo(_controller.position.minScrollExtent);
+          index = 0;
+        }
+      });
+    });
+    _controller = new ScrollController(initialScrollOffset: 0);
+    /*   _controller.addListener(() {
+      print(_controller.offset);
+    });*/
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: 100,
-        itemExtent: 50.0, //强制高度为50.0
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(title: Text("$index"));
-        },
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 21,
+        color: Colors.red,
+        child: ListView.builder(
+          key: _myKey,
+          //禁止手动滑动
+          physics: new NeverScrollableScrollPhysics(),
+          itemCount: 5,
+          //item固定高度
+          itemExtent: 21,
+          scrollDirection: Axis.vertical,
+          controller: _controller,
+          itemBuilder: (context, index) {
+            return Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "【猎毒人】吕云鹏计划通楚天南中风下线？" + index.toString(),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            );
+          },
+        ),
       ),
     );
-  }
-
-  Future<void> getData() async {
-    String filePath = await rootBundle.loadString("xianyu_json/file.txt");
-    File(filePath)
-        .openRead()
-        .map(utf8.decode)
-        .transform(
-          new LineSplitter(),
-        )
-        .forEach((l) async {
-      if (l.endsWith("txt") == false) {
-        String bundlePath = "xianyu_json/" + l;
-        // String stringContent = await rootBundle.loadString(bundlePath);
-        // List jsonList = json.decode(stringContent);
-        // print(bundlePath);
-      }
-    });
   }
 }
