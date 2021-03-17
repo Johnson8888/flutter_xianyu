@@ -1,12 +1,15 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:08
- * @LastEditTime: 2021-02-28 21:13:23
+ * @LastEditTime: 2021-03-17 20:54:24
  * @Support: http://fulade.me
  */
 // 城市页面
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter/services.dart';
+import 'dart:async';
+import 'dart:convert';
 
 class CityPage extends StatefulWidget {
   @override
@@ -29,6 +32,14 @@ class _CityPageState extends State<CityPage>
   void initState() {
     _tabController = TabController(length: tabs.length, vsync: this);
     _tabController.addListener(() => _onTabChanged());
+    _getCityButtonData();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _tabController.dispose();
   }
 
   @override
@@ -200,5 +211,21 @@ class _CityPageState extends State<CityPage>
       },
     );
     return list;
+  }
+
+  /// 获取按钮
+  void _getCityButtonData() async {
+    String jsonString =
+        await rootBundle.loadString("assets/city_touch_stone_response.json");
+    final jsonResult = json.decode(jsonString);
+    Map sections = jsonResult["data"]["container"]["sections"].first;
+    Map<String, Map<dynamic, dynamic>> itemMap = sections["item"];
+    // print(itemMap);
+    itemMap.forEach((String key, Map value) {
+      // print("$key  $value");
+      Map exContent = value["exContent"];
+      print(exContent);
+    });
+    print("finish");
   }
 }

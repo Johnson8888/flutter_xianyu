@@ -1,12 +1,14 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-16 22:35:50
+ * @LastEditTime: 2021-03-17 20:38:00
  * @Support: http://fulade.me
  */
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
+import 'package:flutter/services.dart';
 import 'dart:math' as math;
 import 'dart:async';
 import './city_page.dart';
@@ -45,7 +47,7 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
     WidgetsBinding widgetsBinding = WidgetsBinding.instance;
 
     widgetsBinding.addPostFrameCallback((callback) {
-      Timer.periodic(new Duration(seconds: 5), (timer) {
+      Timer.periodic(new Duration(seconds: 3), (timer) {
         serachIndex += searchBarKey.currentContext.size.height.toInt();
         searchController.animateTo((serachIndex).toDouble(),
             duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
@@ -71,24 +73,48 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      margin: EdgeInsets.only(top: 5.0, bottom: 10.0),
       alignment: Alignment.center,
       child: Column(
         children: [
-          TabBar(
-            tabs: tabList,
-            isScrollable: true,
-            controller: _tabController,
-            indicatorColor: selectColor,
-            labelColor: Colors.black,
-            labelStyle: TextStyle(fontSize: 18, color: selectColor),
-            unselectedLabelColor: Color.fromARGB(255, 117, 117, 117),
-            unselectedLabelStyle: TextStyle(fontSize: 18, color: selectColor),
-            indicatorSize: TabBarIndicatorSize.tab,
-            // indicator: ShapeDecoration(
-            //   shape: Border.all(
-            //       color: Color(0xFF00FFFF), style: BorderStyle.solid, width: 2),
-            // ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                // margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: Image.asset(
+                  "images/HomeSignIn@3x.png",
+                  width: 35,
+                  height: 35,
+                ),
+              ),
+              TabBar(
+                tabs: tabList,
+                isScrollable: true,
+                controller: _tabController,
+                indicatorColor: selectColor,
+                labelColor: Colors.black,
+                labelStyle: TextStyle(fontSize: 18, color: selectColor),
+                unselectedLabelColor: Color.fromARGB(255, 117, 117, 117),
+                unselectedLabelStyle:
+                    TextStyle(fontSize: 18, color: selectColor),
+                indicatorSize: TabBarIndicatorSize.tab,
+                // indicator: ShapeDecoration(
+                //   shape: Border.all(
+                //       color: Color(0xFF00FFFF), style: BorderStyle.solid, width: 2),
+                // ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                child: Image.asset(
+                  "images/home_bar_scan@3x.png",
+                  width: 25,
+                  height: 25,
+                ),
+              )
+            ],
           ),
           Container(
             // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -156,29 +182,6 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
                                 },
                               ),
                             ),
-                            /*
-                            Container(
-                              child: Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: Image.asset(
-                                      "images/ic_home_search@3x.png",
-                                      width: 25,
-                                      height: 25,
-                                    ),
-                                  ),
-                                  Text(
-                                    "11苹果手机壳 | 男士手表",
-                                    style: TextStyle(
-                                      color: Color(0xffababab),
-                                      fontSize: 17,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            */
                           ],
                         ),
                         Container(
