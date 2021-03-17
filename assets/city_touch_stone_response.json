@@ -1,0 +1,389 @@
+{
+  "api": "mtop.taobao.wireless.home.xianyu.awesome.get",
+  "data": {
+    "container": {
+      "clientCache": {},
+      "containerDataType": "xianyu_home_region_base",
+      "containerId": "xianyu_home_region",
+      "dataChange": "true",
+      "dataType": "base",
+      "expTimeInterval": "3600000",
+      "ext": {
+        "starkErrorMsg": "no_error",
+        "versionId": "270223",
+        "isStarkRollBack": "false",
+        "pageSceneCode": "stark_s_xianyu_home_region",
+        "isOpenGlobalBg": "true",
+        "solutionId": "16448",
+        "pageVersionCode": "stark_v_xianyu_home_region_v1",
+        "isStark": "true"
+      },
+      "pageParams": {},
+      "passParams": {
+        "lastVersion": "v1"
+      },
+      "rangerParams": {
+        "home_buckets": "tsp2729_23195_tsp6343_32107_tsp3044_36183",
+        "trackGroup": "dosa",
+        "bizName": "homepage",
+        "dataTrack": "[{ \t\t\t\t\t\"abtest\":\"23248_28020\", \t\t\t\t\t\"component\":\"dosa/stark_s_xianyu_home_region\", \t\t\t\t\t\"releaseId\":23248, \t\t\t\t\t\"module\":\"7186_4arocrmfn78\", \t\t\t\t\t\"cm\":\"dosa/stark_s_xianyu_home_region_7186_4arocrmfn78\", \t\t\t\t\t\"bucketId\":28020, \t\t\t\t\t\"pageName\":[\"Page_Home\"], \t\t\t\t\t\"trackConfigs\":\"[{ \t\t\t\t\t\t\\\"eventIds\\\":[2001, \t\t\t\t\t\t2101, \t\t\t\t\t\t2201], \t\t\t\t\t\t\\\"pageNames\\\":[\\\"Page_Home\\\"] \t\t\t\t\t}]\" \t\t\t\t}, \t\t\t\t{ \t\t\t\t\t\"abtest\":\"59098_71470\", \t\t\t\t\t\"component\":\"xianyu_same_city_distance\", \t\t\t\t\t\"releaseId\":59098, \t\t\t\t\t\"module\":\"13626_4dbi9qrfrt9\", \t\t\t\t\t\"cm\":\"xianyu_same_city_distance_13626_4dbi9qrfrt9\", \t\t\t\t\t\"bucketId\":71470, \t\t\t\t\t\"pageName\":[\"Page_Home\"], \t\t\t\t\t\"trackConfigs\":\"[{ \t\t\t\t\t\t\\\"eventIds\\\":[2001, \t\t\t\t\t\t2101, \t\t\t\t\t\t2201], \t\t\t\t\t\t\\\"pageNames\\\":[\\\"Page_Home\\\"] \t\t\t\t\t}]\" \t\t\t\t}]",
+        "ranger_buckets": "tsp2729_23195_tsp6343_32107_tsp3044_36183",
+        "starkApm": {
+          "7186#闲鱼基础版本投放": "23195#（版本）地域基础版本v1",
+          "15320#新首页改版": "36183#（方案）新首页改版+广告"
+        },
+        "rangerBucketsAlias": "home_buckets"
+      },
+      "sections": [
+        {
+          "args": {},
+          "bizData": {},
+          "categoryData": {},
+          "detal": "false",
+          "exposureParam": {
+            "arg1": "fish_home_samecity_icon_bar",
+            "args": {
+              "spm": "a2170.14016119.66.9999",
+              "page": "Page_xyLocalTab",
+              "scm": "a.b.c.bbb"
+            },
+            "eventId": "2201",
+            "page": "Page_Home"
+          },
+          "ext": {
+            "marginSide": "0",
+            "columnType": "one",
+            "marginBottom": "13"
+          },
+          "index": "0",
+          "invalidType": "error",
+          "item": {
+            "0": {
+              "clickParam": {
+                "arg1": "CityChannel1",
+                "args": {
+                  "spm": "a2170.14016119.66.0",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "sysFormBizType": "item1",
+                "iconHeight": "28",
+                "targetUrlSuffix": "longitude=130.318917&latitude=46.799922",
+                "iconWidth": "28",
+                "tagWidth": "22",
+                "tagHeight": "11",
+                "containerBgColor": "#00FFFFFF",
+                "iconUrl": "https://gw.alicdn.com/tfs/TB1kO55U.Y1gK0jSZFCXXcwqXXa-84-84.png",
+                "text": "闲时兼职",
+                "id": "4837",
+                "containerRadius": "16",
+                "marginTop": "14"
+              },
+              "ext": {
+                "_dynamicContent": "y"
+              },
+              "itemBizCode": "item1",
+              "smartContent": {},
+              "targetUrl": "https://m.duanqu.com?_ariver_appid=3000000005436464"
+            },
+            "1": {
+              "clickParam": {
+                "arg1": "CityChannel2",
+                "args": {
+                  "spm": "a2170.14016119.66.1",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "tagHeight": "11",
+                "sysFormBizType": "item2",
+                "iconHeight": "28",
+                "targetUrlSuffix": "longitude=130.318917&latitude=46.799922",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/imgextra/i3/19999999999999/O1CN01wOmTEL2NjasqI4m2S_!!19999999999999-2-tps.png",
+                "text": "附近回收",
+                "id": "4839",
+                "tagWidth": "22"
+              },
+              "ext": {
+                "_dynamicContent": "y"
+              },
+              "itemBizCode": "item2",
+              "smartContent": {},
+              "targetUrl": "https://fleamarket.taobao.com/wow/z/act/default/movehouse?wh_biz=tm&wh_weex=true"
+            },
+            "2": {
+              "clickParam": {
+                "arg1": "CityChannel3",
+                "args": {
+                  "spm": "a2170.14016119.66.2",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "tagHeight": "11",
+                "sysFormBizType": "item3",
+                "iconHeight": "28",
+                "targetUrlSuffix": "longitude=130.318917&latitude=46.799922",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/tfs/TB1h31VUYY1gK0jSZTEXXXDQVXa-84-84.png",
+                "text": "到家服务",
+                "id": "4840",
+                "tagWidth": "22"
+              },
+              "ext": {
+                "_dynamicContent": "y"
+              },
+              "itemBizCode": "item3",
+              "smartContent": {},
+              "targetUrl": "https://fleamarket.taobao.com/wow/z/act/default/Services?wh_biz=tm&wh_weex=true"
+            },
+            "3": {
+              "clickParam": {
+                "arg1": "CityChannel4",
+                "args": {
+                  "spm": "a2170.14016119.66.3",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "tagHeight": "11",
+                "sysFormBizType": "item4",
+                "iconHeight": "28",
+                "targetUrlSuffix": "longitude=130.318917&latitude=46.799922",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/tfs/TB1jaRRjcVl614jSZKPXXaGjpXa-84-84.png",
+                "text": "同城取送",
+                "id": "4842",
+                "tagWidth": "22"
+              },
+              "ext": {
+                "_dynamicContent": "y"
+              },
+              "itemBizCode": "item4",
+              "smartContent": {},
+              "targetUrl": "https://pt.ele.me/paotui/h5/index.html#/index-page/pick-and-send?VNK=43303d64&separate=1&pageData=%7B%22entrance%22%3A%22xianyuguide%22%7D"
+            },
+            "4": {
+              "clickParam": {
+                "arg1": "CityChannel5",
+                "args": {
+                  "spm": "a2170.14016119.66.4",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "tagHeight": "11",
+                "sysFormBizType": "item5",
+                "iconHeight": "28",
+                "targetUrlSuffix": "longitude=130.318917&latitude=46.799922",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/tfs/TB1AS_fUVP7gK0jSZFjXXc5aXXa-84-84.png",
+                "text": "好房出租",
+                "id": "4844",
+                "tagWidth": "22"
+              },
+              "ext": {
+                "_dynamicContent": "y"
+              },
+              "itemBizCode": "item5",
+              "smartContent": {},
+              "targetUrl": "https://market.m.taobao.com/app/idleFish-F2e/idlefish-renting/home?wh_weex=true"
+            },
+            "5": {
+              "clickParam": {
+                "arg1": "CityChannel6",
+                "args": {
+                  "spm": "a2170.14016119.66.0",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "tagHeight": "11",
+                "sysFormBizType": "item6",
+                "iconHeight": "28",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/tfs/TB1xL_llBBh1e4jSZFhXXcC9VXa-84-84.png",
+                "text": "本地娱乐",
+                "id": "4846",
+                "tagWidth": "22"
+              },
+              "ext": {},
+              "itemBizCode": "item6",
+              "smartContent": {},
+              "targetUrl": "https://aliticket.taobao.com/wow/z/alit/aquaman/xianyutongcheng?wh_biz=tm"
+            },
+            "6": {
+              "clickParam": {
+                "arg1": "CityChannel7",
+                "args": {
+                  "spm": "a2170.14016119.66.1",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "tagHeight": "11",
+                "sysFormBizType": "item7",
+                "iconHeight": "28",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/tfs/TB1Cd_mmz39YK4jSZPcXXXrUFXa-84-84.png",
+                "text": "吃喝玩乐",
+                "id": "4850",
+                "tagWidth": "22"
+              },
+              "ext": {},
+              "itemBizCode": "item7",
+              "smartContent": {},
+              "targetUrl": "https://fleamarket.taobao.com/wow/z/act/default/tongchengkaquan?wh_biz=tm&wh_weex=true"
+            },
+            "7": {
+              "clickParam": {
+                "arg1": "CityChannel8",
+                "args": {
+                  "spm": "a2170.14016119.66.2",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "sysFormBizType": "item8",
+                "iconHeight": "28",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/imgextra/i4/19999999999999/O1CN01sNzrlu2NjasyBA4zL_!!19999999999999-2-tps.png",
+                "text": "宠物集市",
+                "id": "4852"
+              },
+              "ext": {},
+              "itemBizCode": "item8",
+              "smartContent": {},
+              "targetUrl": "https://fleamarket.taobao.com/wow/z/act/default/pet?wh_biz=tm&wh_weex=true"
+            },
+            "8": {
+              "clickParam": {
+                "arg1": "CityChannel9",
+                "args": {
+                  "spm": "a2170.14016119.66.3",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "sysFormBizType": "item9",
+                "iconHeight": "28",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/tfs/TB1qjYTh5pE_u4jSZKbXXbCUVXa-84-84.png",
+                "text": "附近捡漏",
+                "id": "4855"
+              },
+              "ext": {},
+              "itemBizCode": "item9",
+              "smartContent": {},
+              "targetUrl": "https://fleamarket.taobao.com/wow/z/act/default/fujinjianlou-copy?wh_biz=tm&wh_weex=true"
+            },
+            "9": {
+              "clickParam": {
+                "arg1": "CityChannel10",
+                "args": {
+                  "spm": "a2170.14016119.66.4",
+                  "page": "Page_xyLocalTab",
+                  "scm": "a.b.c.bbb"
+                },
+                "eventId": "2101",
+                "page": "Page_Home"
+              },
+              "content": {},
+              "eventParam": {},
+              "exContent": {
+                "sysFormBizType": "item10",
+                "iconHeight": "28",
+                "iconWidth": "28",
+                "iconUrl": "https://gw.alicdn.com/imgextra/i2/19999999999999/O1CN01CFY0Rr2NjasqlA4e0_!!19999999999999-2-tps.png",
+                "text": "闲鱼小站",
+                "id": "4856"
+              },
+              "ext": {},
+              "itemBizCode": "item10",
+              "smartContent": {},
+              "targetUrl": "https://m.duanqu.com?_ariver_appid=3000000004025644"
+            }
+          },
+          "secondLoad": "false",
+          "sectionBizCode": "fish_home_samecity_icon_bar",
+          "template": {
+            "name": "xianyu_home_fish_home_samecity_icon_bar_v4_d3",
+            "provider": "",
+            "url": "https://ossgw.alicdn.com/rapid-oss-bucket/1604480310358/fish_home_samecity_icon_bar_v4_d3.zip",
+            "version": "4"
+          },
+          "updateGroup": "false",
+          "updateRule": "false",
+          "valid": "true"
+        }
+      ],
+      "starkTracks": {},
+      "stayTimeParams": {},
+      "success": "true"
+    },
+    "currentPageParams": {
+      "home_buckets": "tsp2729_23195_tsp6343_32107_tsp3044_36183",
+      "homepage_bucket": "tsp2729_23195",
+      "resultVersion": "v1",
+      "ranger_buckets_native": "tsp2729_23195_tsp6343_32107_tsp3044_36183"
+    },
+    "currentUTParams": {
+      "homepage_version": "v1"
+    },
+    "globalUTParams": {
+      "_tb_op_v": "unknown"
+    },
+    "sentinel": "false"
+  },
+  "ret": [
+    "SUCCESS::调用成功"
+  ],
+  "v": "1.0"
+}
