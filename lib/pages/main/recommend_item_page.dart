@@ -11,10 +11,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import './model/attention_item_model.dart';
 import 'dart:convert';
-import 'dart:math';
-import 'package:intl/intl.dart';
+
 import 'package:flutter/services.dart';
 import '../../common/api.dart';
+import 'dart:math';
+import 'package:intl/intl.dart';
 
 enum LoadingState {
   nona,
