@@ -458,6 +458,12 @@
       "languageVersion": "2.7"
     },
     {
+      "name": "qrscan",
+      "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/qrscan-0.2.22",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "quiver",
       "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.1.5",
       "packageUri": "lib/",
@@ -644,7 +650,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-03-16T09:48:49.743564Z",
+  "generated": "2021-03-18T12:29:14.623955Z",
   "generator": "pub",
   "generatorVersion": "2.10.5"
 }

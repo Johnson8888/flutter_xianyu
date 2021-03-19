@@ -1,14 +1,14 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-17 20:38:00
+ * @LastEditTime: 2021-03-18 20:31:57
  * @Support: http://fulade.me
  */
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter/services.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 import 'dart:math' as math;
 import 'dart:async';
 import './city_page.dart';
@@ -108,10 +108,16 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                child: Image.asset(
-                  "images/home_bar_scan@3x.png",
-                  width: 25,
-                  height: 25,
+                child: InkWell(
+                  onTap: () async {
+                    String cameraScanResult = await scanner.scan();
+                    print("scan result = " + cameraScanResult);
+                  },
+                  child: Image.asset(
+                    "images/home_bar_scan@3x.png",
+                    width: 25,
+                    height: 25,
+                  ),
                 ),
               )
             ],
