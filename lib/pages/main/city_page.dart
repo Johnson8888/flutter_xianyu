@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:08
- * @LastEditTime: 2021-03-17 22:44:12
+ * @LastEditTime: 2021-03-18 20:17:34
  * @Support: http://fulade.me
  */
 // 城市页面
@@ -35,7 +35,7 @@ class _CityPageState extends State<CityPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController; //需要定义一个Controller
   List<Map<String, dynamic>> tabs = [
-    {"width": 15, "title": "精选"},
+    {"width": 20, "title": "精选"},
     {"width": 50, "title": "附近兼职"},
     {"width": 40, "title": "二手车"},
     {"width": 40, "title": "代步工具"},
@@ -47,6 +47,15 @@ class _CityPageState extends State<CityPage>
   LoadingState loadingState = LoadingState.nona;
   bool isPerformingRequest = false;
   List<CommonGood> dataList = [];
+
+  /// 下半部分的widget
+  Widget contentWidget = Text("正在加载...");
+
+  /// 第一行按钮的 数组
+  List<Widget> row1List = [];
+
+  /// 第二行按钮的 数组
+  List<Widget> row2List = [];
   @override
   void initState() {
     _tabController = TabController(length: tabs.length, vsync: this);
@@ -54,7 +63,21 @@ class _CityPageState extends State<CityPage>
 
     fetchMoreData();
 
-    _getCityButtonData();
+    _getButtonConfig().then((list) {
+      final list1 = list.sublist(0, 5);
+      final list2 = list.sublist(5, 10);
+      final wList1 = _getRowList(list1);
+      final wList2 = _getRowList(list2);
+      setState(() {
+        row1List = wList1;
+        row2List = wList2;
+      });
+    });
+
+    /// 默认是第一行
+    setState(() {
+      contentWidget = contentWidgetWithIndex(0);
+    });
   }
 
   @override
@@ -75,11 +98,11 @@ class _CityPageState extends State<CityPage>
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: _getRow1List(),
+                children: row1List,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: _getRow2List(),
+                children: row2List,
               )
             ],
           ),
@@ -90,7 +113,7 @@ class _CityPageState extends State<CityPage>
           child: Image.asset(
             "images/city_banner.jpg",
             width: MediaQuery.of(context).size.width,
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.cover,
           ),
         ),
         Container(
@@ -118,25 +141,7 @@ class _CityPageState extends State<CityPage>
             labelColor: Colors.red,
           ),
         ),
-        StaggeredGridView.countBuilder(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          crossAxisCount: 4,
-          shrinkWrap: true,
-          primary: false,
-          itemCount: 28,
-          itemBuilder: (BuildContext context, int index) => new Container(
-              color: Colors.green,
-              child: Center(
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Text('$index'),
-                ),
-              )),
-          staggeredTileBuilder: (int index) =>
-              StaggeredTile.count(2, index.isEven ? 2 : 1),
-          mainAxisSpacing: 4.0,
-          crossAxisSpacing: 4.0,
-        )
+        contentWidget,
       ],
     );
   }
@@ -144,95 +149,84 @@ class _CityPageState extends State<CityPage>
   /// tab 点击事件
   void _onTabChanged() {
     print("tapped " + _tabController.index.toString());
+    setState(() {
+      contentWidget = contentWidgetWithIndex(_tabController.index);
+    });
   }
 
-  // 获取第一行的菜单数据
-  List<Widget> _getRow1List() {
-    List data = [
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "闲时兼职",
-      },
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "附近回收",
-      },
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "到家服务",
-      },
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "同城跑腿",
-      },
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "好房出租",
-      },
-    ];
-    List<Widget> list = [];
-    data.forEach(
-      (element) {
-        list.add(Column(
+  //// 获取当前页面内的 content widget
+  Widget contentWidgetWithIndex(int index) {
+    if (index != 1) {
+      return StaggeredGridView.countBuilder(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        crossAxisCount: 4,
+        shrinkWrap: true,
+        primary: false,
+        itemCount: dataList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(child: _buildItemWithModel(dataList[index]));
+        },
+        staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
+      );
+    }
+    return ListView.builder(
+      //禁止手动滑动
+      // physics: NeverScrollableScrollPhysics(),
+      itemCount: 10,
+      //item固定高度
+      itemExtent: 60,
+      shrinkWrap: true,
+      primary: false,
+      scrollDirection: Axis.vertical,
+      itemBuilder: (context, index) {
+        return Column(
           children: [
-            CircleAvatar(
-              radius: 15,
-              backgroundImage: AssetImage(element["iconPath"]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Text(
+                    '诚聘宣传专员',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                  child: Text(
+                    "¥80/天",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              ],
             ),
-            Text(
-              element["title"],
-              style: TextStyle(fontSize: 11.0),
-            ),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Image.asset(
+                    "images/fishpond_address@2x.png",
+                    width: 12,
+                    height: 12,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  alignment: Alignment.centerLeft,
+                  child: Text('北京市昌平区回龙观霍营街道回龙东大街187号', maxLines: 1),
+                ),
+              ],
+            )
           ],
-        ));
+        );
       },
     );
-    return list;
-  }
-
-  // 获取第二行的菜单数据
-
-  List<Widget> _getRow2List() {
-    List data = [
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "闲时兼职",
-      },
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "附近回收",
-      },
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "到家服务",
-      },
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "同城跑腿",
-      },
-      {
-        "iconPath": "images/image_demo.jpg",
-        "title": "好房出租",
-      },
-    ];
-    List<Widget> list = [];
-    data.forEach(
-      (element) {
-        list.add(Column(
-          children: [
-            CircleAvatar(
-              radius: 15,
-              backgroundImage: AssetImage(element["iconPath"]),
-            ),
-            Text(
-              element["title"],
-              style: TextStyle(fontSize: 11.0),
-            ),
-          ],
-        ));
-      },
-    );
-    return list;
   }
 
   Widget _buildItemWithModel(CommonGood model) {
@@ -448,7 +442,7 @@ class _CityPageState extends State<CityPage>
         // print("goods " + goods.toString());
         setState(() {
           dataList.addAll(data);
-          print(dataList);
+          // print(dataList);
           loadingState = LoadingState.nona;
           page++;
         });
@@ -457,18 +451,52 @@ class _CityPageState extends State<CityPage>
   }
 
   /// 获取按钮
-  void _getCityButtonData() async {
+  Future<List<Map<String, String>>> _getButtonConfig() async {
     String jsonString =
         await rootBundle.loadString("assets/city_touch_stone_response.json");
     final jsonResult = json.decode(jsonString);
     Map sections = jsonResult["data"]["container"]["sections"].first;
-    Map<String, Map<dynamic, dynamic>> itemMap = sections["item"];
-    // print(itemMap);
-    itemMap.forEach((String key, Map value) {
-      // print("$key  $value");
-      Map exContent = value["exContent"];
-      print(exContent);
+    Map<String, dynamic> itemMap = sections["item"];
+    List<Map<String, String>> buttonList = [];
+    itemMap.forEach((String key, dynamic value) {
+      Map<String, dynamic> exContent = value["exContent"];
+      var title = exContent["text"];
+      var url = exContent["iconUrl"];
+      // print("name = $title url = $url");
+      buttonList.add({
+        "title": title,
+        "imageUrl": url,
+      });
     });
-    print("finish");
+    return buttonList;
+  }
+
+  // 获取菜单栏的widget数据
+  List<Widget> _getRowList(List<Map<String, String>> data) {
+    List<Widget> list = [];
+    data.forEach(
+      (element) {
+        list.add(Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Container(
+                child: CachedNetworkImage(
+                  width: 30,
+                  height: 30,
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  imageUrl: element["imageUrl"],
+                ),
+              ),
+            ),
+            Text(
+              element["title"],
+              style: TextStyle(fontSize: 11.0),
+            ),
+          ],
+        ));
+      },
+    );
+    return list;
   }
 }
