@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-17 20:38:00
+ * @LastEditTime: 2021-03-21 22:50:23
  * @Support: http://fulade.me
  */
 // import 'dart:html';
@@ -73,7 +73,7 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 5.0, bottom: 10.0),
+      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
       alignment: Alignment.center,
       child: Column(
         children: [
@@ -101,6 +101,13 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
                 unselectedLabelStyle:
                     TextStyle(fontSize: 18, color: selectColor),
                 indicatorSize: TabBarIndicatorSize.tab,
+                indicator: BoxDecoration(
+                  image: DecorationImage(
+                    matchTextDirection: true,
+                    image: AssetImage("images/home_indicator@2x.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 // indicator: ShapeDecoration(
                 //   shape: Border.all(
                 //       color: Color(0xFF00FFFF), style: BorderStyle.solid, width: 2),
@@ -117,9 +124,8 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
             ],
           ),
           Container(
-            // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            color: Colors.red,
-            height: 45,
+            //color: Colors.red,
+            height: 40,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
             child: Row(
@@ -127,7 +133,7 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
                 Container(
                   width: MediaQuery.of(context).size.width - 60,
                   height: 45,
-                  color: Colors.blue,
+                  //color: Colors.blue,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                     decoration: BoxDecoration(
@@ -287,29 +293,6 @@ class FlutterTabBarView extends StatelessWidget {
   }
 }
 
-class Page1 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StaggeredGridView.countBuilder(
-      crossAxisCount: 4,
-      itemCount: 28,
-      itemBuilder: (BuildContext context, int index) => new Container(
-        color: Colors.green,
-        child: Center(
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Text('$index'),
-          ),
-        ),
-      ),
-      staggeredTileBuilder: (int index) =>
-          StaggeredTile.count(2, index.isEven ? 2 : 1),
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
-    );
-  }
-}
-
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -359,8 +342,8 @@ class _MainPageState extends State<MainPage>
             floating: true,
             pinned: true,
             delegate: _SliverAppBarDelegate(
-              maxHeight: 88.0,
-              minHeight: 88.0,
+              maxHeight: 105.0,
+              minHeight: 95.0,
               child: Container(
                 color: Colors.white,
                 child: tabBar,
