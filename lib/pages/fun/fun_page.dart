@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-03 16:51:09
+ * @LastEditTime: 2021-03-22 20:35:08
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -78,10 +78,49 @@ Widget _getNestedScrollView(Widget tabBar) {
     headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
       return <Widget>[
         SliverToBoxAdapter(
-          child: Container(
-            color: Colors.white,
-            padding: const EdgeInsets.all(10.0),
-            child: Text("用一部电影来形容你的2018"),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  child: Image.asset("images/fishpond_search@2x.png"),
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "会玩",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.0,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                child: Container(
+                  width: 70,
+                  height: 35,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Color(0xFFababab),
+                      width: 1.0,
+                    ), // 边色与边宽度
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    "发帖子",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         SliverPersistentHeader(
@@ -211,53 +250,21 @@ class FlutterTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewList = [
-      Page1(),
-      Page1(),
-      Page1(),
-      Page1(),
-      Page1(),
-      Page1(),
-      Page1(),
-      Page1(),
-      Page1(),
-      Page1(),
-      Page1(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
+      FunItemPage(),
     ];
     return TabBarView(
       children: viewList,
       controller: tabController,
-    );
-  }
-}
-
-class Page1 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StaggeredGridView.countBuilder(
-      crossAxisCount: 4,
-      itemCount: 28,
-      itemBuilder: (BuildContext context, int index) => new Container(
-          color: Colors.green,
-          child: new Center(
-            child: new CircleAvatar(
-              backgroundColor: Colors.white,
-              child: new Text('$index'),
-            ),
-          )),
-      staggeredTileBuilder: (int index) =>
-          new StaggeredTile.count(2, index.isEven ? 2 : 1),
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
-    );
-  }
-}
-
-class Page2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    print('build Page2');
-    return Center(
-      child: Text('Page2'),
     );
   }
 }

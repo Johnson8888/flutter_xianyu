@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-18 20:31:57
+ * @LastEditTime: 2021-03-22 20:46:31
  * @Support: http://fulade.me
  */
 // import 'dart:html';
@@ -14,6 +14,7 @@ import 'dart:async';
 import './city_page.dart';
 import './attention_page.dart';
 import './recommend_page.dart';
+import './circle_tab_indicator.dart';
 import './test_page.dart';
 
 List<Widget> tabList;
@@ -101,10 +102,8 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
                 unselectedLabelStyle:
                     TextStyle(fontSize: 18, color: selectColor),
                 indicatorSize: TabBarIndicatorSize.tab,
-                // indicator: ShapeDecoration(
-                //   shape: Border.all(
-                //       color: Color(0xFF00FFFF), style: BorderStyle.solid, width: 2),
-                // ),
+                indicatorPadding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                indicator: CircleTabIndicator(color: Colors.red, radius: 3),
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
@@ -124,7 +123,7 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
           ),
           Container(
             // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            color: Colors.red,
+            // color: Colors.red,
             height: 45,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
@@ -133,7 +132,7 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
                 Container(
                   width: MediaQuery.of(context).size.width - 60,
                   height: 45,
-                  color: Colors.blue,
+                  // color: Colors.blue,
                   child: Container(
                     margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                     decoration: BoxDecoration(
@@ -293,29 +292,6 @@ class FlutterTabBarView extends StatelessWidget {
   }
 }
 
-class Page1 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StaggeredGridView.countBuilder(
-      crossAxisCount: 4,
-      itemCount: 28,
-      itemBuilder: (BuildContext context, int index) => new Container(
-        color: Colors.green,
-        child: Center(
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Text('$index'),
-          ),
-        ),
-      ),
-      staggeredTileBuilder: (int index) =>
-          StaggeredTile.count(2, index.isEven ? 2 : 1),
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
-    );
-  }
-}
-
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -365,8 +341,8 @@ class _MainPageState extends State<MainPage>
             floating: true,
             pinned: true,
             delegate: _SliverAppBarDelegate(
-              maxHeight: 88.0,
-              minHeight: 88.0,
+              maxHeight: 105.0,
+              minHeight: 95.0,
               child: Container(
                 color: Colors.white,
                 child: tabBar,

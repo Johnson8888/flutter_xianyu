@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-18 10:57:56
- * @LastEditTime: 2021-02-18 14:36:32
+ * @LastEditTime: 2021-03-22 20:45:04
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -110,11 +110,13 @@ class AccountCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                Container(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ],
@@ -135,6 +137,7 @@ class AccountCard extends StatelessWidget {
                 titleColor: Colors.red,
               );
             }).toList(),
+            // itemWidth: MediaQuery.of(context).size.width * 0.25 + 5,
           )
         ],
       ),
@@ -152,7 +155,7 @@ class Floor extends StatelessWidget {
   Floor({
     Key key,
     this.floorOptions = const [],
-    this.itemWidth = 70,
+    this.itemWidth = 80,
     this.spacing = 20,
     this.runSpacing = 20,
     this.margin = const EdgeInsets.only(
