@@ -184,11 +184,9 @@ class _AttentionPageState extends State<AttentionPage> {
       if (item.video != null &&
           item.video.videoUrl != null &&
           item.video.videoUrl.length > 0) {
-        // String videoUrl = "https://www.runoob.com/try/demo_source/movie.mp4";
         String videoUrl =
             "https://video.pearvideo.com/mp4/third/20190730/cont-1584187-10136163-164150-hd.mp4";
         // String videoUrl = "http://vod.anyrtc.cc/364c01b9c8ca4e46bd65e7307887341d/34688ef93da349628d5e4efacf8a5167-9fd7790c8f5862b09c350e4a916b203d.mp4";
-
         // final videoPlayer = VideoPlayerController.network(item.video.videoUrl)
         final videoPlayer = VideoPlayerController.network(videoUrl)
           ..addListener(() {});
