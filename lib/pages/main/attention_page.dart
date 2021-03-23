@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-03-13 14:42:35
+ * @LastEditTime: 2021-03-23 15:24:30
  * @Support: http://fulade.me
  */
 /// 关注页面
@@ -69,7 +69,7 @@ class _AttentionPageState extends State<AttentionPage> {
                 padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                 shrinkWrap: true,
                 primary: false,
-                itemExtent: 275,
+                itemExtent: 280,
                 itemBuilder: (context, index) {
                   CommonGood element = dataSource[index];
                   return InkWell(
@@ -184,7 +184,13 @@ class _AttentionPageState extends State<AttentionPage> {
       if (item.video != null &&
           item.video.videoUrl != null &&
           item.video.videoUrl.length > 0) {
-        final videoPlayer = VideoPlayerController.network(item.video.videoUrl)
+        // String videoUrl = "https://www.runoob.com/try/demo_source/movie.mp4";
+        String videoUrl =
+            "https://video.pearvideo.com/mp4/third/20190730/cont-1584187-10136163-164150-hd.mp4";
+        // String videoUrl = "http://vod.anyrtc.cc/364c01b9c8ca4e46bd65e7307887341d/34688ef93da349628d5e4efacf8a5167-9fd7790c8f5862b09c350e4a916b203d.mp4";
+
+        // final videoPlayer = VideoPlayerController.network(item.video.videoUrl)
+        final videoPlayer = VideoPlayerController.network(videoUrl)
           ..addListener(() {});
         Future<void> initializeVideoPlayerFuture = videoPlayer.initialize();
         videoPlayer.setLooping(true);
@@ -200,18 +206,17 @@ class _AttentionPageState extends State<AttentionPage> {
 
   /// 获取常访问的列表
   List<Widget> _getInterviewList() {
-    List names = ["NB之家", "王话筒", "萨斯剋", "超级可爱", "王一战"];
-    List images = [
-      "images/image_demo.jpg",
-      "images/image_demo.jpg",
-      "images/image_demo.jpg",
-      "images/image_demo.jpg",
-      "images/image_demo.jpg"
+    List<Map<String, String>> dataList = [
+      {"title": "NB之家", "image": "images/avatar_1.jpg"},
+      {"title": "王话筒", "image": "images/avatar_2.jpg"},
+      {"title": "萨斯剋", "image": "images/avatar_3.jpg"},
+      {"title": "超级可爱", "image": "images/avatar_4.jpg"},
+      {"title": "王一战", "image": "images/avatar_5.jpg"}
     ];
     List<Widget> list = [];
-    for (var i = 0; i < names.length; ++i) {
-      String name = names[i];
-      String imagePath = images[i];
+    for (var i = 0; i < dataList.length; ++i) {
+      String name = dataList[i]["title"];
+      String imagePath = dataList[i]["image"];
       Widget co = Column(
         children: [
           CircleAvatar(
@@ -366,40 +371,64 @@ class _AttentionPageState extends State<AttentionPage> {
         future: playerDict["i"],
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            // If the VideoPlayerController has finished initialization, use
-            // the data it provides to limit the aspect ratio of the VideoPlayer.
             VideoPlayerController controller = playerDict["v"];
             controller.play();
-            return Stack(
-              children: <Widget>[
-                SizedBox.expand(
-                  child: FittedBox(
-                    fit: BoxFit.cover,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 200,
-                      child: VideoPlayer(controller),
-                    ),
-                  ),
-                ),
-                //FURTHER IMPLEMENTATION
-              ],
-            );
-            /*
-            return AspectRatio(
-              aspectRatio: controller.value.aspectRatio,
-              // aspectRatio: 16 / 9,
-              // Use the VideoPlayer widget to display the video.
-              child: FittedBox(
-                child: SizedBox(
+            print("start play");
+            return ClipRect(
+              child: Transform.scale(
+                scale: controller.value.aspectRatio /
+                    MediaQuery.of(context).size.aspectRatio *
+                    1.01,
+                // scale: controller.value.aspectRatio /
+                //     (MediaQuery.of(context).size.width / 180) *
+                //     1.01,
+                child: Container(
+                    child: AspectRatio(
+                  aspectRatio: controller.value.aspectRatio,
                   child: VideoPlayer(controller),
-                  width: MediaQuery.of(context).size.width,
-                  height: 200,
-                ),
-                fit: BoxFit.contain,
+                )),
               ),
             );
-            */
+            // return ClipRect(
+            //   // child: Transform(
+            //   child: Transform.scale(
+            //     // scale: controller.value.aspectRatio /
+            //     //     (MediaQuery.of(context).size.width / 180),
+            //     scale: 0.25,
+            //     child: AspectRatio(
+            //       aspectRatio: controller.value.aspectRatio,
+            //       // Use the VideoPlayer widget to display the video.
+            //       // child: VideoPlayer(controller),
+            //       child: VideoPlayer(controller),
+            //     ),
+            //   ),
+            // );
+            // child: Align(
+            //   // width: MediaQuery.of(context).size.width,
+            //   // height: 180,
+            //   alignment: Alignment.center,
+            // child: AspectRatio(
+            //   aspectRatio: controller.value.aspectRatio,
+            //   // Use the VideoPlayer widget to display the video.
+            //   // child: VideoPlayer(controller),
+            //   child: VideoPlayer(controller),
+            // ),
+            // ),
+
+            /// 可用的
+            // return AspectRatio(
+            //   aspectRatio: 16 / 9,
+            //   // Use the VideoPlayer widget to display the video.
+            //   // child: VideoPlayer(controller),
+            //   child: FittedBox(
+            //     child: SizedBox(
+            //       child: VideoPlayer(controller),
+            //       width: MediaQuery.of(context).size.width,
+            //       height: 190,
+            //     ),
+            //     fit: BoxFit.fitWidth,
+            //   ),
+            // );
           } else {
             // If the VideoPlayerController is still initializing, show a
             // loading spinner.

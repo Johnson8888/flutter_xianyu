@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-19 18:15:22
- * @LastEditTime: 2021-03-22 20:39:15
+ * @LastEditTime: 2021-03-23 10:58:51
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -16,6 +16,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'fun_item_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../header/refresh_header.dart';
+import '../../header/refresh_footer.dart';
 
 class FunItemPage extends StatefulWidget {
   @override
@@ -24,6 +27,11 @@ class FunItemPage extends StatefulWidget {
 
 class _FunItemPageState extends State<FunItemPage> {
   List<FunItemModel> dataList = [];
+
+  List<String> items = ["1", "2", "3", "4", "5", "6", "7", "8"];
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
   @override
   void initState() {
     super.initState();
@@ -34,249 +42,136 @@ class _FunItemPageState extends State<FunItemPage> {
     });
   }
 
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    items.add((items.length + 1).toString());
+    if (mounted) setState(() {});
+    _refreshController.loadComplete();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StaggeredGridView.countBuilder(
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-      crossAxisCount: 4,
-      itemCount: dataList.length,
-      itemBuilder: (BuildContext context, int index) {
-        String url = dataList[index].images_list.first.url;
-        return Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                child: CachedNetworkImage(
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  imageUrl: url,
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                child: Text(
-                  dataList[index].title,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+    return SmartRefresher(
+      enablePullDown: true,
+      enablePullUp: true,
+      header: GifHeader1(),
+      footer: GifFooter1(),
+      controller: _refreshController,
+      onRefresh: _onRefresh,
+      onLoading: _onLoading,
+      child: StaggeredGridView.countBuilder(
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        crossAxisCount: 4,
+        itemCount: dataList.length,
+        itemBuilder: (BuildContext context, int index) {
+          String url = dataList[index].images_list.first.url;
+          return Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: CachedNetworkImage(
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    imageUrl: url,
                   ),
                 ),
-              ),
-              Container(
-                height: 20,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 100,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: CachedNetworkImage(
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                              imageUrl: dataList[index].user.images,
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                  child: Text(
+                    dataList[index].title,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 20,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 100,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: CachedNetworkImage(
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                                imageUrl: dataList[index].user.images,
+                              ),
                             ),
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                              width: 70,
+                              child: Text(
+                                dataList[index].user.nickname,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          border: Border.all(
+                            color: Color(0xFFababab),
+                            width: 1.0,
                           ),
-                          Container(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            width: 70,
-                            child: Text(
-                              dataList[index].user.nickname,
-                              maxLines: 1,
+                        ),
+                        width: 55,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10), // 角标
+                              child: Image.asset(
+                                  "images/ic_detail_like_nor@3x.png"),
+                            ),
+                            Text(
+                              //dataList[index].likes.toString(),
+                              _parseLikes(dataList[index].likes),
                               style: TextStyle(
                                 fontSize: 11,
-                                color: Colors.black,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(
-                          color: Color(0xFFababab),
-                          width: 1.0,
+                          ],
                         ),
                       ),
-                      width: 55,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10), // 角标
-                            child:
-                                Image.asset("images/ic_detail_like_nor@3x.png"),
-                          ),
-                          Text(
-                            //dataList[index].likes.toString(),
-                            _parseLikes(dataList[index].likes),
-                            style: TextStyle(
-                              fontSize: 11,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
-      },
-      staggeredTileBuilder: (int index) {
-        // int height = dataList[index].images_list.first.height + 250;
-        // int width = dataList[index].images_list.first.width;
-        return StaggeredTile.fit(2);
-      },
-      mainAxisSpacing: 15.0,
-      crossAxisSpacing: 15.0,
-    );
-
-    /*
-    return EasyRefresh.custom(
-      header: LoadingHeader(),
-      footer: LoadingFooter(
-        color: Color.fromRGBO(220, 220, 220, 1),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+        staggeredTileBuilder: (int index) {
+          // int height = dataList[index].images_list.first.height + 250;
+          // int width = dataList[index].images_list.first.width;
+          return StaggeredTile.fit(2);
+        },
+        mainAxisSpacing: 15.0,
+        crossAxisSpacing: 15.0,
       ),
-      onRefresh: () async {
-        await Future.delayed(Duration(seconds: 2), () {
-          if (mounted) {
-            setState(() {});
-          }
-        });
-      },
-      onLoad: () async {
-        await Future.delayed(Duration(seconds: 2), () {
-          if (mounted) {
-            setState(() {});
-          }
-        });
-      },
-      slivers: [
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return StaggeredGridView.countBuilder(
-                crossAxisCount: 4,
-                itemCount: 28,
-                itemBuilder: (BuildContext context, int index) => new Container(
-                    color: Colors.green,
-                    child: new Center(
-                      child: new CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: new Text('$index'),
-                      ),
-                    )),
-                staggeredTileBuilder: (int index) =>
-                    new StaggeredTile.count(2, index.isEven ? 2 : 1),
-                mainAxisSpacing: 4.0,
-                crossAxisSpacing: 4.0,
-              );
-
-              return StaggeredGridView.countBuilder(
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                crossAxisCount: 2,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  String url = dataList[index].images_list.first.url;
-                  return Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: CachedNetworkImage(
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                            imageUrl: url,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                          child: Text(
-                            dataList[index].title,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 20,
-                          child: Wrap(
-                            direction: Axis.vertical,
-                            alignment: WrapAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: 80,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 10, // 头像的半径
-                                      backgroundImage:
-                                          AssetImage('images/image_demo.jpg'),
-                                    ),
-                                    Text(
-                                      dataList[index].user.nickname,
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 60,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 10, // 头像的半径
-                                      backgroundImage:
-                                          AssetImage('images/image_demo.jpg'),
-                                    ),
-                                    Text(
-                                      dataList[index].likes.toString(),
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  );
-                },
-                staggeredTileBuilder: (int index) {
-                  // int height = dataList[index].images_list.first.height + 250;
-                  // int width = dataList[index].images_list.first.width;
-                  return StaggeredTile.fit(2);
-                },
-                mainAxisSpacing: 15.0,
-                crossAxisSpacing: 15.0,
-              );
-              
-            },
-            childCount: 1,
-          ),
-        ),
-      ],
     );
-    */
   }
 
   Future<List> getData() async {

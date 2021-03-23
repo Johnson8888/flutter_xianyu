@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-22 20:46:31
+ * @LastEditTime: 2021-03-23 14:39:05
  * @Support: http://fulade.me
  */
 // import 'dart:html';
@@ -280,7 +280,8 @@ class FlutterTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewList = [
-      //TestPage(),
+      // TestPage(),
+      // VideoPlayerScreen(),
       RecommendPage(),
       AttentionPage(),
       CityPage(),

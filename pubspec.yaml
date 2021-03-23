@@ -39,6 +39,8 @@ dependencies:
   lottie: ^0.7.0              # lottie 动画类
   video_player: ^1.0.1       # 视频播放控件
   qrscan: ^0.2.21   ## 扫一扫控件
+  pull_to_refresh: 1.6.3   # 下拉刷新控件
+  flutter_gifimage: ^1.0.0  # 播放gif库
 
 dev_dependencies:
   flutter_test:
