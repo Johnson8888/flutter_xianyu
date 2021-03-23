@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-03-23 15:24:30
+ * @LastEditTime: 2021-03-23 20:10:12
  * @Support: http://fulade.me
  */
 /// 关注页面
@@ -15,6 +15,7 @@ import './model/attention_item_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:video_player/video_player.dart';
 import '../../common/api.dart';
+import '../../util/utils.dart';
 
 class AttentionPage extends StatefulWidget {
   @override
@@ -119,7 +120,7 @@ class _AttentionPageState extends State<AttentionPage> {
                                           padding:
                                               const EdgeInsets.only(left: 10),
                                           child: Text(
-                                            _getRandomTimeTag(),
+                                            Utils.getRandomTimeTag(),
                                             textAlign: TextAlign.left,
                                             style: TextStyle(fontSize: 11.0),
                                           ),
@@ -438,27 +439,27 @@ class _AttentionPageState extends State<AttentionPage> {
   }
 
   /// 随机一个时间
-  String _getRandomTimeTag() {
-    int value = Random().nextInt(7);
-    if (value == 1) {
-      return "5分钟前";
-    }
-    if (value == 2) {
-      return "10分钟前";
-    }
-    if (value == 3) {
-      return "30分之前";
-    }
-    if (value == 4) {
-      return "1小时前";
-    }
-    if (value == 5) {
-      return "1天前";
-    }
-    int nowSeconds = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
-    int timestamp = nowSeconds - 60 * 60 * 24 * 3;
-    var format = DateFormat('yyyy-MM-dd');
-    var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    return format.format(date);
-  }
+  // String _getRandomTimeTag() {
+  //   int value = Random().nextInt(7);
+  //   if (value == 1) {
+  //     return "5分钟前";
+  //   }
+  //   if (value == 2) {
+  //     return "10分钟前";
+  //   }
+  //   if (value == 3) {
+  //     return "30分之前";
+  //   }
+  //   if (value == 4) {
+  //     return "1小时前";
+  //   }
+  //   if (value == 5) {
+  //     return "1天前";
+  //   }
+  //   int nowSeconds = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
+  //   int timestamp = nowSeconds - 60 * 60 * 24 * 3;
+  //   var format = DateFormat('yyyy-MM-dd');
+  //   var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  //   return format.format(date);
+  // }
 }

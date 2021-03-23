@@ -7,8 +7,12 @@ part of 'message_model.dart';
 // **************************************************************************
 
 MessageModel _$MessageModelFromJson(Map<String, dynamic> json) {
-  return MessageModel(json['text'] as String, json['nickName'] as String,
-      json['imageUrl'] as String, json['portrait'] as String);
+  return MessageModel(
+      json['text'] as String,
+      json['nickName'] as String,
+      json['imageUrl'] as String,
+      json['portrait'] as String,
+      json['isTagMessage'] as bool);
 }
 
 Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
@@ -16,5 +20,6 @@ Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
       'text': instance.text,
       'nickName': instance.nickName,
       'imageUrl': instance.imageUrl,
-      'portrait': instance.portrait
+      'portrait': instance.portrait,
+      'isTagMessage': instance.isTagMessage
     };
