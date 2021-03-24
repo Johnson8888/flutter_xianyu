@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-19 18:15:22
- * @LastEditTime: 2021-03-23 10:58:51
+ * @LastEditTime: 2021-03-24 12:02:09
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -64,7 +64,8 @@ class _FunItemPageState extends State<FunItemPage> {
       enablePullDown: true,
       enablePullUp: true,
       header: GifHeader1(),
-      footer: GifFooter1(),
+      // footer: GifFooter1(),
+      footer: ClassicFooter(),
       controller: _refreshController,
       onRefresh: _onRefresh,
       onLoading: _onLoading,
