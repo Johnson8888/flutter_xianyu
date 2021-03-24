@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-23 10:28:31
- * @LastEditTime: 2021-03-23 11:02:25
+ * @LastEditTime: 2021-03-24 11:56:23
  * @Support: http://fulade.me
  */
 import 'package:flutter/widgets.dart';
@@ -9,6 +9,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_gifimage/flutter_gifimage.dart';
 import 'package:flutter/material.dart'
     hide RefreshIndicator, RefreshIndicatorState;
+import 'package:lottie/lottie.dart';
 
 class GifHeader1 extends RefreshIndicator {
   GifHeader1() : super(height: 80.0, refreshStyle: RefreshStyle.Follow);
@@ -54,11 +55,16 @@ class GifHeader1State extends RefreshIndicatorState<GifHeader1>
 
   @override
   Widget buildContent(BuildContext context, RefreshStatus mode) {
-    return GifImage(
-      image: AssetImage("images/gifindicator1.gif"),
-      controller: _gifController,
-      height: 80.0,
-      width: 537.0,
+    // return GifImage(
+    //   image: AssetImage("images/gifindicator1.gif"),
+    //   controller: _gifController,
+    //   height: 80.0,
+    //   width: 537.0,
+    // );
+    return Lottie.asset(
+      "assets/if_refresh.json",
+      width: 60,
+      height: 60,
     );
   }
 
