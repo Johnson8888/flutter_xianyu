@@ -1,9 +1,11 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:06:16
- * @LastEditTime: 2021-03-25 17:05:44
+ * @LastEditTime: 2021-03-25 20:59:18
  * @Support: http://fulade.me
  */
+
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import '../../header/refresh_header.dart';
@@ -20,26 +22,35 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
-  @override
   //// 刷新用的 controller
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
+  //// 当前加载的页数
+  var currentPage = 0;
+
+  /// 数据源数组
   List<MessageModel> dataList = [];
+
+  /// future 对象
+  Future<List<MessageModel>> futureMessage;
+
   void initState() {
     super.initState();
+    futureMessage = _getMessageData();
   }
 
-  void _onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    _refreshController.refreshCompleted();
+  void _onRefresh() {
+    futureMessage = _getMessageData();
   }
 
   void _onLoading() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    if (mounted) setState(() {});
-    _refreshController.loadComplete();
+    if (mounted) {
+      futureMessage = _loadMoreData();
+    }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -65,14 +76,16 @@ class _MessagePageState extends State<MessagePage> {
         ],
       ),
       body: FutureBuilder(
-        future: _getMessageData(),
+        future: futureMessage,
         builder: (BuildContext context, AsyncSnapshot snap) {
           /// 如果没有数据 我们就显示loading页面
           if (snap.hasData == false) {
             return CircularProgressIndicator();
           } else {
             /// 如果获取到了数据 我们就初始化一个 ListView来展示获取到的数据
-            List<MessageModel> dataSource = snap.data;
+            dataList.addAll(snap.data);
+            print(snap.data);
+
             return SmartRefresher(
               enablePullDown: true,
               enablePullUp: true,
@@ -83,11 +96,11 @@ class _MessagePageState extends State<MessagePage> {
               onLoading: _onLoading,
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: dataSource.length,
+                itemCount: dataList.length,
                 padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                 // itemExtent: 80,
                 itemBuilder: (context, index) {
-                  MessageModel model = dataSource[index];
+                  MessageModel model = dataList[index];
                   if (index == 2) {
                     return Divider(
                       thickness: 10,
@@ -278,6 +291,9 @@ class _MessagePageState extends State<MessagePage> {
 
   /// 获取当前的聊天记录
   Future<List<MessageModel>> _getMessageData() async {
+    // if (dataList.length > 0) {
+    //   dataList.clear();
+    // }
     String jsonString = await rootBundle.loadString("assets/message.json");
     final jsonResult = json.decode(jsonString);
     List<MessageModel> data = List();
@@ -287,7 +303,27 @@ class _MessagePageState extends State<MessagePage> {
       MessageModel item = MessageModel.fromJson(map);
       data.add(item);
     }
-    print("length " + data.length.toString());
+    _refreshController.refreshCompleted();
+    return data;
+  }
+
+  /// 加载更多信息
+  Future<List<MessageModel>> _loadMoreData() async {
+    String jsonString = await rootBundle.loadString("assets/message.json");
+    final jsonResult = json.decode(jsonString);
+    List<MessageModel> data = List();
+    for (Map<String, dynamic> map in jsonResult["respData"]) {
+      MessageModel item = MessageModel.fromJson(map);
+      if (Random().nextBool() == true) {
+        data.add(item);
+      }
+    }
+    currentPage++;
+    if (currentPage <= 3) {
+      _refreshController.loadComplete();
+    } else {
+      _refreshController.loadNoData();
+    }
     return data;
   }
 
