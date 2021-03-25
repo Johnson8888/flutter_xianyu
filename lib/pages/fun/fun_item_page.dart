@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-19 18:15:22
- * @LastEditTime: 2021-03-24 12:02:09
+ * @LastEditTime: 2021-03-25 16:01:51
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -28,7 +28,6 @@ class FunItemPage extends StatefulWidget {
 class _FunItemPageState extends State<FunItemPage> {
   List<FunItemModel> dataList = [];
 
-  List<String> items = ["1", "2", "3", "4", "5", "6", "7", "8"];
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -53,7 +52,6 @@ class _FunItemPageState extends State<FunItemPage> {
     // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
-    items.add((items.length + 1).toString());
     if (mounted) setState(() {});
     _refreshController.loadComplete();
   }
@@ -63,7 +61,7 @@ class _FunItemPageState extends State<FunItemPage> {
     return SmartRefresher(
       enablePullDown: true,
       enablePullUp: true,
-      header: GifHeader1(),
+      header: LottieHeader(),
       // footer: GifFooter1(),
       footer: ClassicFooter(),
       controller: _refreshController,

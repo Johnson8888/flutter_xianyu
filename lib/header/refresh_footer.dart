@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-23 10:28:23
- * @LastEditTime: 2021-03-23 10:59:24
+ * @LastEditTime: 2021-03-25 15:52:22
  * @Support: http://fulade.me
  */
 import 'package:flutter/widgets.dart';
@@ -51,6 +51,10 @@ class _GifFooter1State extends State<GifFooter1>
           _gifController.repeat(
               min: 0, max: 29, period: Duration(milliseconds: 500));
         }
+        if (mode == LoadStatus.idle) {}
+        if (mode == LoadStatus.canLoading) {}
+        if (mode == LoadStatus.noMore) {}
+        if (mode == LoadStatus.failed) {}
       },
       endLoading: () async {
         _gifController.value = 30;

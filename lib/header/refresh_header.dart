@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-23 10:28:31
- * @LastEditTime: 2021-03-24 11:56:23
+ * @LastEditTime: 2021-03-25 15:59:55
  * @Support: http://fulade.me
  */
 import 'package:flutter/widgets.dart';
@@ -11,15 +11,15 @@ import 'package:flutter/material.dart'
     hide RefreshIndicator, RefreshIndicatorState;
 import 'package:lottie/lottie.dart';
 
-class GifHeader1 extends RefreshIndicator {
-  GifHeader1() : super(height: 80.0, refreshStyle: RefreshStyle.Follow);
+class LottieHeader extends RefreshIndicator {
+  LottieHeader() : super(height: 80.0, refreshStyle: RefreshStyle.Follow);
   @override
   State<StatefulWidget> createState() {
-    return GifHeader1State();
+    return LottieHeaderState();
   }
 }
 
-class GifHeader1State extends RefreshIndicatorState<GifHeader1>
+class LottieHeaderState extends RefreshIndicatorState<LottieHeader>
     with SingleTickerProviderStateMixin {
   GifController _gifController;
 
