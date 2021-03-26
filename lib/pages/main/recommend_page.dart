@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-16 22:31:21
+ * @LastEditTime: 2021-03-26 16:31:11
  * @Support: http://fulade.me
  */
 // 推荐页面
@@ -68,7 +68,7 @@ class _RecommendPageState extends State<RecommendPage>
     WidgetsBinding widgetsBinding = WidgetsBinding.instance;
     widgetsBinding.addPostFrameCallback((callback) {
       Timer.periodic(new Duration(seconds: 5), (timer) {
-        makeMoneyIndex += makeMoneyKey.currentContext.size.height.toInt();
+        // makeMoneyIndex += makeMoneyKey.currentContext.size.height.toInt();
         makeMoneyController.animateTo((makeMoneyIndex).toDouble(),
             duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
         //滚动到底部从头开始

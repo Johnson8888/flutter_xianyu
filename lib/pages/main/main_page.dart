@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-26 10:43:45
+ * @LastEditTime: 2021-03-26 16:30:19
  * @Support: http://fulade.me
  */
 // import 'dart:html';
@@ -49,7 +49,7 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
 
     widgetsBinding.addPostFrameCallback((callback) {
       Timer.periodic(new Duration(seconds: 3), (timer) {
-        serachIndex += searchBarKey.currentContext.size.height.toInt();
+        // serachIndex += searchBarKey.currentContext.size.height.toInt();
         searchController.animateTo((serachIndex).toDouble(),
             duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
         //滚动到底部从头开始

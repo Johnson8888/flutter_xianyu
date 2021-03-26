@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:06:16
- * @LastEditTime: 2021-03-25 20:59:18
+ * @LastEditTime: 2021-03-26 16:33:42
  * @Support: http://fulade.me
  */
 
@@ -41,6 +41,9 @@ class _MessagePageState extends State<MessagePage> {
   }
 
   void _onRefresh() {
+    Future.delayed(Duration(milliseconds: 1000), () {
+      _refreshController.refreshCompleted();
+    });
     futureMessage = _getMessageData();
   }
 
@@ -303,7 +306,7 @@ class _MessagePageState extends State<MessagePage> {
       MessageModel item = MessageModel.fromJson(map);
       data.add(item);
     }
-    _refreshController.refreshCompleted();
+    print("refreshCompleted");
     return data;
   }
 
