@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-05 19:27:21
- * @LastEditTime: 2021-03-23 14:51:21
+ * @LastEditTime: 2021-03-26 16:05:13
  * @Support: http://fulade.me
  */
 import 'package:flutter/cupertino.dart';
@@ -15,7 +15,7 @@ import '../../header/refresh_footer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../header/refresh_header.dart';
 import 'dart:async';
-
+import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -128,26 +128,38 @@ class LoginVideo extends StatefulWidget {
   _LoginVideoState createState() => _LoginVideoState();
 }
 
-class _LoginVideoState extends State<LoginVideo> {
+class _LoginVideoState extends State<LoginVideo>
+    with SingleTickerProviderStateMixin {
   // 声明视频控制器
   VideoPlayerController _controller;
   //
   final String videoUrl =
       "https://video.pearvideo.com/mp4/third/20190730/cont-1584187-10136163-164150-hd.mp4";
+  AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
     _controller = VideoPlayerController.network(videoUrl)
-      ..initialize().then((_) {
-        setState(() {});
-        _controller.play();
-        _controller.setLooping(true);
-        // _controller.setVolume(0.0);
-        Timer.periodic(Duration(seconds: 15), (Timer time) {
-          print(time);
-        });
-      });
+      ..initialize().then(
+        (_) {
+          setState(() {});
+          _controller.play();
+          _controller.setLooping(true);
+          // _controller.setVolume(0.0);
+          Timer.periodic(Duration(seconds: 15), (Timer time) {
+            print(time);
+          });
+        },
+      );
+    _animationController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1000));
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        print("animation finish");
+      }
+    });
+    _animationController.forward();
   }
 
   @override
@@ -158,10 +170,10 @@ class _LoginVideoState extends State<LoginVideo> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    print(width / height);
-    print("mmm");
+    // final width = MediaQuery.of(context).size.width;
+    // final height = MediaQuery.of(context).size.height;
+    // print(width / height);
+    // print("mmm");
     print(MediaQuery.of(context).size.aspectRatio);
     return Scaffold(
       body: Stack(
@@ -183,94 +195,85 @@ class _LoginVideoState extends State<LoginVideo> {
               ),
             ),
           ),
-          /*
-        Positioned(
-          width: MediaQuery.of(context).size.width,
-          bottom: 26.0,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
-                onPressed: () {},
-                child: Container(
-                  height: 44.0,
-                  width: 240.0,
-                  child: Center(
-                    child: Text(
-                      "微信登录",
-                      style: TextStyle(
-                          fontSize: 15.0, fontWeight: FontWeight.bold),
+          Positioned(
+            width: MediaQuery.of(context).size.width,
+            bottom: 26.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                  onPressed: () {},
+                  child: Container(
+                    height: 44.0,
+                    width: 240.0,
+                    child: Center(
+                      child: Text(
+                        "微信登录",
+                        style: TextStyle(
+                            fontSize: 15.0, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
+                  color: Color(0xffFFDB2E),
+                  textColor: Color(0xff202326),
+                  elevation: 0.0,
+                  focusElevation: 0.0,
+                  highlightElevation: 0.0,
                 ),
-                color: Color(0xffFFDB2E),
-                textColor: Color(0xff202326),
-                elevation: 0.0,
-                focusElevation: 0.0,
-                highlightElevation: 0.0,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
-                onPressed: () {},
-                child: Container(
-                  height: 44.0,
-                  width: 240.0,
-                  child: Center(
-                    child: Text(
-                      "手机号登录",
-                      style: TextStyle(
-                          fontSize: 15.0, fontWeight: FontWeight.bold),
+                SizedBox(
+                  height: 20.0,
+                ),
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                  onPressed: () {
+                    print("button pressed");
+                    _animationController.forward(from: 0.0);
+                  },
+                  child: Container(
+                    height: 44.0,
+                    width: 240.0,
+                    child: Center(
+                      child: Text(
+                        "手机号登录",
+                        style: TextStyle(
+                            fontSize: 15.0, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
+                  color: Color(0xff202326),
+                  textColor: Color(0xffededed),
+                  elevation: 0.0,
+                  focusElevation: 0.0,
+                  highlightElevation: 0.0,
                 ),
-                color: Color(0xff202326),
-                textColor: Color(0xffededed),
-                elevation: 0.0,
-                focusElevation: 0.0,
-                highlightElevation: 0.0,
-              ),
-              SizedBox(
-                height: 60.0,
-              ),
-              Text(
-                "我已阅读并同意《服务协议》及《隐私政策》",
-                style: TextStyle(color: Colors.white, fontSize: 13.0),
-              )
-            ],
+                SizedBox(
+                  height: 60.0,
+                ),
+                Text(
+                  "我已阅读并同意《服务协议》及《隐私政策》",
+                  style: TextStyle(color: Colors.white, fontSize: 13.0),
+                )
+              ],
+            ),
           ),
-        ),
-        */
-          /*
-        Positioned(
-          width: MediaQuery.of(context).size.width,
-          top: 80.0,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "登录",
-                style: TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                "视频背景登录页面",
-                style: TextStyle(color: Colors.white, fontSize: 15.0),
-              )
-            ],
-          ),
-        )
-        */
+          Positioned(
+            width: MediaQuery.of(context).size.width,
+            top: 80.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Lottie.asset(
+                  "assets/if_refresh.json",
+                  width: 60,
+                  height: 60,
+                  controller: _animationController,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

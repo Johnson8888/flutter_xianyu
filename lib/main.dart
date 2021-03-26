@@ -51,11 +51,18 @@ class AppHome extends StatefulWidget {
   State<StatefulWidget> createState() => AppHomeState();
 }
 
-class AppHomeState extends State<AppHome> {
+class AppHomeState extends State<AppHome> with SingleTickerProviderStateMixin {
+  /// 当前选中的index
   int currentIndex = 0;
-  Widget currentView;
+  // Widget currentView;
   var publishOverlayEntry = null;
 
+  /// 第一个菜单
+  Widget fishTabbarActiveIcon = null;
+  //// icon的大小
+  final iconImageSpace = 22.0;
+
+  AnimationController _animationController;
   Map<int, Widget> pageMap = {
     0: MainPage(),
     1: FunPage(),
@@ -66,12 +73,13 @@ class AppHomeState extends State<AppHome> {
   @override
   initState() {
     super.initState();
-    this.setState(() {});
+    _animationController = AnimationController(
+        duration: Duration(milliseconds: 1000), vsync: this);
+    _animationController.forward(from: 0.0);
   }
 
   @override
   Widget build(BuildContext context) {
-    final iconImageSpace = 22.0;
     return Scaffold(
       body: pageMap[this.currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -84,6 +92,7 @@ class AppHomeState extends State<AppHome> {
           this.setState(() {
             if (index != 2) {
               this.currentIndex = index;
+              _animationController.forward(from: 0.0);
             } else {
               showWeixinButtonView();
             }
@@ -99,10 +108,11 @@ class AppHomeState extends State<AppHome> {
               height: iconImageSpace,
             ),
             title: Text('闲鱼'),
-            activeIcon: Image.asset(
-              "images/ic_tabbar_home_sel@3x.png",
+            activeIcon: Lottie.asset(
+              "assets/lot_tab_home.json",
               width: iconImageSpace,
               height: iconImageSpace,
+              controller: _animationController,
             ),
           ),
           BottomNavigationBarItem(
@@ -112,10 +122,11 @@ class AppHomeState extends State<AppHome> {
               height: iconImageSpace,
             ),
             title: Text('会玩'),
-            activeIcon: Image.asset(
-              "images/ic_tabbar_niceplay_sel@3x.png",
+            activeIcon: Lottie.asset(
+              "assets/lot_tab_niceplay.json",
               width: iconImageSpace,
               height: iconImageSpace,
+              controller: _animationController,
             ),
           ),
           BottomNavigationBarItem(
@@ -149,10 +160,11 @@ class AppHomeState extends State<AppHome> {
               height: iconImageSpace,
             ),
             title: Text('消息'),
-            activeIcon: Image.asset(
-              "images/ic_tabbar_message_sel@3x.png",
+            activeIcon: Lottie.asset(
+              "assets/lot_tab_message.json",
               width: iconImageSpace,
               height: iconImageSpace,
+              controller: _animationController,
             ),
           ),
           BottomNavigationBarItem(
@@ -162,10 +174,11 @@ class AppHomeState extends State<AppHome> {
               height: iconImageSpace,
             ),
             title: Text('我的'),
-            activeIcon: Image.asset(
-              "images/ic_tabbar_mine_sel@3x.png",
+            activeIcon: Lottie.asset(
+              "assets/lot_tab_me.json",
               width: iconImageSpace,
               height: iconImageSpace,
+              controller: _animationController,
             ),
           ),
         ],
