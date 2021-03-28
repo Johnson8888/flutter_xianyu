@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-03-23 20:10:12
+ * @LastEditTime: 2021-03-28 15:41:45
  * @Support: http://fulade.me
  */
 /// 关注页面
@@ -16,6 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:video_player/video_player.dart';
 import '../../common/api.dart';
 import '../../util/utils.dart';
+import './item_details_page.dart';
 
 class AttentionPage extends StatefulWidget {
   @override
@@ -76,6 +77,14 @@ class _AttentionPageState extends State<AttentionPage> {
                   return InkWell(
                     onTap: () {
                       print(element.title);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ItemDetailsPage(model: element);
+                          },
+                        ),
+                      );
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

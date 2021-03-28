@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2020-12-17 20:32:59
- * @LastEditTime: 2021-02-25 11:44:23
+ * @LastEditTime: 2021-03-28 15:27:46
  * @Support: http://fulade.me
  */
 
@@ -30,8 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
-              // print(notification.metrics.pixels);
-              // print(notification.context);
+              //print(notification.metrics.pixels);
+              //print(notification.context);
               var scrollY = notification.metrics.pixels;
               if (scrollY > 0) {
                 var opacity = scrollY / 80;

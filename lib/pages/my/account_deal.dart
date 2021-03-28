@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-18 11:21:29
- * @LastEditTime: 2021-02-18 14:40:36
+ * @LastEditTime: 2021-03-28 15:26:40
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -26,7 +26,8 @@ class AccountDealCard extends StatelessWidget {
             child: Divider(
               height: 10,
               thickness: 10,
-              color: Color.fromARGB(255, 192, 192, 192),
+              //color: Color.fromARGB(255, 192, 192, 192),
+              color: Color(0xffF9FAFC),
             ),
           ),
           Container(

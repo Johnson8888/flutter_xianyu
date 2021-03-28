@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:06:16
- * @LastEditTime: 2021-03-26 16:33:42
+ * @LastEditTime: 2021-03-26 21:36:31
  * @Support: http://fulade.me
  */
 
@@ -40,11 +40,10 @@ class _MessagePageState extends State<MessagePage> {
     futureMessage = _getMessageData();
   }
 
-  void _onRefresh() {
-    Future.delayed(Duration(milliseconds: 1000), () {
-      _refreshController.refreshCompleted();
-    });
-    futureMessage = _getMessageData();
+  void _onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    _refreshController.refreshCompleted();
+    //futureMessage = _getMessageData();
   }
 
   void _onLoading() async {
