@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-28 14:01:25
- * @LastEditTime: 2021-03-28 16:55:17
+ * @LastEditTime: 2021-03-28 22:52:52
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -212,6 +212,83 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                               )
                             ],
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  //// 用户信息展示
+                  Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width - 80,
+                          child: Column(
+                            children: [
+                              Text(
+                                widget.model.userName,
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "来咸鱼985天，卖出过3410件宝贝。90后射手座女生，IT/互联网/通信行业销售。江西财经大学毕业。",
+                                style: TextStyle(),
+                                maxLines: 2,
+                              ),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text("实人认证已通过"),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("芝麻信用已授权"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        CachedNetworkImage(
+                          width: 40,
+                          height: 40,
+                          errorWidget: (context, url, error) {
+                            return Icon(Icons.error);
+                          },
+                          imageUrl: widget.model.userPhoto,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /// 留言信息
+                  Container(
+                    child: Column(
+                      children: [
+                        Text(
+                          "全部留言 · 1",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Image.asset(
+                              "images/image_demo.jpg",
+                              width: 30,
+                              height: 30,
+                            ),
+                            Container(
+                              child: Text(
+                                "看对眼就留言,问问更多细节~",
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
