@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:05:57
- * @LastEditTime: 2021-03-26 16:30:19
+ * @LastEditTime: 2021-03-28 15:34:32
  * @Support: http://fulade.me
  */
 // import 'dart:html';
@@ -122,8 +122,6 @@ class _MainPageTabBarState extends State<MainPageTabBar> {
             ],
           ),
           Container(
-            // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            // color: Colors.red,
             height: 45,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
@@ -282,8 +280,8 @@ class FlutterTabBarView extends StatelessWidget {
     var viewList = [
       // TestPage(),
       // VideoPlayerScreen(),
-      RecommendPage(),
       AttentionPage(),
+      RecommendPage(),
       CityPage(),
     ];
     return TabBarView(
