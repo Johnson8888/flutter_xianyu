@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-26 16:31:11
+ * @LastEditTime: 2021-03-27 15:43:29
  * @Support: http://fulade.me
  */
 // 推荐页面
@@ -68,7 +68,7 @@ class _RecommendPageState extends State<RecommendPage>
     WidgetsBinding widgetsBinding = WidgetsBinding.instance;
     widgetsBinding.addPostFrameCallback((callback) {
       Timer.periodic(new Duration(seconds: 5), (timer) {
-        // makeMoneyIndex += makeMoneyKey.currentContext.size.height.toInt();
+        makeMoneyIndex += makeMoneyKey.currentContext.size.height.toInt();
         makeMoneyController.animateTo((makeMoneyIndex).toDouble(),
             duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
         //滚动到底部从头开始
@@ -344,28 +344,6 @@ class _RecommendPageState extends State<RecommendPage>
                             },
                           ),
                         ),
-                        /*
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-                              child: CircleAvatar(
-                                radius: 10, // 头像的半径
-                                backgroundImage:
-                                    AssetImage('images/image_demo.jpg'),
-                              ),
-                            ),
-                            Text(
-                              "赚了¥3501",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xffbababa),
-                              ),
-                            ),
-                          ],
-                        ),
-                        */
                       ],
                     ),
                   ),
@@ -387,21 +365,6 @@ class _RecommendPageState extends State<RecommendPage>
                 ),
                 width: 100,
               ),
-              /*child: FlatButton(
-                onPressed: () {
-                  var list = itemPositionsListener.itemPositions.value
-                      .where((element) {
-                    return element.itemLeadingEdge >= 0 &&
-                        element.itemTrailingEdge <= 1;
-                  });
-                  itemScrollController.scrollTo(
-                      index: 0,
-                      duration: Duration(seconds: 1),
-                      curve: Curves.easeInOutCubic);
-                },
-                child: Text("热门活动"),
-              ),
-              */
             ),
           ),
           SliverToBoxAdapter(

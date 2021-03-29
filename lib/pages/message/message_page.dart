@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-02 18:06:16
- * @LastEditTime: 2021-03-26 16:33:42
+ * @LastEditTime: 2021-03-27 15:27:07
  * @Support: http://fulade.me
  */
 
@@ -41,15 +41,18 @@ class _MessagePageState extends State<MessagePage> {
   }
 
   void _onRefresh() {
-    Future.delayed(Duration(milliseconds: 1000), () {
-      _refreshController.refreshCompleted();
+    // Future.delayed(Duration(milliseconds: 1000), () {
+    // });
+    setState(() {
+      futureMessage = _getMessageData();
     });
-    futureMessage = _getMessageData();
   }
 
   void _onLoading() async {
     if (mounted) {
-      futureMessage = _loadMoreData();
+      setState(() {
+        futureMessage = _loadMoreData();
+      });
     }
   }
 
@@ -86,9 +89,9 @@ class _MessagePageState extends State<MessagePage> {
             return CircularProgressIndicator();
           } else {
             /// 如果获取到了数据 我们就初始化一个 ListView来展示获取到的数据
-            dataList.addAll(snap.data);
-            print(snap.data);
-
+            // dataList.addAll(snap.data);
+            // print(snap.data);
+            dataList = snap.data;
             return SmartRefresher(
               enablePullDown: true,
               enablePullUp: true,
@@ -198,105 +201,12 @@ class _MessagePageState extends State<MessagePage> {
           }
         },
       ),
-      /*
-      body: EasyRefresh.custom(
-        header: LoadingHeader(),
-        footer: LoadingFooter(
-          color: Color.fromRGBO(220, 220, 220, 1),
-        ),
-        onRefresh: () async {
-          await Future.delayed(Duration(seconds: 2), () {
-            if (mounted) {
-              setState(() {});
-            }
-          });
-        },
-        onLoad: () async {
-          await Future.delayed(Duration(seconds: 2), () {
-            if (mounted) {
-              setState(() {});
-            }
-          });
-        },
-        slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                if (index == 2) {
-                  return Divider(
-                    thickness: 10,
-                    height: 10,
-                    color: Color.fromRGBO(220, 220, 220, 1),
-                  );
-                }
-                return Container(
-                  color: Colors.white,
-                  height: 80,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 5, 15, 5),
-                        child: CircleAvatar(
-                          radius: 25, // 头像的半径
-                          backgroundImage:
-                              AssetImage('images/ic_notificate.png'),
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Text(
-                                "whls1234",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                              child: Text(
-                                "点击查看评论内容",
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "5天前",
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 9.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                        flex: 2,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 10, 15, 10),
-                        child: Image.asset("images/image_demo.jpg"),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              childCount: dataList.length,
-            ),
-          ),
-        ],
-      ),
-      */
     );
   }
 
   /// 获取当前的聊天记录
   Future<List<MessageModel>> _getMessageData() async {
-    // if (dataList.length > 0) {
-    //   dataList.clear();
-    // }
+    currentPage = 0;
     String jsonString = await rootBundle.loadString("assets/message.json");
     final jsonResult = json.decode(jsonString);
     List<MessageModel> data = List();
@@ -306,7 +216,10 @@ class _MessagePageState extends State<MessagePage> {
       MessageModel item = MessageModel.fromJson(map);
       data.add(item);
     }
-    print("refreshCompleted");
+    _refreshController.refreshCompleted();
+
+    /// 重新恢复 fotter的状态
+    _refreshController.loadComplete();
     return data;
   }
 
@@ -314,11 +227,11 @@ class _MessagePageState extends State<MessagePage> {
   Future<List<MessageModel>> _loadMoreData() async {
     String jsonString = await rootBundle.loadString("assets/message.json");
     final jsonResult = json.decode(jsonString);
-    List<MessageModel> data = List();
+    // List<MessageModel> data = List();
     for (Map<String, dynamic> map in jsonResult["respData"]) {
       MessageModel item = MessageModel.fromJson(map);
       if (Random().nextBool() == true) {
-        data.add(item);
+        dataList.add(item);
       }
     }
     currentPage++;
@@ -327,7 +240,7 @@ class _MessagePageState extends State<MessagePage> {
     } else {
       _refreshController.loadNoData();
     }
-    return data;
+    return dataList;
   }
 
   /// 添加本地的数据

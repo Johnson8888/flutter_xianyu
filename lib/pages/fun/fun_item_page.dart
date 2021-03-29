@@ -1,15 +1,11 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-19 18:15:22
- * @LastEditTime: 2021-03-25 16:01:51
+ * @LastEditTime: 2021-03-27 15:37:36
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'dart:math' as math;
-import 'package:flutter_easyrefresh/easy_refresh.dart';
-import '../../header/loading_header.dart';
-import '../../header/loading_footer.dart';
 import 'dart:math';
 import 'dart:convert';
 import 'dart:async';
@@ -26,10 +22,15 @@ class FunItemPage extends StatefulWidget {
 }
 
 class _FunItemPageState extends State<FunItemPage> {
+  /// 数据源数组
   List<FunItemModel> dataList = [];
 
+  /// 刷新控件
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
+  /// 当前获取到数据的页数
+  var currentPage = 0;
 
   @override
   void initState() {
@@ -42,18 +43,28 @@ class _FunItemPageState extends State<FunItemPage> {
   }
 
   void _onRefresh() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use refreshFailed()
-    _refreshController.refreshCompleted();
+    /// 重置状态
+    currentPage = 0;
+    _refreshController.loadComplete();
+
+    /// 开始获取数据
+    getData().then((data) {
+      setState(() {
+        dataList = data;
+      });
+      _refreshController.refreshCompleted();
+    });
   }
 
   void _onLoading() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    if (mounted) setState(() {});
-    _refreshController.loadComplete();
+    if (mounted) {
+      loadMoreData().then((data) {
+        setState(() {
+          dataList.addAll(data);
+        });
+      });
+      _refreshController.loadComplete();
+    }
   }
 
   @override
@@ -62,7 +73,6 @@ class _FunItemPageState extends State<FunItemPage> {
       enablePullDown: true,
       enablePullUp: true,
       header: LottieHeader(),
-      // footer: GifFooter1(),
       footer: ClassicFooter(),
       controller: _refreshController,
       onRefresh: _onRefresh,
@@ -173,7 +183,8 @@ class _FunItemPageState extends State<FunItemPage> {
     );
   }
 
-  Future<List> getData() async {
+  /// 加载数据
+  Future<List<FunItemModel>> getData() async {
     final randowFile = Random().nextInt(7) + 1;
     String jsonString =
         await rootBundle.loadString("assets/fun$randowFile.json");
@@ -187,7 +198,22 @@ class _FunItemPageState extends State<FunItemPage> {
     return data;
   }
 
-  /// 解析喜欢的数
+  /// 加载数据
+  Future<List<FunItemModel>> loadMoreData() async {
+    final randowFile = Random().nextInt(7) + 1;
+    String jsonString =
+        await rootBundle.loadString("assets/fun$randowFile.json");
+    final jsonResult = json.decode(jsonString);
+    //遍历List，并且转成Anchor对象放到另一个List中
+    List<FunItemModel> data = List();
+    for (Map<String, dynamic> map in jsonResult["data"]) {
+      FunItemModel item = FunItemModel.fromJson(map);
+      data.add(item);
+    }
+    return data;
+  }
+
+  /// 解析喜欢的数量
   String _parseLikes(int count) {
     if (count > 1000) {
       return (count / 1000).toStringAsFixed(1) + "k";

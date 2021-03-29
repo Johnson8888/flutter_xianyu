@@ -1,21 +1,18 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:02:31
- * @LastEditTime: 2021-03-15 17:49:06
+ * @LastEditTime: 2021-03-27 16:30:57
  * @Support: http://fulade.me
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 import './model/attention_item_model.dart';
 import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import '../../common/api.dart';
 import 'dart:math';
-import 'package:intl/intl.dart';
 
 enum LoadingState {
   nona,
@@ -78,6 +75,8 @@ class _RecommendItemPageState extends State<RecommendItemPage>
             child: Container(
               color: Colors.grey[100],
               child: CustomScrollView(
+                shrinkWrap: true,
+                primary: true,
                 key: PageStorageKey(widget.categoryType),
                 slivers: <Widget>[
                   // 顶部偏移量
@@ -170,7 +169,7 @@ class _RecommendItemPageState extends State<RecommendItemPage>
                   Container(
                     padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                     child: Text(
-                      "8人想要",
+                      Random().nextInt(1000).toString() + "人想要",
                       style: TextStyle(
                         fontSize: 11.0,
                         color: Color(0xffaaaaaa),

@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-23 10:28:31
- * @LastEditTime: 2021-03-26 10:42:41
+ * @LastEditTime: 2021-03-27 15:15:50
  * @Support: http://fulade.me
  */
 import 'package:flutter/widgets.dart';
@@ -21,52 +21,51 @@ class LottieHeader extends RefreshIndicator {
 
 class LottieHeaderState extends RefreshIndicatorState<LottieHeader>
     with SingleTickerProviderStateMixin {
-  // GifController _gifController;
+  AnimationController _animationController;
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(
+      duration: Duration(milliseconds: 2000),
+      vsync: this,
+    );
   }
 
-  // @override
-  // void onModeChange(RefreshStatus mode) {
-  //   if (mode == RefreshStatus.refreshing) {
-  //     _gifController.repeat(
-  //         min: 0, max: 29, period: Duration(milliseconds: 500));
-  //   }
-  //   super.onModeChange(mode);
-  // }
+  @override
+  void onModeChange(RefreshStatus mode) {
+    if (mode == RefreshStatus.refreshing) {
+      _animationController.repeat(
+          min: 80, max: 100, period: Duration(milliseconds: 500));
+    }
+    super.onModeChange(mode);
+  }
 
   @override
   Future<void> endRefresh() {
-    // _gifController.value = 30;
-    // return _gifController.animateTo(59, duration: Duration(milliseconds: 500));
+    _animationController.value = 30;
+    return _animationController.animateTo(150,
+        duration: Duration(milliseconds: 500));
   }
 
   @override
   void resetValue() {
-    // _gifController.value = 0;
+    _animationController.value = 0;
     super.resetValue();
   }
 
   @override
   Widget buildContent(BuildContext context, RefreshStatus mode) {
-    // return GifImage(
-    //   image: AssetImage("images/gifindicator1.gif"),
-    //   controller: _gifController,
-    //   height: 80.0,
-    //   width: 537.0,
-    // );
     return Lottie.asset(
       "assets/if_refresh.json",
       width: 60,
       height: 60,
-      // controller: _animationController,
+      controller: _animationController,
     );
   }
 
   @override
   void dispose() {
-    // _gifController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 }

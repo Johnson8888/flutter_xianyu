@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-05 19:27:21
- * @LastEditTime: 2021-03-26 16:05:13
+ * @LastEditTime: 2021-03-27 15:14:37
  * @Support: http://fulade.me
  */
 import 'package:flutter/cupertino.dart';
@@ -18,6 +18,7 @@ import 'dart:async';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import '../../header/gif_header.dart';
 
 /*
 void main() => runApp(VideoPlayerApp());
@@ -121,7 +122,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 }
 
 */
-
+/*
 class LoginVideo extends StatefulWidget {
   const LoginVideo();
   @override
@@ -275,6 +276,43 @@ class _LoginVideoState extends State<LoginVideo>
             ),
           )
         ],
+      ),
+    );
+  }
+}
+*/
+
+class GifIndicatorExample1 extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return GifIndicatorExample1State();
+  }
+}
+
+class GifIndicatorExample1State extends State<GifIndicatorExample1> {
+  RefreshController _controller = RefreshController();
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return SmartRefresher(
+      controller: _controller,
+      enablePullUp: true,
+      // header: GifHeader1(),
+      header: LottieHeader(),
+      footer: GifFooter1(),
+      onRefresh: () async {
+        await Future.delayed(Duration(milliseconds: 1000));
+        _controller.refreshCompleted();
+      },
+      onLoading: () async {
+        await Future.delayed(Duration(milliseconds: 2000));
+        _controller.loadFailed();
+      },
+      child: ListView.builder(
+        itemBuilder: (c, q) => Card(),
+        itemCount: 50,
+        itemExtent: 100.0,
       ),
     );
   }
