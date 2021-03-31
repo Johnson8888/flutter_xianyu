@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-28 14:01:25
- * @LastEditTime: 2021-03-31 17:16:33
+ * @LastEditTime: 2021-03-31 22:40:40
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -409,7 +409,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                         Column(
                           children: [
                             Image.asset(
-                              "images/ic_detail_like_nor@3x.png",
+                              "images/ic_unlike.png",
                               width: 35,
                               height: 35,
                             ),
@@ -419,7 +419,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                         Column(
                           children: [
                             Image.asset(
-                              "images/ic_detail_like_nor@3x.png",
+                              "images/ic_comment.png",
                               width: 35,
                               height: 35,
                             ),
@@ -429,7 +429,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                         Column(
                           children: [
                             Image.asset(
-                              "images/ic_detail_like_nor@3x.png",
+                              "images/fundetail_collect_black@2x.png",
                               width: 35,
                               height: 35,
                             ),
