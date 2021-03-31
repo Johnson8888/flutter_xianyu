@@ -278,6 +278,12 @@
       "languageVersion": "2.5"
     },
     {
+      "name": "inview_notifier_list",
+      "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/inview_notifier_list-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "io",
       "rootUri": "file:///Users/Joker/flutter/.pub-cache/hosted/pub.dartlang.org/io-0.3.5",
       "packageUri": "lib/",
@@ -662,7 +668,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-03-23T02:30:02.857298Z",
+  "generated": "2021-03-31T09:36:51.925890Z",
   "generator": "pub",
   "generatorVersion": "2.10.5"
 }

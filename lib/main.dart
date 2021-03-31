@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_xianyu/pages/fun/index.dart';
 import 'package:flutter_xianyu/pages/main/index.dart';
 import 'package:flutter_xianyu/pages/main/main_page.dart';
+import 'package:flutter_xianyu/pages/main/video_widget.dart';
 import './pages/fun/index.dart';
 import './pages/message/index.dart';
 import './pages/my/index.dart';
@@ -39,8 +40,8 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      //home: StickyPage(),
-      home: AppHome(),
+      home: VideoList(),
+      // home: AppHome(),
       // home: GifIndicatorExample1(),
     );
   }

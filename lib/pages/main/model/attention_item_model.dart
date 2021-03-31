@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-10 14:39:33
- * @LastEditTime: 2021-03-12 09:20:54
+ * @LastEditTime: 2021-03-31 16:18:46
  * @Support: http://fulade.me
  */
 
@@ -202,10 +202,13 @@ class SpecialUserDesc {
 
 @JsonSerializable()
 class VideoInfo {
-  VideoInfo(this.picUrl, this.videoUrl, this.recordTime);
+  VideoInfo(
+      this.picUrl, this.videoUrl, this.recordTime, this.width, this.height);
   String picUrl;
   String videoUrl;
   String recordTime;
+  String width;
+  String height;
   factory VideoInfo.fromJson(Map<String, dynamic> json) =>
       _$VideoInfoFromJson(json);
   Map<String, dynamic> toJson() => _$VideoInfoToJson(this);

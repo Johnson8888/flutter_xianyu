@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-05 19:27:21
- * @LastEditTime: 2021-03-27 15:14:37
+ * @LastEditTime: 2021-03-31 17:42:09
  * @Support: http://fulade.me
  */
 import 'package:flutter/cupertino.dart';
@@ -19,6 +19,8 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import '../../header/gif_header.dart';
+import 'package:inview_notifier_list/inview_notifier_list.dart';
+import 'video_widget.dart';
 
 /*
 void main() => runApp(VideoPlayerApp());
@@ -314,6 +316,56 @@ class GifIndicatorExample1State extends State<GifIndicatorExample1> {
         itemCount: 50,
         itemExtent: 100.0,
       ),
+    );
+  }
+}
+
+class VideoList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        InViewNotifierList(
+          scrollDirection: Axis.vertical,
+          initialInViewIds: ['0'],
+          isInViewPortCondition:
+              (double deltaTop, double deltaBottom, double viewPortDimension) {
+            return deltaTop < (0.5 * viewPortDimension) &&
+                deltaBottom > (0.5 * viewPortDimension);
+          },
+          itemCount: 10,
+          builder: (BuildContext context, int index) {
+            return Container(
+              width: double.infinity,
+              height: 300.0,
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(vertical: 50.0),
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return InViewNotifierWidget(
+                    id: '$index',
+                    builder:
+                        (BuildContext context, bool isInView, Widget child) {
+                      return VideoWidget(
+                          play: isInView,
+                          url:
+                              'https://zzwos.58cdn.com.cn/ZEXwVuTsRZb/zhuanzhuan/b0d0a24b67099d467b5f352ce7adb0ea.mp4');
+                    },
+                  );
+                },
+              ),
+            );
+          },
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            height: 1.0,
+            color: Colors.redAccent,
+          ),
+        )
+      ],
     );
   }
 }

@@ -41,6 +41,7 @@ dependencies:
   qrscan: ^0.2.21   ## 扫一扫控件
   pull_to_refresh: 1.6.3   # 下拉刷新控件
   flutter_gifimage: ^1.0.0  # 播放gif库
+  inview_notifier_list: ^1.0.0
 
 dev_dependencies:
   flutter_test:

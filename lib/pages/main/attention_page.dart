@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-02-28 11:01:41
- * @LastEditTime: 2021-03-28 15:41:45
+ * @LastEditTime: 2021-03-31 17:12:48
  * @Support: http://fulade.me
  */
 /// 关注页面
@@ -76,11 +76,11 @@ class _AttentionPageState extends State<AttentionPage> {
                   CommonGood element = dataSource[index];
                   return InkWell(
                     onTap: () {
-                      print(element.title);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
+                            print(element.title);
                             return ItemDetailsPage(model: element);
                           },
                         ),
@@ -180,7 +180,6 @@ class _AttentionPageState extends State<AttentionPage> {
     if (videoPlayerMap.length > 0) {
       videoPlayerMap.clear();
     }
-
     String jsonString = await rootBundle.loadString("assets/attention1.json");
     final jsonResult = json.decode(jsonString);
     //遍历List，并且转成Anchor对象放到另一个List中
@@ -189,8 +188,6 @@ class _AttentionPageState extends State<AttentionPage> {
       Map<String, dynamic> commonGood = map["commonGoods"];
       CommonGood item = CommonGood.fromJson(commonGood);
       data.add(item);
-      print(item);
-
       if (item.video != null &&
           item.video.videoUrl != null &&
           item.video.videoUrl.length > 0) {
@@ -309,7 +306,6 @@ class _AttentionPageState extends State<AttentionPage> {
       );
 
       if (infoCoverList.length > 2) {
-        print("length == 3");
         f2 = Flexible(
           flex: 1,
           child: Container(
@@ -380,8 +376,9 @@ class _AttentionPageState extends State<AttentionPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             VideoPlayerController controller = playerDict["v"];
-            controller.play();
-            print("start play");
+            controller.setVolume(0);
+            // controller.play();
+            //print("start play");
             return ClipRect(
               child: Transform.scale(
                 scale: controller.value.aspectRatio /
@@ -438,37 +435,10 @@ class _AttentionPageState extends State<AttentionPage> {
             //   ),
             // );
           } else {
-            // If the VideoPlayerController is still initializing, show a
-            // loading spinner.
             return Center(child: CircularProgressIndicator());
           }
         },
       );
     }
   }
-
-  /// 随机一个时间
-  // String _getRandomTimeTag() {
-  //   int value = Random().nextInt(7);
-  //   if (value == 1) {
-  //     return "5分钟前";
-  //   }
-  //   if (value == 2) {
-  //     return "10分钟前";
-  //   }
-  //   if (value == 3) {
-  //     return "30分之前";
-  //   }
-  //   if (value == 4) {
-  //     return "1小时前";
-  //   }
-  //   if (value == 5) {
-  //     return "1天前";
-  //   }
-  //   int nowSeconds = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
-  //   int timestamp = nowSeconds - 60 * 60 * 24 * 3;
-  //   var format = DateFormat('yyyy-MM-dd');
-  //   var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-  //   return format.format(date);
-  // }
 }

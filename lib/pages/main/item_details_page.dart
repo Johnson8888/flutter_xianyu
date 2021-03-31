@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-28 14:01:25
- * @LastEditTime: 2021-03-29 16:22:32
+ * @LastEditTime: 2021-03-31 17:16:33
  * @Support: http://fulade.me
  */
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ import '../../common/utils.dart';
 import '../../common/api.dart';
 import 'dart:math';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:video_player/video_player.dart';
 
 class ItemDetailsPage extends StatefulWidget {
   final CommonGood model;
@@ -52,6 +53,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
             removeTop: true,
             context: context,
             child: Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 80),
               child: NotificationListener(
                 onNotification: (ScrollNotification notification) {
                   if (notification is ScrollUpdateNotification &&
@@ -62,6 +64,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                 child: ListView(
                   children: <Widget>[
                     /// 用戶信息 Container
+                    _showVideoWidget(),
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 64, 0, 0),
                       height: 40,
@@ -385,12 +388,77 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
           ),
 
           Positioned(
-            left: 10,
-            right: 10,
-            bottom: 10,
-            top: MediaQuery.of(context).size.height - 100,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: MediaQuery.of(context).size.height - 80,
             child: Container(
               color: Colors.green,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 180,
+                    height: 60,
+                    color: Colors.yellow,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            Image.asset(
+                              "images/ic_detail_like_nor@3x.png",
+                              width: 35,
+                              height: 35,
+                            ),
+                            Text("超赞"),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Image.asset(
+                              "images/ic_detail_like_nor@3x.png",
+                              width: 35,
+                              height: 35,
+                            ),
+                            Text("留言"),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Image.asset(
+                              "images/ic_detail_like_nor@3x.png",
+                              width: 35,
+                              height: 35,
+                            ),
+                            Text("收藏"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 20, 0),
+                    width: 80,
+                    height: 40,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.red,
+                    ),
+                    child: Text(
+                      "我想要",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ],
@@ -536,5 +604,46 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
         )
       ],
     );
+  }
+
+  Widget _showVideoWidget() {
+    if (widget.model.video.videoUrl == null) {
+      return Container(
+        width: MediaQuery.of(context).size.width,
+        height: 1,
+      );
+    }
+    // final width = int.parse(widget.model.video.width);
+    // final height = int.parse(widget.model.video.height);
+    // final windowsWidth = MediaQuery.of(context).size.width;
+    // final newHeight = windowsWidth / width * height;
+
+    final videoPlayer =
+        VideoPlayerController.network(widget.model.video.videoUrl)
+          ..addListener(() {});
+    Future<void> initializeVideoPlayerFuture = videoPlayer.initialize();
+    videoPlayer.setLooping(true);
+
+    Widget videoWidget = FutureBuilder(
+      future: initializeVideoPlayerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          videoPlayer.setVolume(0);
+          videoPlayer.play();
+          print("start play vv");
+          return Container(
+            child: AspectRatio(
+              aspectRatio: videoPlayer.value.aspectRatio,
+              child: VideoPlayer(videoPlayer),
+            ),
+          );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+    print("videoWidget");
+    print(videoWidget);
+    return videoWidget;
   }
 }

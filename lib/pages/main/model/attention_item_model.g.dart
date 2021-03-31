@@ -131,12 +131,18 @@ Map<String, dynamic> _$SpecialUserDescToJson(SpecialUserDesc instance) =>
     <String, dynamic>{'type': instance.type, 'desc': instance.desc};
 
 VideoInfo _$VideoInfoFromJson(Map<String, dynamic> json) {
-  return VideoInfo(json['picUrl'] as String, json['videoUrl'] as String,
-      json['recordTime'] as String);
+  return VideoInfo(
+      json['picUrl'] as String,
+      json['videoUrl'] as String,
+      json['recordTime'] as String,
+      json['width'] as String,
+      json['height'] as String);
 }
 
 Map<String, dynamic> _$VideoInfoToJson(VideoInfo instance) => <String, dynamic>{
       'picUrl': instance.picUrl,
       'videoUrl': instance.videoUrl,
-      'recordTime': instance.recordTime
+      'recordTime': instance.recordTime,
+      'width': instance.width,
+      'height': instance.height
     };
