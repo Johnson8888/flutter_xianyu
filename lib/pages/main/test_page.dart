@@ -1,7 +1,7 @@
 /*
  * @Author: 弗拉德
  * @Date: 2021-03-05 19:27:21
- * @LastEditTime: 2021-03-31 17:42:09
+ * @LastEditTime: 2021-04-01 22:46:06
  * @Support: http://fulade.me
  */
 import 'package:flutter/cupertino.dart';
@@ -21,7 +21,8 @@ import 'package:video_player/video_player.dart';
 import '../../header/gif_header.dart';
 import 'package:inview_notifier_list/inview_notifier_list.dart';
 import 'video_widget.dart';
-
+import 'city_page.dart';
+import 'dart:math' as math;
 /*
 void main() => runApp(VideoPlayerApp());
 
@@ -284,6 +285,128 @@ class _LoginVideoState extends State<LoginVideo>
 }
 */
 
+List<Widget> testTabList;
+TabController _testTabController;
+
+class TestMainPageTabBar extends StatefulWidget {
+  TestMainPageTabBar({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _TestMainPageTabBarState();
+  }
+}
+
+class _TestMainPageTabBarState extends State<TestMainPageTabBar> {
+  Color selectColor, unselectedColor;
+  TextStyle selectStyle, unselectedStyle;
+
+  ///  searchBar的key
+  GlobalKey searchBarKey = GlobalKey();
+
+  /// searchBar的 ScrollController
+  ScrollController searchController;
+
+  /// searchBar的 index
+  int serachIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding widgetsBinding = WidgetsBinding.instance;
+
+    widgetsBinding.addPostFrameCallback((callback) {
+      Timer.periodic(new Duration(seconds: 3), (timer) {
+        // serachIndex += searchBarKey.currentContext.size.height.toInt();
+        searchController.animateTo((serachIndex).toDouble(),
+            duration: new Duration(seconds: 2), curve: Curves.easeOutSine);
+        //滚动到底部从头开始
+        if ((serachIndex - searchBarKey.currentContext.size.height.toInt())
+                .toDouble() >
+            searchController.position.maxScrollExtent) {
+          searchController.jumpTo(searchController.position.minScrollExtent);
+          serachIndex = 0;
+        }
+      });
+    });
+    searchController = new ScrollController(initialScrollOffset: 0);
+  }
+
+  @override
+  void dispose() {
+    _testTabController.dispose();
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 5.0, bottom: 10.0),
+      alignment: Alignment.center,
+      child: TabBar(
+        tabs: testTabList,
+        isScrollable: true,
+        controller: _testTabController,
+        indicatorColor: selectColor,
+        labelColor: Colors.black,
+        labelStyle: TextStyle(fontSize: 18, color: selectColor),
+        unselectedLabelColor: Color.fromARGB(255, 117, 117, 117),
+        unselectedLabelStyle: TextStyle(fontSize: 18, color: selectColor),
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicatorPadding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      ),
+    );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({
+    @required this.minHeight,
+    @required this.maxHeight,
+    @required this.child,
+  });
+
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => math.max((minHeight ?? kToolbarHeight), minExtent);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return child;
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
+  }
+}
+
+class TestFlutterTabBarView extends StatelessWidget {
+  final TabController tabController;
+
+  TestFlutterTabBarView({Key key, @required this.tabController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var viewList = [CityPage(), CityPage(), CityPage()];
+    return TabBarView(
+      children: viewList,
+      controller: tabController,
+    );
+  }
+}
+
 class GifIndicatorExample1 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -292,80 +415,84 @@ class GifIndicatorExample1 extends StatefulWidget {
   }
 }
 
-class GifIndicatorExample1State extends State<GifIndicatorExample1> {
+class GifIndicatorExample1State extends State<GifIndicatorExample1>
+    with SingleTickerProviderStateMixin {
   RefreshController _controller = RefreshController();
+  var tabBar;
+
+  @override
+  Future<void> initState() {
+    super.initState();
+    tabBar = TestMainPageTabBar();
+    testTabList = getTabList();
+    _testTabController = TabController(vsync: this, length: testTabList.length);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return SmartRefresher(
-      controller: _controller,
-      enablePullUp: true,
-      // header: GifHeader1(),
-      header: LottieHeader(),
-      footer: GifFooter1(),
-      onRefresh: () async {
-        await Future.delayed(Duration(milliseconds: 1000));
-        _controller.refreshCompleted();
-      },
-      onLoading: () async {
-        await Future.delayed(Duration(milliseconds: 2000));
-        _controller.loadFailed();
-      },
-      child: ListView.builder(
+    return Scaffold(
+      body: SmartRefresher(
+        controller: _controller,
+        enablePullUp: true,
+        header: LottieHeader(),
+        footer: GifFooter1(),
+        onRefresh: () async {
+          await Future.delayed(Duration(milliseconds: 1000));
+          _controller.refreshCompleted();
+        },
+        onLoading: () async {
+          await Future.delayed(Duration(milliseconds: 2000));
+          _controller.loadFailed();
+        },
+
+        /*child: ListView.builder(
         itemBuilder: (c, q) => Card(),
-        itemCount: 50,
-        itemExtent: 100.0,
+        itemCount: 10,
+        itemExtent: 50.0,
+      ),
+      */
+        child: SafeArea(
+          child: DefaultTabController(
+            length: 3,
+            child: _getNestedScrollView(tabBar),
+          ),
+        ),
       ),
     );
   }
-}
 
-class VideoList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        InViewNotifierList(
-          scrollDirection: Axis.vertical,
-          initialInViewIds: ['0'],
-          isInViewPortCondition:
-              (double deltaTop, double deltaBottom, double viewPortDimension) {
-            return deltaTop < (0.5 * viewPortDimension) &&
-                deltaBottom > (0.5 * viewPortDimension);
-          },
-          itemCount: 10,
-          builder: (BuildContext context, int index) {
-            return Container(
-              width: double.infinity,
-              height: 300.0,
-              alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(vertical: 50.0),
-              child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return InViewNotifierWidget(
-                    id: '$index',
-                    builder:
-                        (BuildContext context, bool isInView, Widget child) {
-                      return VideoWidget(
-                          play: isInView,
-                          url:
-                              'https://zzwos.58cdn.com.cn/ZEXwVuTsRZb/zhuanzhuan/b0d0a24b67099d467b5f352ce7adb0ea.mp4');
-                    },
-                  );
-                },
+  Widget _getNestedScrollView(Widget tabBar) {
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverPersistentHeader(
+            floating: true,
+            pinned: true,
+            delegate: _SliverAppBarDelegate(
+              maxHeight: 105.0,
+              minHeight: 95.0,
+              child: Container(
+                color: Colors.white,
+                child: tabBar,
               ),
-            );
-          },
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Container(
-            height: 1.0,
-            color: Colors.redAccent,
+            ),
+          ),
+        ];
+      },
+      body: TestFlutterTabBarView(
+        tabController: _testTabController,
+      ),
+    );
+  }
+
+  List<Widget> getTabList() {
+    return ["关注", "推荐", "北京"]
+        .map(
+          (item) => Text(
+            '$item',
+            style: TextStyle(fontSize: 15),
           ),
         )
-      ],
-    );
+        .toList();
   }
 }
